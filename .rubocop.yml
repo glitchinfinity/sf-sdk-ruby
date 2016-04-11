@@ -1,0 +1,15 @@
+---
+AllCops:
+  TargetRubyVersion: 2.2
+  Exclude:
+    - '*.gemspec'
+    - 'vendor/**/*'
+    - 'sample/bin/aws-codedeploy-samples/**/*'
+Metrics/AbcSize:
+  Max: 20
+Metrics/MethodLength:
+  Max: 30
+Metrics/LineLength:
+  Max: 100
+Style/ClassAndModuleChildren:
+  Enabled: false

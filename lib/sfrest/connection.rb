@@ -1,0 +1,122 @@
+module SFRest
+  # Generic http methods
+  # accessors for all the sub classes.
+  class Connection
+    attr_accessor :base_url, :username, :password
+
+    def initialize(url, user, password)
+      @base_url = url
+      @username = user
+      @password = password
+    end
+
+    def get(uri)
+      headers = { 'Content-Type' => 'application/json' }
+      res = Excon.get(@base_url + uri.to_s,
+                      headers: headers,
+                      user: username,
+                      password: password,
+                      ssl_verify_peer: false)
+      begin
+        access_check JSON(res.body)
+      rescue JSON::ParserError
+        res.body
+      end
+    end
+
+    def get_with_status(uri)
+      headers = { 'Content-Type' => 'application/json' }
+      res = Excon.get(@base_url + uri.to_s,
+                      headers: headers,
+                      user: username,
+                      password: password,
+                      ssl_verify_peer: false)
+      begin
+        data = access_check JSON(res.body)
+        return res.status, data
+
+      rescue JSON::ParserError
+        return res.status, res.body
+      end
+    end
+
+    def post(uri, payload)
+      headers = { 'Content-Type' => 'application/json' }
+      res = Excon.post(@base_url + uri.to_s,
+                       headers: headers,
+                       user: username,
+                       password: password,
+                       ssl_verify_peer: false,
+                       body: payload)
+      access_check JSON(res.body)
+    end
+
+    def put(uri, payload)
+      headers = { 'Content-Type' => 'application/json' }
+      res = Excon.put(@base_url + uri.to_s,
+                      headers: headers,
+                      user: username,
+                      password: password,
+                      ssl_verify_peer: false,
+                      body: payload)
+      access_check JSON(res.body)
+    end
+
+    def delete(uri)
+      headers = { 'Content-Type' => 'application/json' }
+      res = Excon.delete(@base_url + uri.to_s,
+                         headers: headers,
+                         user: username,
+                         password: password,
+                         ssl_verify_peer: false)
+      access_check JSON(res.body)
+    end
+
+    def access_check(data)
+#      puts data.inspect
+      raise SFRest::AccessDeniedError.new(data['message']) if !data['message'].nil? && data['message'] =~ /Access denied/
+      raise SFRest::ActionForbiddenError.new(data['message']) if !data['message'].nil? && data['message'] =~ /Forbidden: /
+      data
+    end
+
+    # pings the SF api
+    def ping
+      get('/api/v1/ping')
+    end
+
+    # Pings to retrieve a service response.
+    def service_response
+      current_path = '/api/v1/ping'
+      get(current_path)
+    end
+
+    # define the other class accessor methods.
+    # this will instantiate the class with the set creds
+    # and make it possible to do
+    #  sfa = SFRest.new url, user, password
+    #  sfa.ping
+    #  sfa.site.get_a_site_id
+    #
+    # If a new class is added, add the accessor to this list.
+    # NOTE: accessor == Class_name.to_lower
+    REST_METHODS = %w(audit
+                      backup
+                      group
+                      role
+                      site
+                      stage
+                      task
+                      theme
+                      update
+                      user
+                      variable).freeze
+
+    REST_METHODS.each do |m|
+      define_method(m) do
+        m.capitalize!
+        sfrest_klass = "SFRest::#{m}"
+        Object.const_get(sfrest_klass).new(self)
+      end
+    end
+  end
+end
