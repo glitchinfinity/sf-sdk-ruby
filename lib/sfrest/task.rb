@@ -1,8 +1,96 @@
 module SFRest
   # Deal with tasks, find them, pause them...
   class Task
+
+    STATUS_NOT_STARTED = 1
+    STATUS_RESTARTED   = 2
+    STATUS_TO_BE_RUN   = 3 # Restarted + not started
+    STATUS_IN_PROCESS  = 4
+    STATUS_WAITING     = 8
+    STATUS_RUNNING     = 12 # Running = in process + waiting to be processed
+    STATUS_COMPLETED   = 16
+    STATUS_ERROR       = 32
+    STATUS_KILLED      = 64
+    STATUS_WARNING     = 144 # Completed bit + 128 bit.
+    STATUS_DONE        = 240 # Completed + error + killed + 128 bit
+
     def initialize(conn)
       @conn = conn
+    end
+
+    def self.status_completed?(status)
+      if status.to_i == STATUS_COMPLETED
+        return true
+      end
+      return false
+    end
+
+    def self.status_running?(status)
+      if (status.to_i & STATUS_RUNNING) > 0
+        return true
+      end
+      return false
+    end
+
+    def self.status_error?(status)
+      if status.to_i == STATUS_ERROR
+        return true
+      end
+      return false
+    end
+
+    def self.status_killed?(status)
+      if status.to_i == STATUS_KILLED
+        return false
+      end
+      return true
+    end
+
+    def self.status_done?(status)
+      if (status.to_i & STATUS_DONE) > 0
+        return true
+      end
+      return false
+    end
+
+    def self.task_running?(task_id)
+      task_path = "/api/v1/wip/task/#{task_id}/status"
+
+      res = @conn.get task_path
+      status = res["wip_task"]["status"]
+      status_running?(status)
+    end
+
+    def self.task_completed?(task_id)
+      task_path = "/api/v1/wip/task/#{task_id}/status"
+
+      res = @conn.get task_path
+      status = res["wip_task"]["status"]
+      status_completed?(status)
+    end
+
+    def self.task_done?(task_id)
+      task_path = "/api/v1/wip/task/#{task_id}/status"
+
+      res = @conn.get task_path
+      status = res["wip_task"]["status"]
+      status_done?(status)
+    end
+
+    def self.task_killed?(task_id)
+      task_path = "/api/v1/wip/task/#{task_id}/status"
+
+      res = @conn.get task_path
+      status = res["wip_task"]["status"]
+      status_killed?(status)
+    end
+
+    def self.task_errored?(task_id)
+      task_path = "/api/v1/wip/task/#{task_id}/status"
+
+      res = @conn.get task_path
+      status = res["wip_task"]["status"]
+      status_error?(status)
     end
 
     def find_task_ids(limit = nil, page = nil, group = nil, klass = nil, status = nil)
