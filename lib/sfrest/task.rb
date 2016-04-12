@@ -173,8 +173,8 @@ module SFRest
     # Checks if a variable is globally paused.
     def globally_paused?(variable_name)
       current_path = "/api/v1/variables?name=#{variable_name}"
-      @conn.get(current_path)
-      [variable_name]
+      res = @conn.get(current_path)
+      res[variable_name]
     end
 
     # Pauses a specific task identified by its task id.
