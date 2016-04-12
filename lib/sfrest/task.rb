@@ -32,28 +32,28 @@ module SFRest
       return false
     end
 
-    def self.status_error?(status)
+    def status_error?(status)
       if status.to_i == STATUS_ERROR
         return true
       end
       return false
     end
 
-    def self.status_killed?(status)
+    def status_killed?(status)
       if status.to_i == STATUS_KILLED
         return false
       end
       return true
     end
 
-    def self.status_done?(status)
+    def status_done?(status)
       if (status.to_i & STATUS_DONE) > 0
         return true
       end
       return false
     end
 
-    def self.task_running?(task_id)
+    def task_running?(task_id)
       task_path = "/api/v1/wip/task/#{task_id}/status"
 
       res = @conn.get task_path
@@ -61,7 +61,7 @@ module SFRest
       status_running?(status)
     end
 
-    def self.task_completed?(task_id)
+    def task_completed?(task_id)
       task_path = "/api/v1/wip/task/#{task_id}/status"
 
       res = @conn.get task_path
@@ -69,7 +69,7 @@ module SFRest
       status_completed?(status)
     end
 
-    def self.task_done?(task_id)
+    def task_done?(task_id)
       task_path = "/api/v1/wip/task/#{task_id}/status"
 
       res = @conn.get task_path
@@ -77,7 +77,7 @@ module SFRest
       status_done?(status)
     end
 
-    def self.task_killed?(task_id)
+    def task_killed?(task_id)
       task_path = "/api/v1/wip/task/#{task_id}/status"
 
       res = @conn.get task_path
@@ -85,7 +85,7 @@ module SFRest
       status_killed?(status)
     end
 
-    def self.task_errored?(task_id)
+    def task_errored?(task_id)
       task_path = "/api/v1/wip/task/#{task_id}/status"
 
       res = @conn.get task_path
