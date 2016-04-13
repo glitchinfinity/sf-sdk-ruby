@@ -18,14 +18,14 @@ module SFRest
       @conn = conn
     end
 
-    def self.status_completed?(status)
+    def status_completed?(status)
       if status.to_i == STATUS_COMPLETED
         return true
       end
       return false
     end
 
-    def self.status_running?(status)
+    def status_running?(status)
       if (status.to_i & STATUS_RUNNING) > 0
         return true
       end
