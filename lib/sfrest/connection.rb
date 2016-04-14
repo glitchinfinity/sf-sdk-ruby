@@ -11,7 +11,7 @@ module SFRest
     end
 
     def get(uri)
-      headers = { 'Content-Type' => 'application/json' }
+      headers = {'Content-Type' => 'application/json'}
       res = Excon.get(@base_url + uri.to_s,
                       headers: headers,
                       user: username,
@@ -25,7 +25,7 @@ module SFRest
     end
 
     def get_with_status(uri)
-      headers = { 'Content-Type' => 'application/json' }
+      headers = {'Content-Type' => 'application/json'}
       res = Excon.get(@base_url + uri.to_s,
                       headers: headers,
                       user: username,
@@ -41,35 +41,47 @@ module SFRest
     end
 
     def post(uri, payload)
-      headers = { 'Content-Type' => 'application/json' }
+      headers = {'Content-Type' => 'application/json'}
       res = Excon.post(@base_url + uri.to_s,
                        headers: headers,
                        user: username,
                        password: password,
                        ssl_verify_peer: false,
                        body: payload)
-      access_check JSON(res.body)
+      begin
+        access_check JSON(res.body)
+      rescue JSON::ParserError
+        res.body
+      end
     end
 
     def put(uri, payload)
-      headers = { 'Content-Type' => 'application/json' }
+      headers = {'Content-Type' => 'application/json'}
       res = Excon.put(@base_url + uri.to_s,
                       headers: headers,
                       user: username,
                       password: password,
                       ssl_verify_peer: false,
                       body: payload)
-      access_check JSON(res.body)
+      begin
+        access_check JSON(res.body)
+      rescue JSON::ParserError
+        res.body
+      end
     end
 
     def delete(uri)
-      headers = { 'Content-Type' => 'application/json' }
+      headers = {'Content-Type' => 'application/json'}
       res = Excon.delete(@base_url + uri.to_s,
                          headers: headers,
                          user: username,
                          password: password,
                          ssl_verify_peer: false)
-      access_check JSON(res.body)
+      begin
+        access_check JSON(res.body)
+      rescue JSON::ParserError
+        res.body
+      end
     end
 
     def access_check(data)
@@ -87,8 +99,7 @@ module SFRest
 
     # Pings to retrieve a service response.
     def service_response
-      current_path = '/api/v1/ping'
-      get(current_path)
+      ping
     end
 
     # define the other class accessor methods.
