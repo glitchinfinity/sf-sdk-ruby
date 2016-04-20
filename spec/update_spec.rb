@@ -77,7 +77,7 @@ describe SFRest::Update do
       expect(uri.path).to eq path
       expect(JSON(res['body'])['scope']).to eq 'sites'
       expect(JSON(res['body'])['sites_type']).to eq 'code, db'
-      expect(JSON(res['body'])['site_ref']).to eq ref
+      expect(JSON(res['body'])['sites_ref']).to eq ref
       expect(res['method']).to eq 'post'
     end
   end

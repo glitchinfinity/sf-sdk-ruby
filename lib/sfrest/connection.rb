@@ -86,8 +86,11 @@ module SFRest
 
     def access_check(data)
       return data unless data.is_a?(Hash) # if there is an error message, it will be in a hash.
-      raise SFRest::AccessDeniedError, data['message'] if !data['message'].nil? && data['message'] =~ /Access denied/
-      raise SFRest::ActionForbiddenError, data['message'] if !data['message'].nil? && data['message'] =~ /Forbidden: /
+      unless data['message'].nil?
+        raise SFRest::AccessDeniedError, data['message'] if data['message'] =~ /Access denied/
+        raise SFRest::ActionForbiddenError, data['message'] if data['message'] =~ /Forbidden: /
+        raise SFRest::BadRequestError, data['message'] if data['message'] =~ /Bad Request:/
+      end
       data
     end
 

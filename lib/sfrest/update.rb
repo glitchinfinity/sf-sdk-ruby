@@ -29,7 +29,7 @@ module SFRest
 
     # Starts an update.
     def start_update(ref)
-      update_data = { scope: 'sites', sites_type: 'code, db', site_ref: ref }
+      update_data = { scope: 'sites', sites_type: 'code, db', sites_ref: ref }
       update(update_data)
     end
 

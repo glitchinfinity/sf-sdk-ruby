@@ -79,6 +79,10 @@ describe SFRest::Connection do
       stub_factory nil, '{ "message":"Forbidden: " }'
       expect { @conn.get('/') }.to raise_error(SFRest::ActionForbiddenError)
     end
+    it 'throws bad request error' do
+      stub_factory nil, '{ "message":"Bad Request: " }'
+      expect { @conn.get('/') }.to raise_error(SFRest::BadRequestError)
+    end
   end
 
   describe '#ping' do
