@@ -6,7 +6,7 @@ module SFRest
     end
 
     # Gets the list of variables.
-    def get_variable_list
+    def variable_list
       current_path = '/api/v1/variables'
       @conn.get(current_path)
     end

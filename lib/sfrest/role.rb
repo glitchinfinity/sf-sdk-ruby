@@ -6,7 +6,7 @@ module SFRest
     end
 
     # roles
-    # Gets the complete list of users
+    # Gets the complete list of roles
     def role_list
       page = 1
       not_done = true
@@ -17,16 +17,13 @@ module SFRest
         if res['roles'] == []
           not_done = false
         elsif !res['message'].nil?
-          puts res['message']
-          break
+          return { 'message' => res['message'] }
+        elsif page == 1
+          count = res['count']
+          roles = res['roles']
         else
-          if page == 1
-            count = res['count']
-            roles = res['roles']
-          else
-            res['roles'].each do |role|
-              roles << role
-            end
+          res['roles'].each do |roleid, rolename|
+            roles[roleid] = rolename
           end
         end
         page += 1
@@ -42,14 +39,12 @@ module SFRest
     def get_role_id(rolename)
       pglimit = 100
       res = @conn.get('/api/v1/roles&limit=' + pglimit.to_s)
-#      puts res
       rolecount = res['count'].to_i
       id = role_data_from_results(res, rolename)
       return id if id
       pages = (rolecount / pglimit) + 1
       2.upto(pages) do |i|
-        res = get('/api/v1/roles&limit=' + pglimit.to_s + '?page=' + i.to_s)
-        puts "trying to find #{rolename} from page #{i}"
+        res = @conn.get('/api/v1/roles&limit=' + pglimit.to_s + '?page=' + i.to_s)
         id = role_data_from_results(res, rolename)
         return id if id
       end
@@ -59,7 +54,7 @@ module SFRest
     def role_data_from_results(res, rolename)
       roles = res['roles']
       roles.each do |role|
-        return role[0] if role[1] == rolename
+        return role[0].to_i if role[1] == rolename
       end
       nil
     end

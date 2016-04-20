@@ -29,7 +29,8 @@ module SFRest
 
     # Starts an update.
     def start_update(ref)
-      update('sites', 'code, db', ref)
+      update_data = { scope: 'sites', sites_type: 'code, db', site_ref: ref }
+      update(update_data)
     end
 
     # Starts an update. The rest api supports the following
@@ -41,18 +42,9 @@ module SFRest
     # factory_ref:
     # This method does not filter or validate so that it can be used for
     # negative cases. (missing data)
-    def update(scope = nil, sites_type = nil,
-               sites_ref = nil, factory_type = nil,
-               factory_ref = nil, start_time = nil)
+    def update(datum)
       current_path = '/api/v1/update'
-      update_data = {}
-      update_data['scope'] = scope unless scope.nil?
-      update_data['sites_type'] = sites_type unless sites_type.nil?
-      update_data['sites_ref'] = sites_ref unless sites_ref.nil?
-      update_data['factory_type'] = factory_type unless factory_type.nil?
-      update_data['factory_ref'] = factory_ref unless factory_ref.nil?
-      update_data['start_time'] = start_time unless start_time.nil?
-      payload = update_data.to_json
+      payload = datum.to_json
       @conn.post(current_path, payload)
     end
 

@@ -17,16 +17,13 @@ module SFRest
         if res['users'] == []
           not_done = false
         elsif !res['message'].nil?
-          puts res['message']
-          break
+          return { 'message' => res['message'] }
+        elsif page == 1
+          count = res['count']
+          users = res['users']
         else
-          if page == 1
-            count = res['count']
-            users = res['users']
-          else
-            res['users'].each do |user|
-              users << user
-            end
+          res['users'].each do |user|
+            users << user
           end
         end
         page += 1
@@ -48,7 +45,6 @@ module SFRest
       pages = (usercount / pglimit) + 1
       2.upto(pages) do |i|
         res = @conn.get('/api/v1/users&limit=' + pglimit.to_s + '?page=' + i.to_s)
-        puts "trying to find #{username} from page #{i}"
         id = user_data_from_results(res, username, 'uid')
         return id if id
       end
@@ -75,12 +71,12 @@ module SFRest
     # datum = hash with elements :pass => string, :status => 0|1, :roles => Array
     def create_user(name, email, datum = nil)
       current_path = '/api/v1/users'
-      payload = { :name => name, :mail => email }
+      payload = { name: name, mail: email }
       payload.merge!(datum) unless datum.nil?
       @conn.post(current_path, payload.to_json)
     end
 
-    # Updates a user).
+    # Updates a user.
     # id, is required
     # datum = hash with elements :name => string, :pass => string, :status => 0|1, :roles => Array
     # :mail => string@string, :tfa_status => 0|1

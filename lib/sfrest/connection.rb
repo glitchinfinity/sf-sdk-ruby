@@ -11,7 +11,7 @@ module SFRest
     end
 
     def get(uri)
-      headers = {'Content-Type' => 'application/json'}
+      headers = { 'Content-Type' => 'application/json' }
       res = Excon.get(@base_url + uri.to_s,
                       headers: headers,
                       user: username,
@@ -25,7 +25,7 @@ module SFRest
     end
 
     def get_with_status(uri)
-      headers = {'Content-Type' => 'application/json'}
+      headers = { 'Content-Type' => 'application/json' }
       res = Excon.get(@base_url + uri.to_s,
                       headers: headers,
                       user: username,
@@ -41,7 +41,7 @@ module SFRest
     end
 
     def post(uri, payload)
-      headers = {'Content-Type' => 'application/json'}
+      headers = { 'Content-Type' => 'application/json' }
       res = Excon.post(@base_url + uri.to_s,
                        headers: headers,
                        user: username,
@@ -56,7 +56,7 @@ module SFRest
     end
 
     def put(uri, payload)
-      headers = {'Content-Type' => 'application/json'}
+      headers = { 'Content-Type' => 'application/json' }
       res = Excon.put(@base_url + uri.to_s,
                       headers: headers,
                       user: username,
@@ -71,7 +71,7 @@ module SFRest
     end
 
     def delete(uri)
-      headers = {'Content-Type' => 'application/json'}
+      headers = { 'Content-Type' => 'application/json' }
       res = Excon.delete(@base_url + uri.to_s,
                          headers: headers,
                          user: username,
@@ -85,10 +85,9 @@ module SFRest
     end
 
     def access_check(data)
-#      puts data.inspect
       return data unless data.is_a?(Hash) # if there is an error message, it will be in a hash.
-      raise SFRest::AccessDeniedError.new(data['message']) if !data['message'].nil? && data['message'] =~ /Access denied/
-      raise SFRest::ActionForbiddenError.new(data['message']) if !data['message'].nil? && data['message'] =~ /Forbidden: /
+      raise SFRest::AccessDeniedError, data['message'] if !data['message'].nil? && data['message'] =~ /Access denied/
+      raise SFRest::ActionForbiddenError, data['message'] if !data['message'].nil? && data['message'] =~ /Forbidden: /
       data
     end
 
@@ -107,7 +106,7 @@ module SFRest
     # and make it possible to do
     #  sfa = SFRest.new url, user, password
     #  sfa.ping
-    #  sfa.site.get_a_site_id
+    #  sfa.site.first_site_id
     #
     # If a new class is added, add the accessor to this list.
     # NOTE: accessor == Class_name.to_lower

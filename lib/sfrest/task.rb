@@ -1,7 +1,6 @@
 module SFRest
   # Deal with tasks, find them, pause them...
   class Task
-
     STATUS_NOT_STARTED = 1
     STATUS_RESTARTED   = 2
     STATUS_TO_BE_RUN   = 3 # Restarted + not started
@@ -11,53 +10,43 @@ module SFRest
     STATUS_COMPLETED   = 16
     STATUS_ERROR       = 32
     STATUS_KILLED      = 64
-    STATUS_WARNING     = 144 # Completed bit + 128 bit.
-    STATUS_DONE        = 240 # Completed + error + killed + 128 bit
+    STATUS_WARNING     = 144 # Completed bit + 128 bit(warning).
+    STATUS_DONE        = 240 # Completed + error + killed + 128 bit(warning)
 
     def initialize(conn)
       @conn = conn
     end
 
     def status_completed?(status)
-      if status.to_i == STATUS_COMPLETED
-        return true
-      end
-      return false
+      return true if status.to_i == STATUS_COMPLETED
+      false
     end
 
     def status_running?(status)
-      if (status.to_i & STATUS_RUNNING) > 0
-        return true
-      end
-      return false
+      return true if (status.to_i & STATUS_RUNNING) > 0
+      false
     end
 
     def status_error?(status)
-      if status.to_i == STATUS_ERROR
-        return true
-      end
-      return false
+      return true if status.to_i == STATUS_ERROR
+      false
     end
 
     def status_killed?(status)
-      if status.to_i == STATUS_KILLED
-        return false
-      end
-      return true
+      return true if status.to_i == STATUS_KILLED
+      false
     end
 
     def status_done?(status)
-      if (status.to_i & STATUS_DONE) > 0
-        return true
-      end
-      return false
+      return true if (status.to_i & STATUS_DONE) > 0
+      false
     end
 
     def task_running?(task_id)
       task_path = "/api/v1/wip/task/#{task_id}/status"
 
       res = @conn.get task_path
-      status = res["wip_task"]["status"]
+      status = res['wip_task']['status']
       status_running?(status)
     end
 
@@ -65,7 +54,7 @@ module SFRest
       task_path = "/api/v1/wip/task/#{task_id}/status"
 
       res = @conn.get task_path
-      status = res["wip_task"]["status"]
+      status = res['wip_task']['status']
       status_completed?(status)
     end
 
@@ -73,7 +62,7 @@ module SFRest
       task_path = "/api/v1/wip/task/#{task_id}/status"
 
       res = @conn.get task_path
-      status = res["wip_task"]["status"]
+      status = res['wip_task']['status']
       status_done?(status)
     end
 
@@ -81,7 +70,7 @@ module SFRest
       task_path = "/api/v1/wip/task/#{task_id}/status"
 
       res = @conn.get task_path
-      status = res["wip_task"]["status"]
+      status = res['wip_task']['status']
       status_killed?(status)
     end
 
@@ -89,12 +78,12 @@ module SFRest
       task_path = "/api/v1/wip/task/#{task_id}/status"
 
       res = @conn.get task_path
-      status = res["wip_task"]["status"]
+      status = res['wip_task']['status']
       status_error?(status)
     end
 
     def find_task_ids(limit = nil, page = nil, group = nil, klass = nil, status = nil)
-      res = find_tasks limit, page, group, klass, status
+      res = find_tasks limit: limit, page: page, group: group, klass: klass, status: status
       task_ids = []
       i = 0
       res.each do |task|
@@ -104,33 +93,27 @@ module SFRest
       task_ids
     end
 
-    def needs_new_parameter?(path)
+    private def needs_new_parameter?(path)
       path[-1, 1] != '?' # if path has '?' then we need to create a new parameter
     end
 
-    def find_tasks(limit = nil, page = nil, group = nil, klass = nil, status = nil)
+    # Find a set of tasks.
+    # datum is a hash of
+    # :limit, Integer max amount of results to return per request
+    # :page, Integer page of request
+    # :group, String the task group to filter on
+    # :class String the task class to filter on
+    # :status Integerish the status of the class to filter on.
+    #         see SFRest::Task::STATUS_*
+    def find_tasks(datum = nil)
       current_path = '/api/v1/tasks'
 
-      current_path << '?' if limit != 0 || page != 0 || group != '' || klass != '' || status != ''
-      unless limit.nil?
-        current_path << '&' if needs_new_parameter? current_path
-        current_path << 'limit=' << limit.to_s
-      end
-      unless page.nil?
-        current_path << '&' if needs_new_parameter? current_path
-        current_path << 'page=' << page.to_s
-      end
-      unless group.nil?
-        current_path << '&' if needs_new_parameter? current_path
-        current_path << 'group=' << group
-      end
-      unless klass.nil?
-        current_path << '&' if needs_new_parameter? current_path
-        current_path << 'class=' << klass
-      end
-      unless status.nil?
-        current_path << '&' if needs_new_parameter? current_path
-        current_path << 'status=' << status
+      unless datum.nil?
+        current_path << '?'
+        datum.each do |key, value|
+          current_path << '&' if needs_new_parameter? current_path
+          current_path << key.to_s << '=' << value.to_s
+        end
       end
       @conn.get URI.parse(URI.encode(current_path)).to_s
     end
@@ -140,7 +123,7 @@ module SFRest
       page_size = 100
       page = 0
       loop do
-        tasks = find_tasks(page_size, page, group, klass, status)
+        tasks = find_tasks(limit: page_size, page: page, group: group, class: klass, status: status)
         tasks.each do |task|
           return task['id'].to_i if task['name'] =~ /#{name}/
           page += 1
@@ -180,7 +163,7 @@ module SFRest
     # Pauses a specific task identified by its task id.
     # CURRENTLY NOT FUNCTIONING, ISSUES WITH REST TASK-PAUSING FUNCTIONALITY.
     def pause_task(task_id)
-      current_path = '/api/v1/pause/' << task_id
+      current_path = '/api/v1/pause/' << task_id.to_s
       payload = { 'paused' => true, 'level' => 'family' }.to_json
       @conn.post(current_path, payload)
     end

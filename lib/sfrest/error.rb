@@ -1,4 +1,4 @@
 module SFRest
-  class AccessDeniedError < StandardError ;end
-  class ActionForbiddenError < StandardError ;end
+  class AccessDeniedError < StandardError; end
+  class ActionForbiddenError < StandardError; end
 end

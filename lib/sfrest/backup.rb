@@ -19,10 +19,9 @@ module SFRest
     end
 
     # Backs up a site.
-    def create_backup(site_id)
+    def create_backup(site_id, datum = nil)
       current_path = "/api/v1/sites/#{site_id}/backup"
-      payload = {}.to_json
-      @conn.post(current_path, payload)
+      @conn.post(current_path, datum.to_json)
     end
   end
 end

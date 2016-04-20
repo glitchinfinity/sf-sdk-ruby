@@ -6,6 +6,7 @@ module SFRest
     end
 
     # Creates a site group with specified group name.
+    # This currently will only create a group in the root
     def create_group(groupname)
       current_path = '/api/v1/groups'
       payload = { 'group_name' => groupname }.to_json
@@ -29,16 +30,13 @@ module SFRest
         if res['groups'] == []
           not_done = false
         elsif !res['message'].nil?
-          puts res['message']
-          break
+          return { 'message' => res['message'] }
+        elsif page == 1
+          count = res['count']
+          groups = res['groups']
         else
-          if page == 1
-            count = res['count']
-            groups = res['groups']
-          else
-            res['groups'].each do |group|
-              groups << group
-            end
+          res['groups'].each do |group|
+            groups << group
           end
         end
         page += 1

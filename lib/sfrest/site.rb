@@ -19,7 +19,6 @@ module SFRest
       pages = (sitecount / pglimit) + 1
       2.upto(pages) do |i|
         res = @conn.get('/api/v1/sites&limit=' + pglimit.to_s + '?page=' + i.to_s)
-        puts "trying to find #{sitename} from page #{i}"
         id = site_data_from_results(res, sitename, 'id')
         return id if id
       end
@@ -43,7 +42,7 @@ module SFRest
 
     # gets the site id of the 1st one found using the api
     # @returns:: [int] the site id
-    def get_a_site_id
+    def first_site_id
       res = @conn.get('/api/v1/sites')
       res['sites'].first['id']
     end
@@ -59,16 +58,13 @@ module SFRest
         if res['sites'] == []
           not_done = false
         elsif !res['message'].nil?
-          puts res['message']
-          break
+          return { 'message' => res['message'] }
+        elsif page == 1
+          count = res['count']
+          sites = res['sites']
         else
-          if page == 1
-            count = res['count']
-            sites = res['sites']
-          else
-            res['sites'].each do |site|
-              sites << site
-            end
+          res['sites'].each do |site|
+            sites << site
           end
         end
         page += 1
