@@ -1,0 +1,11 @@
+language: ruby
+
+cache: bundler
+# This will enable the container-based infrastructure for
+# travis tests. It should result in faster test vm load times.
+# @see http://docs.travis-ci.com/user/workers/container-based-infrastructure/
+sudo: false
+
+rvm:
+  - 2.1
+  - 2.2
