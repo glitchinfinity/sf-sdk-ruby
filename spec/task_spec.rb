@@ -247,7 +247,7 @@ describe SFRest::Task do
   describe '#pause_task' do
     path = '/api/v1/pause'
 
-    it 'calls the pause tasks endpoint' do
+    it 'pauses a task and children' do
       stub_request(:any, /.*#{@mock_endpoint}.*#{path}/)
         .with(headers: @mock_headers)
         .to_return { |request| { body: { uri: request.uri, body: request.body }.to_json } }
@@ -255,8 +255,48 @@ describe SFRest::Task do
       res = @conn.task.pause_task tid
       uri = URI res['uri']
       expect(uri.path).to eq "#{path}/#{tid}"
-      expect(JSON(res['body'])['paused']).to eq true
+      expect(JSON(res['body'])['pause']).to eq true
       expect(JSON(res['body'])['level']).to eq 'family'
+    end
+
+    it 'pauses a task only' do
+      stub_request(:any, /.*#{@mock_endpoint}.*#{path}/)
+        .with(headers: @mock_headers)
+        .to_return { |request| { body: { uri: request.uri, body: request.body }.to_json } }
+      tid = rand 10**5
+      res = @conn.task.pause_task tid, 'task'
+      uri = URI res['uri']
+      expect(uri.path).to eq "#{path}/#{tid}"
+      expect(JSON(res['body'])['pause']).to eq true
+      expect(JSON(res['body'])['level']).to eq 'task'
+    end
+  end
+
+  describe '#resume_task' do
+    path = '/api/v1/pause'
+
+    it 'calls the pause tasks endpoint' do
+      stub_request(:any, /.*#{@mock_endpoint}.*#{path}/)
+        .with(headers: @mock_headers)
+        .to_return { |request| { body: { uri: request.uri, body: request.body }.to_json } }
+      tid = rand 10**5
+      res = @conn.task.resume_task tid
+      uri = URI res['uri']
+      expect(uri.path).to eq "#{path}/#{tid}"
+      expect(JSON(res['body'])['pause']).to eq false
+      expect(JSON(res['body'])['level']).to eq 'family'
+    end
+
+    it 'resumes a specific task only' do
+      stub_request(:any, /.*#{@mock_endpoint}.*#{path}/)
+        .with(headers: @mock_headers)
+        .to_return { |request| { body: { uri: request.uri, body: request.body }.to_json } }
+      tid = rand 10**5
+      res = @conn.task.resume_task tid, 'task'
+      uri = URI res['uri']
+      expect(uri.path).to eq "#{path}/#{tid}"
+      expect(JSON(res['body'])['pause']).to eq false
+      expect(JSON(res['body'])['level']).to eq 'task'
     end
   end
 
