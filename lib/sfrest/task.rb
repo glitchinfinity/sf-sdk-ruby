@@ -164,7 +164,7 @@ module SFRest
     # CURRENTLY NOT FUNCTIONING, ISSUES WITH REST TASK-PAUSING FUNCTIONALITY.
     def pause_task(task_id, level = 'family')
       current_path = '/api/v1/pause/' << task_id.to_s
-      payload = { 'pause' => true, 'level' => level }.to_json
+      payload = { 'paused' => true, 'level' => level }.to_json
       @conn.post(current_path, payload)
     end
 
@@ -172,7 +172,7 @@ module SFRest
     # CURRENTLY NOT FUNCTIONING, ISSUES WITH REST TASK-PAUSING FUNCTIONALITY.
     def resume_task(task_id, level = 'family')
       current_path = '/api/v1/pause/' << task_id.to_s
-      payload = { 'pause' => false, 'level' => level }.to_json
+      payload = { 'paused' => false, 'level' => level }.to_json
       @conn.post(current_path, payload)
     end
 
