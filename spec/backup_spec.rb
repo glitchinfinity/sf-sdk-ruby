@@ -18,6 +18,52 @@ describe SFRest::Backup do
       expect(uri.path).to eq "#{path}/#{nid}/backups"
       expect(res['method']).to eq 'get'
     end
+
+    it 'calls the get backups endpoint with parameters' do
+      stub_request(:any, /.*#{@mock_endpoint}.*#{path}/)
+        .with(headers: @mock_headers)
+        .to_return { |request| { body: { uri: request.uri, body: request.body, method: request.method }.to_json } }
+      nid = rand 10**5
+      datum = { page: 10, limit: 100 }
+      res = @conn.backup.get_backups nid, datum
+      uri = URI res['uri']
+      query_hash = URI.decode_www_form(uri.query).to_h
+      expect(uri.path).to eq "#{path}/#{nid}/backups"
+      expect(query_hash['page']).to eq '10'
+      expect(query_hash['limit']).to eq '100'
+      expect(res['method']).to eq 'get'
+    end
+  end
+
+  describe '#backup_url' do
+    path = '/api/v1/sites'
+
+    it 'calls the get backups endpoint' do
+      stub_request(:any, /.*#{@mock_endpoint}.*#{path}/)
+        .with(headers: @mock_headers)
+        .to_return { |request| { body: { uri: request.uri, body: request.body, method: request.method }.to_json } }
+      nid = rand 10**5
+      bid = rand 10**5
+      res = @conn.backup.backup_url nid, bid
+      uri = URI res['uri']
+      expect(uri.path).to eq "#{path}/#{nid}/backups/#{bid}/url"
+      expect(uri.query).to eq 'lifetime=60'
+      expect(res['method']).to eq 'get'
+    end
+
+    it 'can get a longer url lifetime' do
+      stub_request(:any, /.*#{@mock_endpoint}.*#{path}/)
+        .with(headers: @mock_headers)
+        .to_return { |request| { body: { uri: request.uri, body: request.body, method: request.method }.to_json } }
+      nid = rand 10**5
+      bid = rand 10**5
+      lifetime = rand 10**4
+      res = @conn.backup.backup_url nid, bid, lifetime
+      uri = URI res['uri']
+      expect(uri.path).to eq "#{path}/#{nid}/backups/#{bid}/url"
+      expect(uri.query).to eq "lifetime=#{lifetime}"
+      expect(res['method']).to eq 'get'
+    end
   end
 
   describe '#delete_backups' do

@@ -93,10 +93,6 @@ module SFRest
       task_ids
     end
 
-    private def needs_new_parameter?(path)
-      path[-1, 1] != '?' # if path has '?' then we need to create a new parameter
-    end
-
     # Find a set of tasks.
     # datum is a hash of
     # :limit, Integer max amount of results to return per request
@@ -107,15 +103,8 @@ module SFRest
     #         see SFRest::Task::STATUS_*
     def find_tasks(datum = nil)
       current_path = '/api/v1/tasks'
-
-      unless datum.nil?
-        current_path << '?'
-        datum.each do |key, value|
-          current_path << '&' if needs_new_parameter? current_path
-          current_path << key.to_s << '=' << value.to_s
-        end
-      end
-      @conn.get URI.parse(URI.encode(current_path)).to_s
+      pb = SFRest::Pathbuilder.new
+      @conn.get URI.parse(URI.encode(pb.build_url_query(current_path, datum))).to_s
     end
 
     # Looks for a task
