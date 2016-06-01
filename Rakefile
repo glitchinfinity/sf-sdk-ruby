@@ -1,6 +1,7 @@
 require 'bundler/setup'
 require 'rspec/core/rake_task'
 require 'rubocop/rake_task'
+require 'yard'
 
 desc 'Run RuboCop against the source code.'
 RuboCop::RakeTask.new(:rubocop) do |task|
@@ -10,4 +11,10 @@ end
 
 RSpec::Core::RakeTask.new(:spec)
 
-task default: [:spec, :rubocop]
+YARD::Rake::YardocTask.new(:yard) do |t|
+  t.files   = ['lib/**/*.rb']
+  t.options = ['-m', 'rdoc']
+  t.stats_options = ['--list-undoc']
+end
+
+task default: [:spec, :rubocop, :yard]

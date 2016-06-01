@@ -3,6 +3,9 @@ module SFRest
   # so that if the are multiple items in a get request
   # we can get a path like /api/v1/foo?bar=boo&bat=gah ...
   class Pathbuilder
+    # build a get query
+    # @param [String] current_path the uri like /api/v1/foo
+    # @param [Hash] datum k,v hash of get query param and value
     def build_url_query(current_path, datum = nil)
       unless datum.nil?
         current_path += '?'

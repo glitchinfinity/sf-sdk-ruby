@@ -1,6 +1,7 @@
 module SFRest
   # Drive updates on the Site Factory
   class Update
+    # @param [SFRest::Connection] conn
     def initialize(conn)
       @conn = conn
     end

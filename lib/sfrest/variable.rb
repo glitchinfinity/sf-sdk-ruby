@@ -1,6 +1,7 @@
 module SFRest
   # Perform actions against variables in the Factory
   class Variable
+    # @param [SFRest::Connection] conn
     def initialize(conn)
       @conn = conn
     end

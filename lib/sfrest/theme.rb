@@ -1,6 +1,7 @@
 module SFRest
   # Tell the Factory that there is theme work to do
   class Theme
+    # @param [SFRest::Connection] conn
     def initialize(conn)
       @conn = conn
     end

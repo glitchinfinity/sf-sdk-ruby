@@ -28,6 +28,10 @@ module SFRest
   class << self
     attr_accessor :base_url, :user, :password, :conn
 
+    # returns a connection object to the SF Rest api for a specific factory
+    # @param [String] url Base url of the Site Factory
+    # @param [String] user username of a user on the factory
+    # @param [String] password api password for the user on the factory
     def new(url, user, password)
       @base_url = url
       @user = user

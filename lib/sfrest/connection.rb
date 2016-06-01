@@ -4,12 +4,20 @@ module SFRest
   class Connection
     attr_accessor :base_url, :username, :password
 
+    # @param [String] url base url of the SF endpoint e.g. https://www.sfdev.acsitefactory.com
+    # @param [String] user api user
+    # @param [String] password api password
     def initialize(url, user, password)
       @base_url = url
       @username = user
       @password = password
     end
 
+    # http request via get
+    # @param [string] uri
+    # @return [Object] ruby representation of the json response
+    #                  if the reponsebody  does not parse, returns
+    #                  the non-parsed body
     def get(uri)
       headers = { 'Content-Type' => 'application/json' }
       res = Excon.get(@base_url + uri.to_s,
@@ -24,6 +32,11 @@ module SFRest
       end
     end
 
+    # http request via get
+    # @param [string] uri
+    # @return [Integer, Object] http status and the ruby representation
+    #                           of the json response if the reponse body
+    #                           does not parse, returns the non-parsed body
     def get_with_status(uri)
       headers = { 'Content-Type' => 'application/json' }
       res = Excon.get(@base_url + uri.to_s,
@@ -40,6 +53,11 @@ module SFRest
       end
     end
 
+    # http request via post
+    # @param [string] uri
+    # @return [Object] ruby representation of the json response
+    #                  if the reponsebody  does not parse, returns
+    #                  the non-parsed body
     def post(uri, payload)
       headers = { 'Content-Type' => 'application/json' }
       res = Excon.post(@base_url + uri.to_s,
@@ -55,6 +73,11 @@ module SFRest
       end
     end
 
+    # http request via put
+    # @param [string] uri
+    # @return [Object] ruby representation of the json response
+    #                  if the reponsebody  does not parse, returns
+    #                  the non-parsed body
     def put(uri, payload)
       headers = { 'Content-Type' => 'application/json' }
       res = Excon.put(@base_url + uri.to_s,
@@ -70,6 +93,11 @@ module SFRest
       end
     end
 
+    # http request via delete
+    # @param [string] uri
+    # @return [Object] ruby representation of the json response
+    #                  if the reponsebody  does not parse, returns
+    #                  the non-parsed body
     def delete(uri)
       headers = { 'Content-Type' => 'application/json' }
       res = Excon.delete(@base_url + uri.to_s,
@@ -84,6 +112,13 @@ module SFRest
       end
     end
 
+    # Throws an SFRest exception for requests that have problems
+    # @param [Object] data JSON parsed http reponse of the SFApi
+    # @return [Object] the data object if there are no issues
+    # @raise [SFRest::AccessDeniedError] if Authentication fails
+    # @raise [SFRest::ActionForbiddenError] if the users role cannot perform the request
+    # @raise [SFRest::BadRequestError]  if there is something malformed in the request
+    #
     def access_check(data)
       return data unless data.is_a?(Hash) # if there is an error message, it will be in a hash.
       unless data['message'].nil?
@@ -94,7 +129,8 @@ module SFRest
       data
     end
 
-    # pings the SF api
+    # pings the SF api as an authenticated user
+    # responds with a pong
     def ping
       get('/api/v1/ping')
     end

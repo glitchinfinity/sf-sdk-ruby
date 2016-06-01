@@ -1,15 +1,15 @@
 module SFRest
   # Find sites, create a site,
   class Site
+    # @param [SFRest::Connection] conn
     def initialize(conn)
       @conn = conn
     end
 
     # gets the site ID for the site named sitename
     # will page through all the sites available searching for the site
-    # @params
-    # sitename:: the name of the site
-    # @return the id of sitename
+    # @param [String] sitename the name of the site
+    # @return [Integer] the id of sitename
     def get_site_id(sitename)
       pglimit = 100
       res = @conn.get('/api/v1/sites&limit=' + pglimit.to_s)
@@ -25,6 +25,11 @@ module SFRest
       nil
     end
 
+    # Extract the site data for 'key' based on the site result object
+    # @param [Hash] res result from a request to /sites
+    # @param [String] sitename
+    # @param [String] key one of the user data returned (id, site, domain...)
+    # @return [Object] Integer, String, Array, Hash depending on the site data
     def site_data_from_results(res, sitename, key)
       sites = res['sites']
       sites.each do |site|
@@ -33,21 +38,23 @@ module SFRest
       nil
     end
 
-    # Gets the key asked for in site data
-    # @params [int] site_id the site id
-    # re
+    # Gets the site data for a specific site id
+    # @param [Integer] site_id the site id
+    # @return [Hash]
     def get_site_data(site_id)
       @conn.get('/api/v1/sites/' + site_id.to_s)
     end
 
     # gets the site id of the 1st one found using the api
-    # @returns:: [int] the site id
+    # @return [Integer] the site id
     def first_site_id
       res = @conn.get('/api/v1/sites')
       res['sites'].first['id']
     end
 
-    # Gets the complete list of sites
+    # Gets the complete list of users
+    # Makes multiple requests to the factory to get all the sites on the factory
+    # @return [Hash{'count' => Integer, 'sites' => Hash}]
     def site_list
       page = 1
       not_done = true
@@ -73,6 +80,9 @@ module SFRest
     end
 
     # Creates a site.
+    # @param [String] sitename The name of the site to create
+    # @param [Integer] group_id  The Id of the group the site is to be a member of
+    # @param [String] install_profile The install profile to use when creating the site
     def create_site(sitename, group_id, install_profile = nil)
       current_path = '/api/v1/sites'
       payload = { 'site_name' => sitename, 'group_ids' => [group_id],
@@ -80,7 +90,7 @@ module SFRest
       @conn.post(current_path, payload)
     end
 
-    # accesssors for backups/restore
+    # accessors for backups/restore
     # so that you can do site.backup.list_backups
     def backup
       @conn.backup
