@@ -1,0 +1,558 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  Module: SFRest
+  
+    &mdash; Documentation by YARD 0.8.7.6
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '';
+  framesUrl = "frames.html#!SFRest.html";
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="_index.html">Index (S)</a> &raquo;
+    
+    
+    <span class="title">SFRest</span>
+  
+
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+      Class List
+    </a>
+  
+    <a class="full_list_link" id="method_list_link"
+        href="method_list.html">
+      Method List
+    </a>
+  
+    <a class="full_list_link" id="file_list_link"
+        href="file_list.html">
+      File List
+    </a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+
+    <iframe id="search_frame"></iframe>
+
+    <div id="content"><h1>Module: SFRest
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+  
+    
+  
+    
+  
+  
+  
+    <dt class="r1 last">Defined in:</dt>
+    <dd class="r1 last">lib/sfrest.rb<span class="defines">,<br />
+  lib/sfrest/user.rb,<br /> lib/sfrest/task.rb,<br /> lib/sfrest/role.rb,<br /> lib/sfrest/site.rb,<br /> lib/sfrest/audit.rb,<br /> lib/sfrest/group.rb,<br /> lib/sfrest/error.rb,<br /> lib/sfrest/stage.rb,<br /> lib/sfrest/theme.rb,<br /> lib/sfrest/backup.rb,<br /> lib/sfrest/update.rb,<br /> lib/sfrest/variable.rb,<br /> lib/sfrest/connection.rb,<br /> lib/sfrest/pathbuilder.rb</span>
+</dd>
+  
+</dl>
+<div class="clear"></div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>Base Class for SF rest API sdk</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><h2>Defined Under Namespace</h2>
+<p class="children">
+  
+    
+  
+    
+      <strong class="classes">Classes:</strong> <span class='object_link'><a href="SFRest/AccessDeniedError.html" title="SFRest::AccessDeniedError (class)">AccessDeniedError</a></span>, <span class='object_link'><a href="SFRest/ActionForbiddenError.html" title="SFRest::ActionForbiddenError (class)">ActionForbiddenError</a></span>, <span class='object_link'><a href="SFRest/Audit.html" title="SFRest::Audit (class)">Audit</a></span>, <span class='object_link'><a href="SFRest/Backup.html" title="SFRest::Backup (class)">Backup</a></span>, <span class='object_link'><a href="SFRest/BadRequestError.html" title="SFRest::BadRequestError (class)">BadRequestError</a></span>, <span class='object_link'><a href="SFRest/Connection.html" title="SFRest::Connection (class)">Connection</a></span>, <span class='object_link'><a href="SFRest/Group.html" title="SFRest::Group (class)">Group</a></span>, <span class='object_link'><a href="SFRest/Pathbuilder.html" title="SFRest::Pathbuilder (class)">Pathbuilder</a></span>, <span class='object_link'><a href="SFRest/Role.html" title="SFRest::Role (class)">Role</a></span>, <span class='object_link'><a href="SFRest/SFError.html" title="SFRest::SFError (class)">SFError</a></span>, <span class='object_link'><a href="SFRest/Site.html" title="SFRest::Site (class)">Site</a></span>, <span class='object_link'><a href="SFRest/Stage.html" title="SFRest::Stage (class)">Stage</a></span>, <span class='object_link'><a href="SFRest/Task.html" title="SFRest::Task (class)">Task</a></span>, <span class='object_link'><a href="SFRest/Theme.html" title="SFRest::Theme (class)">Theme</a></span>, <span class='object_link'><a href="SFRest/Update.html" title="SFRest::Update (class)">Update</a></span>, <span class='object_link'><a href="SFRest/User.html" title="SFRest::User (class)">User</a></span>, <span class='object_link'><a href="SFRest/Variable.html" title="SFRest::Variable (class)">Variable</a></span>
+    
+  
+</p>
+
+
+
+
+  <h2>Class Attribute Summary <small>(<a href="#" class="summary_toggle">collapse</a>)</small></h2>
+  <ul class="summary">
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#base_url-class_method" title="base_url (class method)">+ (Object) <strong>base_url</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns the value of attribute base_url.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#conn-class_method" title="conn (class method)">+ (Object) <strong>conn</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns the value of attribute conn.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#password-class_method" title="password (class method)">+ (Object) <strong>password</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns the value of attribute password.</p>
+</div></span>
+  
+</li>
+
+    
+      <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#user-class_method" title="user (class method)">+ (Object) <strong>user</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+    
+    
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns the value of attribute user.</p>
+</div></span>
+  
+</li>
+
+    
+  </ul>
+
+
+
+
+  
+    <h2>
+      Class Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#new-class_method" title="new (class method)">+ (Object) <strong>new</strong>(url, user, password) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>returns a connection object to the SF Rest api for a specific factory.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  <div id="class_attr_details" class="attr_details">
+    <h2>Class Attribute Details</h2>
+    
+      
+      <span id="base_url=-class_method"></span>
+      <div class="method_details first">
+  <h3 class="signature first" id="base_url-class_method">
+  
+    + (<tt>Object</tt>) <strong>base_url</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the value of attribute base_url</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+29
+30
+31</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/sfrest.rb', line 29</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_base_url'>base_url</span>
+  <span class='ivar'>@base_url</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="conn=-class_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="conn-class_method">
+  
+    + (<tt>Object</tt>) <strong>conn</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the value of attribute conn</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+29
+30
+31</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/sfrest.rb', line 29</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_conn'>conn</span>
+  <span class='ivar'>@conn</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="password=-class_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="password-class_method">
+  
+    + (<tt>Object</tt>) <strong>password</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the value of attribute password</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+29
+30
+31</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/sfrest.rb', line 29</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_password'>password</span>
+  <span class='ivar'>@password</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="user=-class_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="user-class_method">
+  
+    + (<tt>Object</tt>) <strong>user</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns the value of attribute user</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+29
+30
+31</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/sfrest.rb', line 29</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_user'>user</span>
+  <span class='ivar'>@user</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="new-class_method">
+  
+    + (<tt>Object</tt>) <strong>new</strong>(url, user, password) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>returns a connection object to the SF Rest api for a specific factory</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>url</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Base url of the Site Factory</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>user</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>username of a user on the factory</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>password</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>api password for the user on the factory</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+35
+36
+37
+38
+39
+40</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/sfrest.rb', line 35</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_url'>url</span><span class='comma'>,</span> <span class='id identifier rubyid_user'>user</span><span class='comma'>,</span> <span class='id identifier rubyid_password'>password</span><span class='rparen'>)</span>
+  <span class='ivar'>@base_url</span> <span class='op'>=</span> <span class='id identifier rubyid_url'>url</span>
+  <span class='ivar'>@user</span> <span class='op'>=</span> <span class='id identifier rubyid_user'>user</span>
+  <span class='ivar'>@password</span> <span class='op'>=</span> <span class='id identifier rubyid_password'>password</span>
+  <span class='ivar'>@conn</span> <span class='op'>=</span> <span class='const'>SFRest</span><span class='op'>::</span><span class='const'>Connection</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='ivar'>@base_url</span><span class='comma'>,</span> <span class='ivar'>@user</span><span class='comma'>,</span> <span class='ivar'>@password</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+    <div id="footer">
+  Generated on Tue Jul 12 14:39:26 2016 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.8.7.6 (ruby-2.1.8).
+</div>
+
+  </body>
+</html>
