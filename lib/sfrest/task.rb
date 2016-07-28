@@ -255,6 +255,7 @@ module SFRest
         raise "Task: #{task_id} has taken too long to complete!" if Time.new > (nap_start + max_nap)
         sleep blink_time
       end
+      task_id
     end
   end
 end
