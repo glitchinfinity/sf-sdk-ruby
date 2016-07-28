@@ -249,7 +249,7 @@ module SFRest
     def wait_until_state(task_id, state, max_nap)
       blink_time = 5 # wake up and scan
       nap_start = Time.now
-      state_method = method("task_#{state}?".to_symbol)
+      state_method = method("task_#{state}?".to_sym)
       loop do
         break if state_method.call(task_id)
         raise "Task: #{task_id} has taken too long to complete!" if Time.new > (nap_start + max_nap)
