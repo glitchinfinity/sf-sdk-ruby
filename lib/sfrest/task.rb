@@ -234,5 +234,27 @@ module SFRest
       current_path = "/api/v1/wip/task/#{task_id}/status"
       @conn.get(current_path)
     end
+
+    # Blocks until a task is done
+    # @param [Integer] task_id
+    # @param [Integer] max_nap seconds to try before giving up
+    def wait_until_done(task_id, max_nap = 600)
+      wait_until_state(task_id, 'done', max_nap)
+    end
+
+    # Blocks until a task reaches a specific status
+    # @param [Integer] task_id
+    # @param [String] state state to reach
+    # @param [Integer] max_nap seconds to try before giving up
+    def wait_until_state(task_id, state, max_nap)
+      blink_time = 5 # wake up and scan
+      nap_start = Time.now
+      state_method = method("task_#{state}?".to_symbol)
+      loop do
+        break if state_method.call(task_id)
+        raise "Task: #{task_id} has taken too long to complete!" if Time.new > (nap_start + max_nap)
+        sleep blink_time
+      end
+    end
   end
 end
