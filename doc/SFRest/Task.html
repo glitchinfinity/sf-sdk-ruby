@@ -839,6 +839,54 @@ check the global paused variable.</p>
 </li>
 
       
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#wait_until_done-instance_method" title="#wait_until_done (instance method)">- (Object) <strong>wait_until_done</strong>(task_id, max_nap = 600) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Blocks until a task is done.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#wait_until_state-instance_method" title="#wait_until_state (instance method)">- (Object) <strong>wait_until_state</strong>(task_id, state, max_nap) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Blocks until a task reaches a specific status.</p>
+</div></span>
+  
+</li>
+
+      
     </ul>
   
 
@@ -2620,14 +2668,192 @@ the task and it&#39;s children or just the task</p>
 </table>
 </div>
     
+      <div class="method_details ">
+  <h3 class="signature " id="wait_until_done-instance_method">
+  
+    - (<tt>Object</tt>) <strong>wait_until_done</strong>(task_id, max_nap = 600) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Blocks until a task is done</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>task_id</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>max_nap</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>600</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>seconds to try before giving up</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+241
+242
+243</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/task.rb', line 241</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_wait_until_done'>wait_until_done</span><span class='lparen'>(</span><span class='id identifier rubyid_task_id'>task_id</span><span class='comma'>,</span> <span class='id identifier rubyid_max_nap'>max_nap</span> <span class='op'>=</span> <span class='int'>600</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_wait_until_state'>wait_until_state</span><span class='lparen'>(</span><span class='id identifier rubyid_task_id'>task_id</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>done</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_max_nap'>max_nap</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="wait_until_state-instance_method">
+  
+    - (<tt>Object</tt>) <strong>wait_until_state</strong>(task_id, state, max_nap) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Blocks until a task reaches a specific status</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>task_id</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>state</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>state to reach</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>max_nap</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>seconds to try before giving up</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/task.rb', line 249</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_wait_until_state'>wait_until_state</span><span class='lparen'>(</span><span class='id identifier rubyid_task_id'>task_id</span><span class='comma'>,</span> <span class='id identifier rubyid_state'>state</span><span class='comma'>,</span> <span class='id identifier rubyid_max_nap'>max_nap</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_blink_time'>blink_time</span> <span class='op'>=</span> <span class='int'>5</span> <span class='comment'># wake up and scan
+</span>  <span class='id identifier rubyid_nap_start'>nap_start</span> <span class='op'>=</span> <span class='const'>Time</span><span class='period'>.</span><span class='id identifier rubyid_now'>now</span>
+  <span class='id identifier rubyid_state_method'>state_method</span> <span class='op'>=</span> <span class='id identifier rubyid_method'>method</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>task_</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_state'>state</span><span class='embexpr_end'>}</span><span class='tstring_content'>?</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_loop'>loop</span> <span class='kw'>do</span>
+    <span class='kw'>break</span> <span class='kw'>if</span> <span class='id identifier rubyid_state_method'>state_method</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='id identifier rubyid_task_id'>task_id</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>TaskNotDoneError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Task: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_task_id'>task_id</span><span class='embexpr_end'>}</span><span class='tstring_content'> has taken too long to complete!</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='const'>Time</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='op'>&gt;</span> <span class='lparen'>(</span><span class='id identifier rubyid_nap_start'>nap_start</span> <span class='op'>+</span> <span class='id identifier rubyid_max_nap'>max_nap</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_sleep'>sleep</span> <span class='id identifier rubyid_blink_time'>blink_time</span>
+  <span class='kw'>end</span>
+  <span class='id identifier rubyid_task_id'>task_id</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
   </div>
 
 </div>
 
     <div id="footer">
-  Generated on Tue Jul 12 14:39:26 2016 by
+  Generated on Wed Aug  3 21:42:26 2016 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.8.7.6 (ruby-2.1.8).
+  0.8.7.6 (ruby-2.2.4).
 </div>
 
   </body>
