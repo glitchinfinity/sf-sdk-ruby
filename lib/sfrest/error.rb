@@ -13,4 +13,7 @@ module SFRest
   # Throw this when the request is incomplete or otherwise cannot be processed by
   # the factory
   class BadRequestError < SFRest::SFError; end
+
+  # Throw when a task appears to be running too long
+  class TaskNotDoneError < SFRest::SFError; end
 end

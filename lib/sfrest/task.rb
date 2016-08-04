@@ -252,7 +252,7 @@ module SFRest
       state_method = method("task_#{state}?".to_sym)
       loop do
         break if state_method.call(task_id)
-        raise "Task: #{task_id} has taken too long to complete!" if Time.new > (nap_start + max_nap)
+        raise TaskNotDoneError, "Task: #{task_id} has taken too long to complete!" if Time.new > (nap_start + max_nap)
         sleep blink_time
       end
       task_id

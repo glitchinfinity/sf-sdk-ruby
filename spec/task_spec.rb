@@ -327,4 +327,20 @@ describe SFRest::Task do
       expect(uri.path).to eq "#{path}/task/#{tid}/status"
     end
   end
+
+  describe '#wait_until_done' do
+    it 'waits until a wip is done' do
+      status_response = generate_task_status @finished_statuses.sample
+      tid = status_response['wip_task']['id']
+      stub_factory %r{/api/v1/wip/task/\d+/status}, status_response.to_json
+      expect(@conn.task.wait_until_done(tid)).to be tid
+    end
+
+    it 'errors if a wip is not done' do
+      status_response = generate_task_status @running_statuses.sample
+      tid = status_response['wip_task']['id']
+      stub_factory %r{/api/v1/wip/task/\d+/status}, status_response.to_json
+      expect { @conn.task.wait_until_done(tid, 1) }.to raise_error(SFRest::TaskNotDoneError)
+    end
+  end
 end

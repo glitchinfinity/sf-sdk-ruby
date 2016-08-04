@@ -2824,7 +2824,8 @@ the task and it&#39;s children or just the task</p>
 255
 256
 257
-258</pre>
+258
+259</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/sfrest/task.rb', line 249</span>
@@ -2832,12 +2833,13 @@ the task and it&#39;s children or just the task</p>
 <span class='kw'>def</span> <span class='id identifier rubyid_wait_until_state'>wait_until_state</span><span class='lparen'>(</span><span class='id identifier rubyid_task_id'>task_id</span><span class='comma'>,</span> <span class='id identifier rubyid_state'>state</span><span class='comma'>,</span> <span class='id identifier rubyid_max_nap'>max_nap</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_blink_time'>blink_time</span> <span class='op'>=</span> <span class='int'>5</span> <span class='comment'># wake up and scan
 </span>  <span class='id identifier rubyid_nap_start'>nap_start</span> <span class='op'>=</span> <span class='const'>Time</span><span class='period'>.</span><span class='id identifier rubyid_now'>now</span>
-  <span class='id identifier rubyid_state_method'>state_method</span> <span class='op'>=</span> <span class='id identifier rubyid_method'>method</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>task_</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_state'>state</span><span class='embexpr_end'>}</span><span class='tstring_content'>?</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_to_symbol'>to_symbol</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_state_method'>state_method</span> <span class='op'>=</span> <span class='id identifier rubyid_method'>method</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>task_</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_state'>state</span><span class='embexpr_end'>}</span><span class='tstring_content'>?</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_loop'>loop</span> <span class='kw'>do</span>
     <span class='kw'>break</span> <span class='kw'>if</span> <span class='id identifier rubyid_state_method'>state_method</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='id identifier rubyid_task_id'>task_id</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Task: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_task_id'>task_id</span><span class='embexpr_end'>}</span><span class='tstring_content'> has taken too long to complete!</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='const'>Time</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='op'>&gt;</span> <span class='lparen'>(</span><span class='id identifier rubyid_nap_start'>nap_start</span> <span class='op'>+</span> <span class='id identifier rubyid_max_nap'>max_nap</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>TaskNotDoneError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Task: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_task_id'>task_id</span><span class='embexpr_end'>}</span><span class='tstring_content'> has taken too long to complete!</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='const'>Time</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='op'>&gt;</span> <span class='lparen'>(</span><span class='id identifier rubyid_nap_start'>nap_start</span> <span class='op'>+</span> <span class='id identifier rubyid_max_nap'>max_nap</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_sleep'>sleep</span> <span class='id identifier rubyid_blink_time'>blink_time</span>
   <span class='kw'>end</span>
+  <span class='id identifier rubyid_task_id'>task_id</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2849,7 +2851,7 @@ the task and it&#39;s children or just the task</p>
 </div>
 
     <div id="footer">
-  Generated on Thu Jul 28 16:00:02 2016 by
+  Generated on Wed Aug  3 21:42:26 2016 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.7.6 (ruby-2.2.4).
 </div>
