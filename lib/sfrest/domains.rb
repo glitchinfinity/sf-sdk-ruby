@@ -12,8 +12,7 @@ module SFRest
     # @return [Array] domains that are on the node.
     def list(node_id)
       current_path = "/api/v1/domains/#{node_id}"
-      response = @conn.get(current_path)
-      response['domains'] if response.key?('domains')
+      @conn.get(current_path)
     end
 
     # Add a domain
@@ -45,7 +44,7 @@ module SFRest
     #       "Your domain name was successfully removed from the site collection."
     #        ]
     # }
-    def delete(node_id, domain_name)
+    def remove(node_id, domain_name)
       payload = { 'domain_name' => domain_name }.to_json
       @conn.post("/api/v1/domains/#{node_id}/remove", payload)
     end

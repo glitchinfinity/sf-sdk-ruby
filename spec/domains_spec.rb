@@ -9,15 +9,9 @@ describe SFRest::Domains do
     path = '/api/v1/domains'
     domains_data = generate_domains
     it 'gets the domains on a node' do
-      stub_factory path, [{ domains: domains_data }.to_json]
+      stub_factory path, [domains_data.to_json]
       nid = rand 10**5
       expect(@conn.domains.list(nid)).to eq domains_data
-    end
-
-    it 'gets nil if domains key does not exist' do
-      stub_factory path, [{ domins: domains_data }.to_json]
-      nid = rand 10**5
-      expect(@conn.domains.list(nid)).to be nil
     end
   end
 
@@ -43,7 +37,7 @@ describe SFRest::Domains do
                             removed: 'true',
                             messages: ['Book it done!'] }.to_json]
       nid = rand 10**5
-      expect(@conn.domains.delete(nid, domain)['domain']).to eq domain
+      expect(@conn.domains.remove(nid, domain)['domain']).to eq domain
     end
   end
 end
