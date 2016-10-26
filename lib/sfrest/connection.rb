@@ -151,6 +151,7 @@ module SFRest
     # NOTE: accessor == Class_name.to_lower
     REST_METHODS = %w(audit
                       backup
+                      domains
                       group
                       role
                       site

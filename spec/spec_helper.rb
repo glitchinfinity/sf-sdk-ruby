@@ -14,7 +14,9 @@ require 'securerandom'
 
 require_relative '../lib/sfrest'
 require_relative '../lib/sfrest/audit'
+require_relative '../lib/sfrest/backup'
 require_relative '../lib/sfrest/connection'
+require_relative '../lib/sfrest/domains'
 require_relative '../lib/sfrest/error'
 require_relative '../lib/sfrest/group'
 require_relative '../lib/sfrest/role'
@@ -67,6 +69,16 @@ end
 
 # data generation methods
 
+def generate_domains
+  domain_count = rand(3) + 1
+  domains = []
+  domain_count.times do |i|
+    domains[i] = SecureRandom.urlsafe_base64(5) + '.' +
+                 SecureRandom.urlsafe_base64(5) + '.com'
+  end
+  domains
+end
+
 #  individual site data looks like
 # {"id":96,"created":1441224920,"owner":"nik_admin","site":"s1",
 # "domains":["s1.checkphpsf.utest.acquia-test.com"],"groups":[91]}
@@ -80,12 +92,7 @@ def generate_site_data
   group_count = rand(3) + 1
   groups = []
   group_count.times { |i| groups[i] = rand(100) }
-  domain_count = rand(3) + 1
-  domains = []
-  domain_count.times do |i|
-    domains[i] = SecureRandom.urlsafe_base64(5) + '.' +
-                 SecureRandom.urlsafe_base64(5) + '.com'
-  end
+  domains = generate_domains
   { 'id' => id, 'created' => created, 'owner' => owner, 'site' => site, 'domains' => domains, 'groups' => groups }
 end
 
