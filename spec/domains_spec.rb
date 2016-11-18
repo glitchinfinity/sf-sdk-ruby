@@ -13,8 +13,9 @@ describe SFRest::Domains do
     node_type = %w(site site_collection).sample
     domains_data = { 'node_id' => nid, 'node_type' => node_type,
                      'date' => Time.now.to_s,
-                     'protected_domains' => protected_domains_data,
-                     'custom_domains' => custom_domains_data }
+                     'domains' =>
+                     { 'protected_domains' => protected_domains_data,
+                       'custom_domains' => custom_domains_data } }
     it 'gets the domain data for a node' do
       stub_factory path, [domains_data.to_json]
       nid = rand 10**5

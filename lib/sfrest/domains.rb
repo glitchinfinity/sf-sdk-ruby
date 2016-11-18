@@ -25,7 +25,7 @@ module SFRest
     #
     # @ return [Array] custom(removable) domains on a node
     def custom_domains(node_id)
-      get(node_id)['custom_domains']
+      get(node_id)['domains']['custom_domains']
     end
 
     # Get the protetect domains on a node
@@ -33,7 +33,7 @@ module SFRest
     #
     # @ return [Array] protected (non-removable) domains on a node
     def protected_domains(node_id)
-      get(node_id)['protected_domains']
+      get(node_id)['domains']['protected_domains']
     end
 
     # Add a domain
