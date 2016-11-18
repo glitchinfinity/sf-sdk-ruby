@@ -1,0 +1,786 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>
+  Class: SFRest::Domains
+  
+    &mdash; Documentation by YARD 0.8.7.6
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '../';
+  framesUrl = "../frames.html#!SFRest/Domains.html";
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div id="header">
+      <div id="menu">
+  
+    <a href="../_index.html">Index (D)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../SFRest.html" title="SFRest (module)">SFRest</a></span></span>
+     &raquo; 
+    <span class="title">Domains</span>
+  
+
+  <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
+</div>
+
+      <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+      Class List
+    </a>
+  
+    <a class="full_list_link" id="method_list_link"
+        href="../method_list.html">
+      Method List
+    </a>
+  
+    <a class="full_list_link" id="file_list_link"
+        href="../file_list.html">
+      File List
+    </a>
+  
+</div>
+      <div class="clear"></div>
+    </div>
+
+    <iframe id="search_frame"></iframe>
+
+    <div id="content"><h1>Class: SFRest::Domains
+  
+  
+  
+</h1>
+
+<dl class="box">
+  
+    <dt class="r1">Inherits:</dt>
+    <dd class="r1">
+      <span class="inheritName">Object</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">SFRest::Domains</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+      </dd>
+    
+  
+  
+    
+  
+    
+  
+  
+  
+    <dt class="r2 last">Defined in:</dt>
+    <dd class="r2 last">lib/sfrest/domains.rb</dd>
+  
+</dl>
+<div class="clear"></div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>Find Staging envs and stage a set of sites</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+
+
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#add-instance_method" title="#add (instance method)">- (Hash) <strong>add</strong>(node_id, domain_name) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Add a domain {  “node_type”: “site_collection”,    “domain”: “<a
+href="www.domaintoadd.com">www.domaintoadd.com</a>”,    “added”: true,   
+“messages”: [       “Your domain name was successfully added to the site
+collection.”        ] }.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#custom_domains-instance_method" title="#custom_domains (instance method)">- (Object) <strong>custom_domains</strong>(node_id) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Get the custom domains on a node @ return [Array] custom(removable) domains
+on a node.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#get-instance_method" title="#get (instance method)">- (Hash) <strong>get</strong>(node_id) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Get the domains information on a node 
+“node_type”=&gt;“site”,  “time”=&gt;“2016-11-18T20:09:55+00:00”, 
+“domains”=&gt;{“<a
+href=""it252garden4.utest.sfdev.acquia-test.co"">protected_domains”=></a>, 
+“custom_domains”=&gt;[“it252coll3.utest.sfdev.acquia-test.co”,
+“sc1.nikgregory.us”]}.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#initialize-instance_method" title="#initialize (instance method)">- (Domains) <strong>initialize</strong>(conn) </a>
+    
+
+    
+  </span>
+  
+  
+    <span class="note title constructor">constructor</span>
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>A new instance of Domains.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#protected_domains-instance_method" title="#protected_domains (instance method)">- (Object) <strong>protected_domains</strong>(node_id) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Get the protetect domains on a node @ return [Array] protected
+(non-removable) domains on a node.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#remove-instance_method" title="#remove (instance method)">- (Hash) <strong>remove</strong>(node_id, domain_name) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Remove a domain {  “node_type”: “site_collection”,    “domain”: “<a
+href="www.domaintoadd.com">www.domaintoadd.com</a>”,    “removed”: true,   
+“messages”: [       “Your domain name was successfully removed from the
+site collection.”        ] }.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+<div id="constructor_details" class="method_details_list">
+  <h2>Constructor Details</h2>
+  
+    <div class="method_details first">
+  <h3 class="signature first" id="initialize-instance_method">
+  
+    - (<tt><span class='object_link'><a href="" title="SFRest::Domains (class)">Domains</a></span></tt>) <strong>initialize</strong>(conn) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns a new instance of Domains</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>conn</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Connection.html" title="SFRest::Connection (class)">SFRest::Connection</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+5
+6
+7</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/domains.rb', line 5</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_conn'>conn</span><span class='rparen'>)</span>
+  <span class='ivar'>@conn</span> <span class='op'>=</span> <span class='id identifier rubyid_conn'>conn</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+  
+</div>
+
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="add-instance_method">
+  
+    - (<tt>Hash</tt>) <strong>add</strong>(node_id, domain_name) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Add a domain {  “node_type”: “site_collection”,</p>
+
+<pre class="code ruby"><code class="ruby">&quot;domain&quot;: &quot;www.domaintoadd.com&quot;,
+&quot;added&quot;: true,
+&quot;messages&quot;: [
+   &quot;Your domain name was successfully added to the site collection.&quot;
+    ]</code></pre>
+
+<p>}</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>node_id</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The id of the node to which add a domain</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>domain_name</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>domain to add. e.g. <a href="www.example.com">www.example.com</a></p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>response from add request.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+51
+52
+53
+54</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/domains.rb', line 51</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_add'>add</span><span class='lparen'>(</span><span class='id identifier rubyid_node_id'>node_id</span><span class='comma'>,</span> <span class='id identifier rubyid_domain_name'>domain_name</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_payload'>payload</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>domain_name</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_domain_name'>domain_name</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_to_json'>to_json</span>
+  <span class='ivar'>@conn</span><span class='period'>.</span><span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/api/v1/domains/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_node_id'>node_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/add</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="custom_domains-instance_method">
+  
+    - (<tt>Object</tt>) <strong>custom_domains</strong>(node_id) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Get the custom domains on a node @ return [Array] custom(removable) domains
+on a node</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>node_id</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The id of the node.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+27
+28
+29</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/domains.rb', line 27</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_custom_domains'>custom_domains</span><span class='lparen'>(</span><span class='id identifier rubyid_node_id'>node_id</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_node_id'>node_id</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>domains</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>custom_domains</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="get-instance_method">
+  
+    - (<tt>Hash</tt>) <strong>get</strong>(node_id) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Get the domains information on a node 
+<pre class="code ruby"><code class="ruby">&quot;node_type&quot;=&gt;&quot;site&quot;,
+&quot;time&quot;=&gt;&quot;2016-11-18T20:09:55+00:00&quot;,
+&quot;domains&quot;=&gt;{&quot;protected_domains&quot;=&gt;[&quot;it252garden4.utest.sfdev.acquia-test.co&quot;],
+            &quot;custom_domains&quot;=&gt;[&quot;it252coll3.utest.sfdev.acquia-test.co&quot;, &quot;sc1.nikgregory.us&quot;]}</code></pre>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>node_id</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The id of the node.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>domain information of the node.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+18
+19
+20
+21</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/domains.rb', line 18</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_node_id'>node_id</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_current_path'>current_path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/api/v1/domains/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_node_id'>node_id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='ivar'>@conn</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_current_path'>current_path</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="protected_domains-instance_method">
+  
+    - (<tt>Object</tt>) <strong>protected_domains</strong>(node_id) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Get the protetect domains on a node @ return [Array] protected
+(non-removable) domains on a node</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>node_id</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The id of the node.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+35
+36
+37</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/domains.rb', line 35</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_protected_domains'>protected_domains</span><span class='lparen'>(</span><span class='id identifier rubyid_node_id'>node_id</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_node_id'>node_id</span><span class='rparen'>)</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>domains</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>protected_domains</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="remove-instance_method">
+  
+    - (<tt>Hash</tt>) <strong>remove</strong>(node_id, domain_name) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Remove a domain {  “node_type”: “site_collection”,</p>
+
+<pre class="code ruby"><code class="ruby">&quot;domain&quot;: &quot;www.domaintoadd.com&quot;,
+&quot;removed&quot;: true,
+&quot;messages&quot;: [
+   &quot;Your domain name was successfully removed from the site collection.&quot;
+    ]</code></pre>
+
+<p>}</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>node_id</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The id of the node to which remove a domain</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>domain_name</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>domain to remove. e.g. <a href="www.example.com">www.example.com</a></p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>response from delete request.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+68
+69
+70
+71</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/domains.rb', line 68</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_remove'>remove</span><span class='lparen'>(</span><span class='id identifier rubyid_node_id'>node_id</span><span class='comma'>,</span> <span class='id identifier rubyid_domain_name'>domain_name</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_payload'>payload</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>domain_name</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_domain_name'>domain_name</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_to_json'>to_json</span>
+  <span class='ivar'>@conn</span><span class='period'>.</span><span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/api/v1/domains/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_node_id'>node_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/remove</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+    <div id="footer">
+  Generated on Fri Nov 18 17:05:52 2016 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.8.7.6 (ruby-2.3.0).
+</div>
+
+  </body>
+</html>
