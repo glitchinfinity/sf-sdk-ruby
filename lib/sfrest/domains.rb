@@ -6,13 +6,34 @@ module SFRest
       @conn = conn
     end
 
-    # List the domains on a node
+    # Get the domains information on a node
     # @param [Integer] node_id The id of the node.
     #
-    # @return [Array] domains that are on the node.
-    def list(node_id)
+    # @return [Hash] domain information of the node.
+    # {"node_id"=>4966,
+    #  "node_type"=>"site",
+    #  "time"=>"2016-11-18T20:09:55+00:00",
+    #  "domains"=>{"protected_domains"=>["it252garden4.utest.sfdev.acquia-test.co"],
+    #              "custom_domains"=>["it252coll3.utest.sfdev.acquia-test.co", "sc1.nikgregory.us"]}}
+    def get(node_id)
       current_path = "/api/v1/domains/#{node_id}"
       @conn.get(current_path)
+    end
+
+    # Get the custom domains on a node
+    # @param [Integer] node_id The id of the node.
+    #
+    # @ return [Array] custom(removable) domains on a node
+    def custom_domains(node_id)
+      get(node_id)['custom_domains']
+    end
+
+    # Get the protetect domains on a node
+    # @param [Integer] node_id The id of the node.
+    #
+    # @ return [Array] protected (non-removable) domains on a node
+    def protected_domains(node_id)
+      get(node_id)['protected_domains']
     end
 
     # Add a domain

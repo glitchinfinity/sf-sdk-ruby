@@ -7,11 +7,30 @@ describe SFRest::Domains do
 
   describe '#get_domains' do
     path = '/api/v1/domains'
-    domains_data = generate_domains
-    it 'gets the domains on a node' do
+    custom_domains_data = generate_domains
+    protected_domains_data = generate_domains
+    nid = rand 10**5
+    node_type = %w(site site_collection).sample
+    domains_data = { 'node_id' => nid, 'node_type' => node_type,
+                     'date' => Time.now.to_s,
+                     'protected_domains' => protected_domains_data,
+                     'custom_domains' => custom_domains_data }
+    it 'gets the domain data for a node' do
       stub_factory path, [domains_data.to_json]
       nid = rand 10**5
-      expect(@conn.domains.list(nid)).to eq domains_data
+      expect(@conn.domains.get(nid)).to eq domains_data
+    end
+
+    it 'gets the custom domains on a node' do
+      stub_factory path, [domains_data.to_json]
+      nid = rand 10**5
+      expect(@conn.domains.custom_domains(nid)).to eq custom_domains_data
+    end
+
+    it 'gets the protected domains on a node' do
+      stub_factory path, [domains_data.to_json]
+      nid = rand 10**5
+      expect(@conn.domains.protected_domains(nid)).to eq protected_domains_data
     end
   end
 
