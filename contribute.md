@@ -13,8 +13,8 @@ be made in a number of ways, a few examples are:
 ## How to Contribute
 
 Want to help?  Great! Whether you are making a bug fix or asking
-for a bug fix or improving our documentation please include as much 
-deatil as you can.  Lets know your platform and sfrest version. If 
+for a bug fix or improving our documentation please include as much
+detail as you can.  Lets know your platform and sfrest version. If
 there is a visual problem please include a screen shot.  If you get an
 error, please include the full stack trace.
 
@@ -25,7 +25,7 @@ send a pull request.  For a change to be accepted it will need to have
 unit tests, 100% code coverage and complete documentation
 
 ```shell
-$ rake 
+$ rake
 ........................................................................................................................
 
 Finished in 5.39 seconds (files took 0.33053 seconds to load)
@@ -47,8 +47,8 @@ Methods:        96 (    0 undocumented)
 ```
 
 ## Expectations
-This is an Open project, it does not mean that we have 24/7 support for it. 
-The best way to make sure that we accept your bugfix or add in a feature you 
-want is still to make a pull request and link it in the issue. Include 
-some reasons how to reproduce or even better, make sure the bug is tested 
+This is an Open project, it does not mean that we have 24/7 support for it.
+The best way to make sure that we accept your bugfix or add in a feature you
+want is still to make a pull request and link it in the issue. Include
+some reasons how to reproduce or even better, make sure the bug is tested
 and passes greatly increases your chances for the change to get committed.
