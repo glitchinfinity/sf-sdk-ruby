@@ -4,7 +4,7 @@ require 'sfrest/version'
 Gem::Specification.new do |s|
   s.name        = 'sfrest'
   s.version     = SFRest::VERSION
-  s.date        = '2016-12-22'
+  s.date        = '2016-12-29'
   s.summary     = "Acquia Site Factory Rest API."
   s.description = "Wrapper methods around the ACSF Rest API."
   s.authors     = [
@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.files       = Dir['lib/**/*.rb']
   s.homepage    =
       'http://github.com/acquia/sf-sdk-ruby'
-  s.license       = 'MIT'
+  s.license     = 'APACHE-2.0'
 
   s.add_dependency('excon')
 
