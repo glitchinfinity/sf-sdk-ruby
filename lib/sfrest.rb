@@ -19,6 +19,7 @@ require 'sfrest/stage'
 require 'sfrest/task'
 require 'sfrest/theme'
 require 'sfrest/update'
+require 'sfrest/usage'
 require 'sfrest/user'
 require 'sfrest/variable'
 

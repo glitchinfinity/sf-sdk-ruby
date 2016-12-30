@@ -159,6 +159,7 @@ module SFRest
                       task
                       theme
                       update
+                      usage
                       user
                       variable).freeze
 
