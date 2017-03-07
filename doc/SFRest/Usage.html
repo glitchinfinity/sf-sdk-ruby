@@ -116,40 +116,6 @@
 
 
 
-  <h2>Instance Attribute Summary <small><a href="#" class="summary_toggle">collapse</a></small></h2>
-  <ul class="summary">
-    
-      <li class="public ">
-  <span class="summary_signature">
-    
-      <a href="#pb-instance_method" title="#pb (instance method)">#<strong>pb</strong>  &#x21d2; Object </a>
-    
-
-    
-  </span>
-  
-  
-  
-    
-      <span class="note title readonly">readonly</span>
-    
-    
-  
-  
-  
-  
-  
-
-  
-    <span class="summary_desc"><div class='inline'>
-<p>Returns the value of attribute pb.</p>
-</div></span>
-  
-</li>
-
-    
-  </ul>
-
 
 
 
@@ -258,17 +224,15 @@
       <pre class="lines">
 
 
-7
-8
-9
-10</pre>
+5
+6
+7</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/usage.rb', line 7</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/usage.rb', line 5</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_conn'>conn</span><span class='rparen'>)</span>
   <span class='ivar'>@conn</span> <span class='op'>=</span> <span class='id identifier rubyid_conn'>conn</span>
-  <span class='ivar'>@pb</span> <span class='op'>=</span> <span class='const'>SFRest</span><span class='op'>::</span><span class='const'>Pathbuilder</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -276,54 +240,6 @@
 </div>
   
 </div>
-
-  <div id="instance_attr_details" class="attr_details">
-    <h2>Instance Attribute Details</h2>
-    
-      
-      <span id=""></span>
-      <div class="method_details first">
-  <h3 class="signature first" id="pb-instance_method">
-  
-    #<strong>pb</strong>  &#x21d2; <tt>Object</tt>  <span class="extras">(readonly)</span>
-  
-
-  
-
-  
-</h3><div class="docstring">
-  <div class="discussion">
-    
-<p>Returns the value of attribute pb</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-4
-5
-6</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/usage.rb', line 4</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_pb'>pb</span>
-  <span class='ivar'>@pb</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-  </div>
 
 
   <div id="instance_method_details" class="method_details_list">
@@ -342,7 +258,7 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Gets the montly usage data. }</p>
+<p>Gets the montly usage data.</p>
 
 
   </div>
@@ -362,6 +278,11 @@
         <em class="default">(defaults to: <tt>1</tt>)</em>
       
       
+        &mdash;
+        <div class='inline'>
+<p>The stack of sites of interest</p>
+</div>
+      
     </li>
   
     <li>
@@ -377,10 +298,11 @@
       
         &mdash;
         <div class='inline'>
-<p>Optional filter parameters &#39;start_from&#39; =&gt; “YYYY-MM”, # String
-&#39;sort_order&#39; =&gt; “acs|desc”, # String &#39;limit&#39; =&gt;
-Integer, # Number of months to list (max 120) &#39;page&#39; =&gt; Integer
-#Page number to show</p>
+<p>Optional filter parameters</p>
+
+<p>&#39;start_from&#39; =&gt; “YYYY-MM”, # String &#39;sort_order&#39; =&gt;
+“acs|desc”, # String &#39;limit&#39; =&gt; Integer, # Number of months to
+list (max 120) &#39;page&#39; =&gt; Integer # Page number to show</p>
 </div>
       
     </li>
@@ -399,11 +321,14 @@ Integer, # Number of months to list (max 120) &#39;page&#39; =&gt; Integer
       
         &mdash;
         <div class='inline'>
-<p>{&#39;count&#39; =&gt; Integer, &#39;time&#39; =&gt; String date,
-&#39;most_recent_data&#39; =&gt; &#39;YYYY-MM-DD&#39;,
-&#39;dynamic_requests&#39; =&gt; {</p>
+<p>The dynamic request data.</p>
 
-<pre class="code ruby"><code class="ruby">&#39;2016-10&#39; =&gt; {
+<p>{ &#39;count&#39; =&gt; Integer,</p>
+
+<pre class="code ruby"><code class="ruby">&#39;time&#39; =&gt; String date,
+&#39;most_recent_data&#39; =&gt; &#39;YYYY-MM-DD&#39;,
+&#39;dynamic_requests&#39; =&gt; {
+&#39;2016-10&#39; =&gt; {
   &#39;date&#39; =&gt; &#39;2016-10&#39;,
    &#39;stack_id&#39; =&gt; 1,
    &#39;total_dynamic_requests&#39;=&gt; 106,
@@ -415,7 +340,8 @@ Integer, # Number of months to list (max 120) &#39;page&#39; =&gt; Integer
    &#39;2xx_runtime&#39;=&gt; 100,
    &#39;3xx_runtime&#39;=&gt; 0.9,
    &#39;4xx_runtime&#39;=&gt; 0.4,
-   &#39;5xx_runtime&#39;=&gt; 0.1 }</code></pre>
+   &#39;5xx_runtime&#39;=&gt; 0.1 }
+ }</code></pre>
 </div>
       
     </li>
@@ -428,14 +354,14 @@ Integer, # Number of months to list (max 120) &#39;page&#39; =&gt; Integer
       <pre class="lines">
 
 
-36
-37
 38
 39
-40</pre>
+40
+41
+42</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/usage.rb', line 36</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/usage.rb', line 38</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_monthly'>monthly</span><span class='lparen'>(</span><span class='id identifier rubyid_stack_id'>stack_id</span> <span class='op'>=</span> <span class='int'>1</span><span class='comma'>,</span> <span class='id identifier rubyid_datum'>datum</span> <span class='op'>=</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_datum'>datum</span><span class='lbracket'>[</span><span class='id identifier rubyid_stack_id'>stack_id</span><span class='rbracket'>]</span> <span class='op'>=</span> <span class='id identifier rubyid_stack_id'>stack_id</span>
@@ -452,7 +378,7 @@ Integer, # Number of months to list (max 120) &#39;page&#39; =&gt; Integer
 </div>
 
       <div id="footer">
-  Generated on Thu Dec 29 20:34:37 2016 by
+  Generated on Tue Mar  7 13:36:19 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.5 (ruby-2.3.0).
 </div>
