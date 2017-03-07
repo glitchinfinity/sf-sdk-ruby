@@ -6,7 +6,7 @@
 <title>
   Class: SFRest::Task
   
-    &mdash; Documentation by YARD 0.9.5
+    &mdash; Documentation by YARD 0.9.8
   
 </title>
 
@@ -28,7 +28,7 @@
   </head>
   <body>
     <div class="nav_wrap">
-      <iframe id="nav" src="../class_list.html"></iframe>
+      <iframe id="nav" src="../class_list.html?1"></iframe>
       <div id="resizer"></div>
     </div>
 
@@ -58,8 +58,6 @@
 </div>
         <div class="clear"></div>
       </div>
-
-      <iframe id="search_frame" src="../class_list.html"></iframe>
 
       <div id="content"><h1>Class: SFRest::Task
   
@@ -1251,7 +1249,7 @@ check the global paused variable.</p>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_find_tasks'>find_tasks</span><span class='lparen'>(</span><span class='id identifier rubyid_datum'>datum</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_current_path'>current_path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/api/v1/tasks</span><span class='tstring_end'>&#39;</span></span>
-  <span class='id identifier rubyid_pb'>pb</span> <span class='op'>=</span> <span class='const'>SFRest</span><span class='op'>::</span><span class='const'>Pathbuilder</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span>
+  <span class='id identifier rubyid_pb'>pb</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../SFRest.html" title="SFRest (module)">SFRest</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Pathbuilder.html" title="SFRest::Pathbuilder (class)">Pathbuilder</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../SFRest.html#new-class_method" title="SFRest.new (method)">new</a></span></span>
   <span class='ivar'>@conn</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span> <span class='const'>URI</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='const'>URI</span><span class='period'>.</span><span class='id identifier rubyid_encode'>encode</span><span class='lparen'>(</span><span class='id identifier rubyid_pb'>pb</span><span class='period'>.</span><span class='id identifier rubyid_build_url_query'>build_url_query</span><span class='lparen'>(</span><span class='id identifier rubyid_current_path'>current_path</span><span class='comma'>,</span> <span class='id identifier rubyid_datum'>datum</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1991,7 +1989,7 @@ the task and it&#39;s children or just the task</p>
       <pre class="code"><span class="info file"># File 'lib/sfrest/task.rb', line 24</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_status_completed?'>status_completed?</span><span class='lparen'>(</span><span class='id identifier rubyid_status'>status</span><span class='rparen'>)</span>
-  <span class='kw'>return</span> <span class='kw'>true</span> <span class='kw'>if</span> <span class='id identifier rubyid_status'>status</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span> <span class='op'>==</span> <span class='const'>STATUS_COMPLETED</span>
+  <span class='kw'>return</span> <span class='kw'>true</span> <span class='kw'>if</span> <span class='id identifier rubyid_status'>status</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span> <span class='op'>==</span> <span class='const'><span class='object_link'><a href="#STATUS_COMPLETED-constant" title="SFRest::Task::STATUS_COMPLETED (constant)">STATUS_COMPLETED</a></span></span>
   <span class='kw'>false</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -2062,7 +2060,7 @@ the task and it&#39;s children or just the task</p>
       <pre class="code"><span class="info file"># File 'lib/sfrest/task.rb', line 58</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_status_done?'>status_done?</span><span class='lparen'>(</span><span class='id identifier rubyid_status'>status</span><span class='rparen'>)</span>
-  <span class='kw'>return</span> <span class='kw'>true</span> <span class='kw'>if</span> <span class='lparen'>(</span><span class='id identifier rubyid_status'>status</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span> <span class='op'>&amp;</span> <span class='const'>STATUS_DONE</span><span class='rparen'>)</span> <span class='op'>&gt;</span> <span class='int'>0</span>
+  <span class='kw'>return</span> <span class='kw'>true</span> <span class='kw'>if</span> <span class='lparen'>(</span><span class='id identifier rubyid_status'>status</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span> <span class='op'>&amp;</span> <span class='const'><span class='object_link'><a href="#STATUS_DONE-constant" title="SFRest::Task::STATUS_DONE (constant)">STATUS_DONE</a></span></span><span class='rparen'>)</span> <span class='op'>&gt;</span> <span class='int'>0</span>
   <span class='kw'>false</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -2133,7 +2131,7 @@ the task and it&#39;s children or just the task</p>
       <pre class="code"><span class="info file"># File 'lib/sfrest/task.rb', line 41</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_status_error?'>status_error?</span><span class='lparen'>(</span><span class='id identifier rubyid_status'>status</span><span class='rparen'>)</span>
-  <span class='kw'>return</span> <span class='kw'>true</span> <span class='kw'>if</span> <span class='id identifier rubyid_status'>status</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span> <span class='op'>==</span> <span class='const'>STATUS_ERROR</span>
+  <span class='kw'>return</span> <span class='kw'>true</span> <span class='kw'>if</span> <span class='id identifier rubyid_status'>status</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span> <span class='op'>==</span> <span class='const'><span class='object_link'><a href="#STATUS_ERROR-constant" title="SFRest::Task::STATUS_ERROR (constant)">STATUS_ERROR</a></span></span>
   <span class='kw'>false</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -2204,7 +2202,7 @@ the task and it&#39;s children or just the task</p>
       <pre class="code"><span class="info file"># File 'lib/sfrest/task.rb', line 49</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_status_killed?'>status_killed?</span><span class='lparen'>(</span><span class='id identifier rubyid_status'>status</span><span class='rparen'>)</span>
-  <span class='kw'>return</span> <span class='kw'>true</span> <span class='kw'>if</span> <span class='id identifier rubyid_status'>status</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span> <span class='op'>==</span> <span class='const'>STATUS_KILLED</span>
+  <span class='kw'>return</span> <span class='kw'>true</span> <span class='kw'>if</span> <span class='id identifier rubyid_status'>status</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span> <span class='op'>==</span> <span class='const'><span class='object_link'><a href="#STATUS_KILLED-constant" title="SFRest::Task::STATUS_KILLED (constant)">STATUS_KILLED</a></span></span>
   <span class='kw'>false</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -2275,7 +2273,7 @@ the task and it&#39;s children or just the task</p>
       <pre class="code"><span class="info file"># File 'lib/sfrest/task.rb', line 33</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_status_running?'>status_running?</span><span class='lparen'>(</span><span class='id identifier rubyid_status'>status</span><span class='rparen'>)</span>
-  <span class='kw'>return</span> <span class='kw'>true</span> <span class='kw'>if</span> <span class='lparen'>(</span><span class='id identifier rubyid_status'>status</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span> <span class='op'>&amp;</span> <span class='const'>STATUS_RUNNING</span><span class='rparen'>)</span> <span class='op'>&gt;</span> <span class='int'>0</span>
+  <span class='kw'>return</span> <span class='kw'>true</span> <span class='kw'>if</span> <span class='lparen'>(</span><span class='id identifier rubyid_status'>status</span><span class='period'>.</span><span class='id identifier rubyid_to_i'>to_i</span> <span class='op'>&amp;</span> <span class='const'><span class='object_link'><a href="#STATUS_RUNNING-constant" title="SFRest::Task::STATUS_RUNNING (constant)">STATUS_RUNNING</a></span></span><span class='rparen'>)</span> <span class='op'>&gt;</span> <span class='int'>0</span>
   <span class='kw'>false</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -2836,7 +2834,7 @@ the task and it&#39;s children or just the task</p>
   <span class='id identifier rubyid_state_method'>state_method</span> <span class='op'>=</span> <span class='id identifier rubyid_method'>method</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>task_</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_state'>state</span><span class='embexpr_end'>}</span><span class='tstring_content'>?</span><span class='tstring_end'>&quot;</span></span><span class='period'>.</span><span class='id identifier rubyid_to_sym'>to_sym</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_loop'>loop</span> <span class='kw'>do</span>
     <span class='kw'>break</span> <span class='kw'>if</span> <span class='id identifier rubyid_state_method'>state_method</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='id identifier rubyid_task_id'>task_id</span><span class='rparen'>)</span>
-    <span class='id identifier rubyid_raise'>raise</span> <span class='const'>TaskNotDoneError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Task: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_task_id'>task_id</span><span class='embexpr_end'>}</span><span class='tstring_content'> has taken too long to complete!</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='const'>Time</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='op'>&gt;</span> <span class='lparen'>(</span><span class='id identifier rubyid_nap_start'>nap_start</span> <span class='op'>+</span> <span class='id identifier rubyid_max_nap'>max_nap</span><span class='rparen'>)</span>
+    <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="TaskNotDoneError.html" title="SFRest::TaskNotDoneError (class)">TaskNotDoneError</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Task: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_task_id'>task_id</span><span class='embexpr_end'>}</span><span class='tstring_content'> has taken too long to complete!</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='const'>Time</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span> <span class='op'>&gt;</span> <span class='lparen'>(</span><span class='id identifier rubyid_nap_start'>nap_start</span> <span class='op'>+</span> <span class='id identifier rubyid_max_nap'>max_nap</span><span class='rparen'>)</span>
     <span class='id identifier rubyid_sleep'>sleep</span> <span class='id identifier rubyid_blink_time'>blink_time</span>
   <span class='kw'>end</span>
   <span class='id identifier rubyid_task_id'>task_id</span>
@@ -2851,9 +2849,9 @@ the task and it&#39;s children or just the task</p>
 </div>
 
       <div id="footer">
-  Generated on Thu Dec 29 20:34:37 2016 by
+  Generated on Tue Mar  7 13:39:26 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.5 (ruby-2.3.0).
+  0.9.8 (ruby-2.3.0).
 </div>
 
     </div>
