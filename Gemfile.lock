@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    sfrest (0.0.9)
+    sfrest (0.0.10)
       excon
 
 GEM
@@ -10,27 +10,27 @@ GEM
     addressable (2.5.0)
       public_suffix (~> 2.0, >= 2.0.2)
     ast (2.3.0)
-    codeclimate-test-reporter (1.0.3)
+    codeclimate-test-reporter (1.0.6)
       simplecov
     coderay (1.1.1)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
-    diff-lcs (1.2.5)
+    diff-lcs (1.3)
     docile (1.1.5)
-    excon (0.54.0)
+    excon (0.55.0)
     git_bpf (1.0.1)
-    hashdiff (0.3.1)
-    json (2.0.2)
+    hashdiff (0.3.2)
+    json (2.0.3)
     method_source (0.8.2)
-    parser (2.3.3.1)
+    parser (2.4.0.0)
       ast (~> 2.2)
     powerpack (0.1.1)
     pry (0.10.4)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
-    public_suffix (2.0.4)
-    rainbow (2.1.0)
+    public_suffix (2.0.5)
+    rainbow (2.2.1)
     rake (12.0.0)
     rspec (3.5.0)
       rspec-core (~> 3.5.0)
@@ -53,18 +53,18 @@ GEM
       unicode-display_width (~> 1.0, >= 1.0.1)
     ruby-progressbar (1.8.1)
     safe_yaml (1.0.4)
-    simplecov (0.12.0)
+    simplecov (0.13.0)
       docile (~> 1.1.0)
       json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.0)
     slop (3.6.0)
-    unicode-display_width (1.1.2)
+    unicode-display_width (1.1.3)
     webmock (1.24.6)
       addressable (>= 2.3.6)
       crack (>= 0.3.2)
       hashdiff
-    yard (0.9.5)
+    yard (0.9.8)
 
 PLATFORMS
   ruby
@@ -83,4 +83,4 @@ DEPENDENCIES
   yard
 
 BUNDLED WITH
-   1.13.6
+   1.14.6
