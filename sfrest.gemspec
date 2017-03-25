@@ -4,7 +4,7 @@ require 'sfrest/version'
 Gem::Specification.new do |s|
   s.name        = 'sfrest'
   s.version     = SFRest::VERSION
-  s.date        = '2016-12-29'
+  s.date        = '2017-04-06'
   s.summary     = "Acquia Site Factory Rest API."
   s.description = "Wrapper methods around the ACSF Rest API."
   s.authors     = [

@@ -79,6 +79,55 @@ def generate_domains
   domains
 end
 
+# individual collection data looks like
+# { "id": 261, "time": "2016-11-25T13:18:44+00:00", "created": 1489075420,
+#  "owner": "admin", "name": "collection1", "internal_domain": "collection1.site-factory.com",
+#  "external_domains": [ "domain1.site-factory.com"], "groups": [ 91 ],
+#  "sites": [ 236, 231], "primary_site" : 236 }
+def generate_collection_data
+  id = rand(1000).to_i
+  created = rand(10**12).to_i
+  time = Time.at(rand(10**12).to_i).strftime '%Y-%m-%dT%H:%M:%S+00:00'
+  owner = SecureRandom.urlsafe_base64
+  name = SecureRandom.urlsafe_base64
+  internal_domain = "#{name}.#{SecureRandom.urlsafe_base64(5)}.com"
+  domains = generate_domains
+  sites_count = rand(3) + 1
+  sites = []
+  sites_count.times { |i| sites[i] = rand(1000).to_i }
+  primary_site = sites[0]
+  group_count = rand(3) + 1
+  groups = []
+  group_count.times { |i| groups[i] = rand(100).to_i }
+  { 'id' => id, 'time' => time, 'created' => created,
+    'owner' => owner, 'name' => name, 'internal_domain' => internal_domain,
+    'external_domains' => domains, 'groups' => groups,
+    'sites' => sites, 'primary_site' => primary_site }
+end
+
+# collections data looks like
+#   { "count": 111, "time" : "2016-11-25T13:18:44+00:00",
+#  "collections": [ { "id": 196, "name": "collection2",
+#                      "internal_domain": "domain1.site-factory.com",
+#                      "primary_site": 220,
+#                      "site_count": 2,
+#                      "groups": [ 91 ], }, ...] }
+def generate_collections_data
+  count = rand(100) + 1
+  collections = []
+  time = Time.at(rand(10**12).to_i).strftime '%Y-%m-%dT%H:%M:%S+00:00'
+  count.times do |i|
+    collection_data = generate_collection_data
+    collections[i] = { 'id' => collection_data['id'],
+                       'name' => collection_data['name'],
+                       'internal_domain' => collection_data['internal_domain'],
+                       'primary_site' => collection_data['primary_site'],
+                       'site_count' => collection_data['sites'].size,
+                       'groups' => collection_data['groups'] }
+  end
+  { 'count' => count, 'time' => time, 'collections' => collections }
+end
+
 #  individual site data looks like
 # {"id":96,"created":1441224920,"owner":"nik_admin","site":"s1",
 # "domains":["s1.checkphpsf.utest.acquia-test.com"],"groups":[91]}
