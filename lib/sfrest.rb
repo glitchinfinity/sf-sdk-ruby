@@ -8,6 +8,7 @@ require 'json'
 
 require 'sfrest/audit'
 require 'sfrest/backup'
+require 'sfrest/collections'
 require 'sfrest/connection'
 require 'sfrest/domains'
 require 'sfrest/error'
