@@ -11,14 +11,17 @@ require 'webmock/rspec'
 # require 'bundler/setup'
 # Bundler.setup
 require 'securerandom'
+require 'faker'
 
 require_relative '../lib/sfrest'
 require_relative '../lib/sfrest/audit'
 require_relative '../lib/sfrest/backup'
+require_relative '../lib/sfrest/collection'
 require_relative '../lib/sfrest/connection'
 require_relative '../lib/sfrest/domains'
 require_relative '../lib/sfrest/error'
 require_relative '../lib/sfrest/group'
+require_relative '../lib/sfrest/info'
 require_relative '../lib/sfrest/role'
 require_relative '../lib/sfrest/site'
 require_relative '../lib/sfrest/stage'
@@ -44,11 +47,11 @@ RSpec.configure do |config|
 end
 
 # webmock generators
-def stub_factory(path = nil, return_body = nil)
-  return_data = { status: 200 }
+def stub_factory(path = nil, return_body = nil, status = 200)
+  return_data = { status: status }
   if return_body.is_a? Array
     return_data = []
-    return_body.each { |body| return_data.push(status: 200, body: body) }
+    return_body.each { |body| return_data.push(status: status, body: body) }
   elsif return_body.is_a? Hash
     return_data = return_body
   else
@@ -126,6 +129,94 @@ def generate_collections_data
                        'groups' => collection_data['groups'] }
   end
   { 'count' => count, 'time' => time, 'collections' => collections }
+end
+
+# creating a collection looks like
+# { "id": 191, "name": "mycollection", "time": "2016-11-25T13:18:44+00:00",
+#  "internal_domain": "mycollection.site-factory.com" }
+def generate_collection_creation_data(internal_domain = nil)
+  id = rand(1000).to_i
+  name = SecureRandom.urlsafe_base64
+  time = Time.at(rand(10**12).to_i).strftime '%Y-%m-%dT%H:%M:%S+00:00'
+  internal_domain ||= "#{name}.#{SecureRandom.urlsafe_base64(5)}.com"
+  { 'id' => id, 'name' => name, 'time' => time, 'internal_domain' => internal_domain }
+end
+
+# deleting a collection looks like
+# { "id" : 101, "time" : "2016-10-28T09:25:26+00:00", "deleted" : true,
+# "message" : "Your site collection was successfully deleted." }
+def generate_collection_deletion_data
+  id = rand(1000).to_i
+  time = Time.at(rand(10**12).to_i).strftime '%Y-%m-%dT%H:%M:%S+00:00'
+  message = Faker::Lorem.sentence
+  deleted = heads?
+  { 'id' => id, 'deleted' => deleted, 'time' => time, 'message' => message }
+end
+
+# adding sites to a collection looks like
+# { "id" : 101, "name": "mycollection", "time" : "2016-10-28T09:25:26+00:00",
+#  "sites_added" : [123], "added": true,
+#  "message" : "One site was successfully added to the site collection." }
+def generate_collection_add_site_data
+  id = rand(1000).to_i
+  name = SecureRandom.urlsafe_base64
+  time = Time.at(rand(10**12).to_i).strftime '%Y-%m-%dT%H:%M:%S+00:00'
+  site_count = rand(3) + 1
+  sites = []
+  site_count.times { |i| sites[i] = rand(100).to_i }
+  message = Faker::Lorem.sentence
+  added = heads?
+  { 'id' => id, 'name' => name, 'time' => time, 'sites_added' => sites, 'added' => added, 'message' => message }
+end
+
+# removing from a collection looks like
+# { "id" : 101, "name": "mycollection", "time" : "2016-10-28T09:25:26+00:00",
+#  "sites_ids_removed" : [123], "removed": true,
+#  "message" : "One site was successfully removed from the site collection." }
+def generate_collection_remove_site_data
+  id = rand(1000).to_i
+  name = SecureRandom.urlsafe_base64
+  time = Time.at(rand(10**12).to_i).strftime '%Y-%m-%dT%H:%M:%S+00:00'
+  site_count = rand(3) + 1
+  sites = []
+  site_count.times { |i| sites[i] = rand(100).to_i }
+  message = Faker::Lorem.sentence
+  removed = heads?
+  { 'id' => id,
+    'name' => name,
+    'time' => time,
+    'site_ids_removed' => sites,
+    'removed' => removed,
+    'message' => message }
+end
+
+# making a site primary in a collection looks like
+# { "id" : 101, "name": "mycollection", "time" : "2016-10-28T09:25:26+00:00",
+#  "primary_site_id" : 123, "switched": true,
+#  "message" : "It can take a few minutes to switch over to the new primary site." }
+def generate_collection_set_primary_site_data
+  id = rand(1000).to_i
+  name = SecureRandom.urlsafe_base64
+  time = Time.at(rand(10**12).to_i).strftime '%Y-%m-%dT%H:%M:%S+00:00'
+  site = rand(100).to_i
+  message = Faker::Lorem.sentence
+  switched = heads?
+  { 'id' => id,
+    'name' => name,
+    'time' => time,
+    'primary_site_id' => site,
+    'switched' => switched,
+    'message' => message }
+end
+
+# getting Site Factory information looks like
+# { "factory_version": "2.60.0.2248+20170521",
+#  "time": "2016-10-28T09:25:26+00:00" }
+def generate_info_data
+  factory_version = SecureRandom.urlsafe_base64
+  time = Time.at(rand(10**12).to_i).strftime '%Y-%m-%dT%H:%M:%S+00:00'
+  { 'factory_version' => factory_version,
+    'time' => time }
 end
 
 #  individual site data looks like

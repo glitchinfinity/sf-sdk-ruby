@@ -83,6 +83,14 @@ describe SFRest::Connection do
       stub_factory nil, '{ "message":"Bad Request: " }'
       expect { @conn.get('/') }.to raise_error(SFRest::BadRequestError)
     end
+    it 'throws unprocessable entity error' do
+      stub_factory nil, '{ "message":"Unprocessable Entity: " }'
+      expect { @conn.get('/') }.to raise_error(SFRest::UnprocessableEntity)
+    end
+    it 'throws an error on unqualified 4xx / 5xx http statuses' do
+      stub_factory nil, '{ "message":"Random error message" }', 400
+      expect { @conn.get('/') }.to raise_error(SFRest::SFError)
+    end
   end
 
   describe '#ping' do
