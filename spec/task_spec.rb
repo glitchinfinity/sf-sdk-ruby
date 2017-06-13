@@ -235,12 +235,18 @@ describe SFRest::Task do
   end
 
   describe '#globally_paused?' do
-    it 'calls the globally_paused? endpoint' do
-      variable = SecureRandom.urlsafe_base64
-      var_value = SecureRandom.urlsafe_base64
+    it 'detects global pause' do
+      variable = 'wip_pause_global'
+      var_value = 'true'
       stub_factory '/api/v1/variables', { variable => var_value }.to_json
-      res = @conn.task.globally_paused? variable
+      res = @conn.task.globally_paused?
       expect(res).to eq var_value
+    end
+
+    it 'detects no global pause' do
+      stub_factory '/api/v1/variables', { 'message' => 'Variable not found' }.to_json, 405
+      res = @conn.task.globally_paused?
+      expect(res).to eq false
     end
   end
 

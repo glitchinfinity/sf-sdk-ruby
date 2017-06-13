@@ -26,7 +26,7 @@ module SFRest
                       password: password,
                       ssl_verify_peer: false)
       begin
-        access_check JSON(res.body)
+        access_check JSON(res.body), res.status
       rescue JSON::ParserError
         res.body
       end
@@ -45,7 +45,7 @@ module SFRest
                       password: password,
                       ssl_verify_peer: false)
       begin
-        data = access_check JSON(res.body)
+        data = access_check JSON(res.body), res.status
         return res.status, data
 
       rescue JSON::ParserError
@@ -67,7 +67,7 @@ module SFRest
                        ssl_verify_peer: false,
                        body: payload)
       begin
-        access_check JSON(res.body)
+        access_check JSON(res.body), res.status
       rescue JSON::ParserError
         res.body
       end
@@ -87,7 +87,7 @@ module SFRest
                       ssl_verify_peer: false,
                       body: payload)
       begin
-        access_check JSON(res.body)
+        access_check JSON(res.body), res.status
       rescue JSON::ParserError
         res.body
       end
@@ -106,7 +106,7 @@ module SFRest
                          password: password,
                          ssl_verify_peer: false)
       begin
-        access_check JSON(res.body)
+        access_check JSON(res.body), res.status
       rescue JSON::ParserError
         res.body
       end
@@ -114,17 +114,32 @@ module SFRest
 
     # Throws an SFRest exception for requests that have problems
     # @param [Object] data JSON parsed http reponse of the SFApi
+    # @param [int] http_status the request's HTTP status
     # @return [Object] the data object if there are no issues
     # @raise [SFRest::AccessDeniedError] if Authentication fails
     # @raise [SFRest::ActionForbiddenError] if the users role cannot perform the request
     # @raise [SFRest::BadRequestError]  if there is something malformed in the request
+    # @raise [SFRest::UnprocessableEntity] if there is an unprocessable entity in the request
+    # @raise [SFRest::SFError] if the response HTTP status indicates an error but without the above qualifiers
     #
-    def access_check(data)
-      return data unless data.is_a?(Hash) # if there is an error message, it will be in a hash.
-      unless data['message'].nil?
-        raise SFRest::AccessDeniedError, data['message'] if data['message'] =~ /Access denied/
-        raise SFRest::ActionForbiddenError, data['message'] if data['message'] =~ /Forbidden: /
-        raise SFRest::BadRequestError, data['message'] if data['message'] =~ /Bad Request:/
+    # The cyclomatic complexity check is being ignored here because we are
+    # collecting all the possible exception raising cases.
+    def access_check(data, http_status) # rubocop:disable Metrics/CyclomaticComplexity
+      if data.is_a?(Hash) && !data['message'].nil?
+        case data['message']
+        when /Access denied|Access Denied/
+          raise SFRest::AccessDeniedError, data['message']
+        when /Forbidden: /
+          raise SFRest::ActionForbiddenError, data['message']
+        when /Bad Request:/
+          raise SFRest::BadRequestError, data['message']
+        when /Unprocessible Entity: |Unprocessable Entity: /
+          raise SFRest::UnprocessableEntity, data['message']
+        end
+        if http_status >= 400 && http_status <= 599
+          sf_err_message = "Status: #{http_status}, Message: #{data['message']}"
+          raise SFRest::SFError, sf_err_message
+        end
       end
       data
     end
@@ -151,9 +166,10 @@ module SFRest
     # NOTE: accessor == Class_name.to_lower
     REST_METHODS = %w(audit
                       backup
-                      collections
+                      collection
                       domains
                       group
+                      info
                       role
                       site
                       stage

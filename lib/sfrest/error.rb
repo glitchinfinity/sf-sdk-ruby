@@ -14,6 +14,12 @@ module SFRest
   # the factory
   class BadRequestError < SFRest::SFError; end
 
+  # Throw this when the request contains unprocessable entity.
+  class UnprocessableEntity < SFRest::SFError; end
+
   # Throw when a task appears to be running too long
   class TaskNotDoneError < SFRest::SFError; end
+
+  # if you get in valid data
+  class InvalidDataError < SFRest::SFError; end
 end

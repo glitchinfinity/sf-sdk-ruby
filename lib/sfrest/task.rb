@@ -191,12 +191,17 @@ module SFRest
 
     # Gets the value of a vairable
     # @TODO: this is missnamed becasue it does not check the global paused variable
-    # @param [String] variable_name
-    # @return [Object]
-    def globally_paused?(variable_name)
-      current_path = "/api/v1/variables?name=#{variable_name}"
-      res = @conn.get(current_path)
-      res[variable_name]
+    # @return [Boolean]
+    def globally_paused?
+      paused = false
+      current_path = '/api/v1/variables?name=wip_pause_global'
+      begin
+        res = @conn.get(current_path)
+        paused = res['wip_pause_global']
+      rescue SFRest::SFError => error
+        paused = false if error.message =~ /Variable not found/
+      end
+      paused
     end
 
     # Pauses a specific task identified by its task id.

@@ -10,4 +10,14 @@ describe SFRest do
       expect(@conn).to be_an_instance_of SFRest::Connection
     end
   end
+
+  describe '#find_data_from_results' do
+    sites_data = generate_sites_data
+    site = sites_data['sites'].sample
+    sitename = site['site']
+    siteid = site['id']
+    it 'Can find a value' do
+      expect(SFRest.find_data_from_results(sites_data, 'site', sitename, 'id')).to eq siteid
+    end
+  end
 end
