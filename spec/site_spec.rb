@@ -101,6 +101,19 @@ describe SFRest::Site do
     end
   end
 
+  describe '#delete' do
+    site_data = generate_site_delete_data
+    site_id = site_data['site_id']
+    site_name = site_data['site']
+    task_id = site_data['task_id']
+    it 'can create a site' do
+      stub_factory '/api/v1/sites/' + site_id.to_s, site_data.to_json
+      res = @conn.site.delete site_id
+      expect(res['site']).to eq site_name
+      expect(res['task_id']).to eq task_id
+    end
+  end
+
   describe '#backup' do
     it 'can get a backup object' do
       expect(@conn.site.backup).to be_kind_of(SFRest::Backup)
