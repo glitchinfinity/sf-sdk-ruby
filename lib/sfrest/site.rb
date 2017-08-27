@@ -83,10 +83,10 @@ module SFRest
     # @param [String] sitename The name of the site to create
     # @param [Integer] group_id  The Id of the group the site is to be a member of
     # @param [String] install_profile The install profile to use when creating the site
-    def create_site(sitename, group_id, install_profile = nil)
+    def create_site(sitename, group_id, install_profile = nil, codebase = nil)
       current_path = '/api/v1/sites'
       payload = { 'site_name' => sitename, 'group_ids' => [group_id],
-                  'install_profile' => install_profile }.to_json
+                  'install_profile' => install_profile, 'codebase' => codebase }.to_json
       @conn.post(current_path, payload)
     end
 
