@@ -1,5 +1,5 @@
 module SFRest
-  # List codebases on the
+  # List codebases on the factory.
   class Codebase
     # @param [SFRest::Connection] conn
     def initialize(conn)
@@ -7,7 +7,7 @@ module SFRest
     end
 
     # Lists the codebases
-    # @return [Hash] A hash of codebases configured for the factory
+    # @return [Hash] A hash of codebases configured for the factory.
     # { "stacks" => { 1 => "abcde", 2 => 'fghij' } }
     def list
       @conn.get('/api/v1/stacks')

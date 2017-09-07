@@ -80,9 +80,10 @@ module SFRest
     end
 
     # Creates a site.
-    # @param [String] sitename The name of the site to create
-    # @param [Integer] group_id  The Id of the group the site is to be a member of
-    # @param [String] install_profile The install profile to use when creating the site
+    # @param [String] sitename The name of the site to create.
+    # @param [Integer] group_id  The Id of the group the site is to be a member of.
+    # @param [String] install_profile The install profile to use when creating the site.
+    # @param [Integer] codebase The codebase index to use in installs.
     def create_site(sitename, group_id, install_profile = nil, codebase = nil)
       current_path = '/api/v1/sites'
       payload = { 'site_name' => sitename, 'group_ids' => [group_id],
@@ -95,6 +96,7 @@ module SFRest
     # @param [String] sitename The name of the site to create
     # @param [Integer] group_id  The Id of the group the site is to be a member of
     # @param [String] install_profile The install profile to use when creating the site
+    # @param [Integer] codebase The codebase index to use in installs.
     alias create create_site
 
     # Deletes a site.

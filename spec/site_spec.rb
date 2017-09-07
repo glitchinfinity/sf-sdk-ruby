@@ -106,7 +106,7 @@ describe SFRest::Site do
     site_id = site_data['site_id']
     site_name = site_data['site']
     task_id = site_data['task_id']
-    it 'can create a site' do
+    it 'can delete a site' do
       stub_factory '/api/v1/sites/' + site_id.to_s, site_data.to_json
       res = @conn.site.delete site_id
       expect(res['site']).to eq site_name
