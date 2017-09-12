@@ -80,14 +80,31 @@ module SFRest
     end
 
     # Creates a site.
+    # @param [String] sitename The name of the site to create.
+    # @param [Integer] group_id  The Id of the group the site is to be a member of.
+    # @param [String] install_profile The install profile to use when creating the site.
+    # @param [Integer] codebase The codebase index to use in installs.
+    def create_site(sitename, group_id, install_profile = nil, codebase = nil)
+      current_path = '/api/v1/sites'
+      payload = { 'site_name' => sitename, 'group_ids' => [group_id],
+                  'install_profile' => install_profile, 'codebase' => codebase }.to_json
+      @conn.post(current_path, payload)
+    end
+
+    # Creates a site.
+    # Alias for create_site
     # @param [String] sitename The name of the site to create
     # @param [Integer] group_id  The Id of the group the site is to be a member of
     # @param [String] install_profile The install profile to use when creating the site
-    def create_site(sitename, group_id, install_profile = nil)
-      current_path = '/api/v1/sites'
-      payload = { 'site_name' => sitename, 'group_ids' => [group_id],
-                  'install_profile' => install_profile }.to_json
-      @conn.post(current_path, payload)
+    # @param [Integer] codebase The codebase index to use in installs.
+    alias create create_site
+
+    # Deletes a site.
+    # @param [Integer] site_id The id of the stie to be deleted
+    # @return [Hash]
+    def delete(site_id)
+      current_path = '/api/v1/sites/' + site_id.to_s
+      @conn.delete current_path
     end
 
     # accessors for backups/restore

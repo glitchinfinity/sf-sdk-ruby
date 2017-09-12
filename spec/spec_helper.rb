@@ -10,8 +10,9 @@ SimpleCov.start
 require 'webmock/rspec'
 # require 'bundler/setup'
 # Bundler.setup
-require 'securerandom'
 require 'faker'
+require 'securerandom'
+require 'time'
 
 require_relative '../lib/sfrest'
 require_relative '../lib/sfrest/audit'
@@ -276,11 +277,21 @@ def generate_site_creation_data
   { 'id' => rand(1000), 'site' => SecureRandom.urlsafe_base64, 'domains' => domains, 'groups' => groups }
 end
 
+# site delete data looks like
+# { 'id' => int, 'owner' => string, 'site' => string, 'time' => ISO 8601 date, 'task_id' => int}
+def generate_site_delete_data
+  { 'id' => rand(1000),
+    'owner' => SecureRandom.urlsafe_base64,
+    'site' => SecureRandom.urlsafe_base64,
+    'time' => Time.now.utc.iso8601,
+    'task_id' => rand(10**5) }
+end
+
 # site duplicate data looks like
 # { "id": 183, "site": "mysite2"}
 # { 'id' => int, 'site' => string}
 def generate_site_duplicate_data
-  { 'id' => rand(1000), 'site' => SecureRandom.urlsafe_bas64 }
+  { 'id' => rand(1000), 'site' => SecureRandom.urlsafe_base64 }
 end
 
 # site backup creation data
