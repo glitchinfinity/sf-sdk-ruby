@@ -152,7 +152,33 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#create_site-instance_method" title="#create_site (instance method)">#<strong>create_site</strong>(sitename, group_id, install_profile = nil)  &#x21d2; Object </a>
+      <a href="#create_site-instance_method" title="#create_site (instance method)">#<strong>create_site</strong>(sitename, group_id, install_profile = nil, codebase = nil)  &#x21d2; Object </a>
+    
+
+    
+      (also: #create)
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Creates a site.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#delete-instance_method" title="#delete (instance method)">#<strong>delete</strong>(site_id)  &#x21d2; Hash </a>
     
 
     
@@ -167,7 +193,7 @@
 
   
     <span class="summary_desc"><div class='inline'>
-<p>Creates a site.</p>
+<p>Deletes a site.</p>
 </div></span>
   
 </li>
@@ -416,12 +442,12 @@ get all the sites on the factory.</p>
       <pre class="lines">
 
 
-95
-96
-97</pre>
+112
+113
+114</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/site.rb', line 95</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/site.rb', line 112</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_backup'>backup</span>
   <span class='ivar'>@conn</span><span class='period'>.</span><span class='id identifier rubyid_backup'>backup</span>
@@ -434,9 +460,13 @@ get all the sites on the factory.</p>
       <div class="method_details ">
   <h3 class="signature " id="create_site-instance_method">
   
-    #<strong>create_site</strong>(sitename, group_id, install_profile = nil)  &#x21d2; <tt>Object</tt> 
+    #<strong>create_site</strong>(sitename, group_id, install_profile = nil, codebase = nil)  &#x21d2; <tt>Object</tt> 
   
 
+  
+    <span class="aliases">Also known as:
+    <span class="names"><span id='create-instance_method'>create</span></span>
+    </span>
   
 
   
@@ -463,7 +493,7 @@ get all the sites on the factory.</p>
       
         &mdash;
         <div class='inline'>
-<p>The name of the site to create</p>
+<p>The name of the site to create.</p>
 </div>
       
     </li>
@@ -479,7 +509,7 @@ get all the sites on the factory.</p>
       
         &mdash;
         <div class='inline'>
-<p>The Id of the group the site is to be a member of</p>
+<p>The Id of the group the site is to be a member of.</p>
 </div>
       
     </li>
@@ -497,7 +527,25 @@ get all the sites on the factory.</p>
       
         &mdash;
         <div class='inline'>
-<p>The install profile to use when creating the site</p>
+<p>The install profile to use when creating the site.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>codebase</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The codebase index to use in installs.</p>
 </div>
       
     </li>
@@ -511,21 +559,97 @@ get all the sites on the factory.</p>
       <pre class="lines">
 
 
-86
 87
 88
 89
 90
-91</pre>
+91
+92</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/site.rb', line 86</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/site.rb', line 87</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_create_site'>create_site</span><span class='lparen'>(</span><span class='id identifier rubyid_sitename'>sitename</span><span class='comma'>,</span> <span class='id identifier rubyid_group_id'>group_id</span><span class='comma'>,</span> <span class='id identifier rubyid_install_profile'>install_profile</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_create_site'>create_site</span><span class='lparen'>(</span><span class='id identifier rubyid_sitename'>sitename</span><span class='comma'>,</span> <span class='id identifier rubyid_group_id'>group_id</span><span class='comma'>,</span> <span class='id identifier rubyid_install_profile'>install_profile</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_codebase'>codebase</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_current_path'>current_path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/api/v1/sites</span><span class='tstring_end'>&#39;</span></span>
   <span class='id identifier rubyid_payload'>payload</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>site_name</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_sitename'>sitename</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>group_ids</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='lbracket'>[</span><span class='id identifier rubyid_group_id'>group_id</span><span class='rbracket'>]</span><span class='comma'>,</span>
-              <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>install_profile</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_install_profile'>install_profile</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_to_json'>to_json</span>
+              <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>install_profile</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_install_profile'>install_profile</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>codebase</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_codebase'>codebase</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_to_json'>to_json</span>
   <span class='ivar'>@conn</span><span class='period'>.</span><span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='id identifier rubyid_current_path'>current_path</span><span class='comma'>,</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="delete-instance_method">
+  
+    #<strong>delete</strong>(site_id)  &#x21d2; <tt>Hash</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Deletes a site.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>site_id</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The id of the stie to be deleted</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Hash</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+105
+106
+107
+108</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/site.rb', line 105</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_site_id'>site_id</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_current_path'>current_path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/api/v1/sites/</span><span class='tstring_end'>&#39;</span></span> <span class='op'>+</span> <span class='id identifier rubyid_site_id'>site_id</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
+  <span class='ivar'>@conn</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span> <span class='id identifier rubyid_current_path'>current_path</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -983,7 +1107,7 @@ get all the sites on the factory</p>
 </div>
 
       <div id="footer">
-  Generated on Tue Jun 13 14:54:56 2017 by
+  Generated on Tue Sep 12 13:40:03 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.8 (ruby-2.3.0).
 </div>
