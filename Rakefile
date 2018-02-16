@@ -18,4 +18,4 @@ YARD::Rake::YardocTask.new(:yard) do |t|
   t.stats_options = ['--list-undoc']
 end
 
-task default: [:spec, :rubocop, :yard]
+task default: %i[spec rubocop yard]

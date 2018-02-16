@@ -9,16 +9,9 @@ module SFRest
     def build_url_query(current_path, datum = nil)
       unless datum.nil?
         current_path += '?'
-        datum.each do |key, value|
-          current_path += '&' if needs_new_parameter? current_path
-          current_path += key.to_s + '=' + value.to_s
-        end
+        current_path += URI.encode_www_form datum
       end
       current_path
-    end
-
-    private def needs_new_parameter?(path)
-      path[-1, 1] != '?' # if path has '?' then we need to create a new parameter
     end
   end
 end

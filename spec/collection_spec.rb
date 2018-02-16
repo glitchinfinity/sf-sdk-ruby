@@ -94,11 +94,11 @@ describe SFRest::Collection do
     it 'can create a site collection' do
       collection_data = generate_collection_creation_data
       collection_name = collection_data['name']
-      group_count = rand(3) + 1
+      group_count = rand(1..3)
       groups = []
       group_count.times { |i| groups[i] = rand(100).to_i }
 
-      site_count = rand(3) + 1
+      site_count = rand(1..3)
       sites = []
       site_count.times { |i| sites[i] = rand(100).to_i }
 
@@ -111,11 +111,11 @@ describe SFRest::Collection do
       collection_data = generate_collection_creation_data Faker::Internet.domain_word
       collection_name = collection_data['name']
       internal_domain = collection_data['internal_domain']
-      group_count = rand(3) + 1
+      group_count = rand(1..3)
       groups = []
       group_count.times { |i| groups[i] = rand(100).to_i }
 
-      site_count = rand(3) + 1
+      site_count = rand(1..3)
       sites = []
       site_count.times { |i| sites[i] = rand(100).to_i }
 

@@ -12,7 +12,7 @@ module SFRest
     def get_backups(site_id, datum = nil)
       current_path = "/api/v1/sites/#{site_id}/backups"
       pb = SFRest::Pathbuilder.new
-      @conn.get URI.parse(URI.encode(pb.build_url_query(current_path, datum))).to_s
+      @conn.get URI.parse(pb.build_url_query(current_path, datum)).to_s
     end
 
     # Deletes a site backup.

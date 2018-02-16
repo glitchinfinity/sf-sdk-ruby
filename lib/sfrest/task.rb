@@ -146,7 +146,7 @@ module SFRest
     def find_tasks(datum = nil)
       current_path = '/api/v1/tasks'
       pb = SFRest::Pathbuilder.new
-      @conn.get URI.parse(URI.encode(pb.build_url_query(current_path, datum))).to_s
+      @conn.get URI.parse(pb.build_url_query(current_path, datum)).to_s
     end
 
     # Looks for a task with a specific name
