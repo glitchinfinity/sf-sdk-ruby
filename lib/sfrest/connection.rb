@@ -47,7 +47,6 @@ module SFRest
       begin
         data = access_check JSON(res.body), res.status
         return res.status, data
-
       rescue JSON::ParserError
         return res.status, res.body
       end
@@ -164,7 +163,7 @@ module SFRest
     #
     # If a new class is added, add the accessor to this list.
     # NOTE: accessor == Class_name.to_lower
-    REST_METHODS = %w(audit
+    REST_METHODS = %w[audit
                       backup
                       codebase
                       collection
@@ -179,7 +178,7 @@ module SFRest
                       update
                       usage
                       user
-                      variable).freeze
+                      variable].freeze
 
     REST_METHODS.each do |m|
       define_method(m) do

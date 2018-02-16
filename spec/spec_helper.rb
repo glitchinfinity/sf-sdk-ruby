@@ -74,7 +74,7 @@ end
 # data generation methods
 
 def generate_domains
-  domain_count = rand(3) + 1
+  domain_count = rand(1..3)
   domains = []
   domain_count.times do |i|
     domains[i] = SecureRandom.urlsafe_base64(5) + '.' +
@@ -96,11 +96,11 @@ def generate_collection_data
   name = SecureRandom.urlsafe_base64
   internal_domain = "#{name}.#{SecureRandom.urlsafe_base64(5)}.com"
   domains = generate_domains
-  sites_count = rand(3) + 1
+  sites_count = rand(1..3)
   sites = []
   sites_count.times { |i| sites[i] = rand(1000).to_i }
   primary_site = sites[0]
-  group_count = rand(3) + 1
+  group_count = rand(1..3)
   groups = []
   group_count.times { |i| groups[i] = rand(100).to_i }
   { 'id' => id, 'time' => time, 'created' => created,
@@ -117,7 +117,7 @@ end
 #                      "site_count": 2,
 #                      "groups": [ 91 ], }, ...] }
 def generate_collections_data
-  count = rand(100) + 1
+  count = rand(1..100)
   collections = []
   time = Time.at(rand(10**12).to_i).strftime '%Y-%m-%dT%H:%M:%S+00:00'
   count.times do |i|
@@ -162,7 +162,7 @@ def generate_collection_add_site_data
   id = rand(1000).to_i
   name = SecureRandom.urlsafe_base64
   time = Time.at(rand(10**12).to_i).strftime '%Y-%m-%dT%H:%M:%S+00:00'
-  site_count = rand(3) + 1
+  site_count = rand(1..3)
   sites = []
   site_count.times { |i| sites[i] = rand(100).to_i }
   message = Faker::Lorem.sentence
@@ -178,7 +178,7 @@ def generate_collection_remove_site_data
   id = rand(1000).to_i
   name = SecureRandom.urlsafe_base64
   time = Time.at(rand(10**12).to_i).strftime '%Y-%m-%dT%H:%M:%S+00:00'
-  site_count = rand(3) + 1
+  site_count = rand(1..3)
   sites = []
   site_count.times { |i| sites[i] = rand(100).to_i }
   message = Faker::Lorem.sentence
@@ -230,7 +230,7 @@ def generate_site_data
   created = rand(10**12).to_i
   owner = SecureRandom.urlsafe_base64
   site = SecureRandom.urlsafe_base64
-  group_count = rand(3) + 1
+  group_count = rand(1..3)
   groups = []
   group_count.times { |i| groups[i] = rand(100) }
   domains = generate_domains
@@ -252,7 +252,7 @@ end
 # {'count' => int,
 # sites => Array(site_data[{id, site, 1st domain}])[count]}
 def generate_sites_data
-  count = rand(100) + 1
+  count = rand(1..100)
   sites = []
   count.times do |i|
     site_data = generate_site_data
@@ -266,9 +266,9 @@ end
 # {'id' => int, 'site' => string, 'domains' => [string, string,...], 'groups' => [int, int, ...]}
 def generate_site_creation_data
   groups = []
-  group_count = rand(3) + 1
+  group_count = rand(1..3)
   group_count.times { |i| groups[i] = rand(100) }
-  domain_count = rand(3) + 1
+  domain_count = rand(1..3)
   domains = []
   domain_count.times do |i|
     domains[i] = SecureRandom.urlsafe_base64(5) + '.' +
@@ -473,7 +473,7 @@ end
 # groups data looks like
 # {'count' => int, 'groups' => [group, group, group, ...]}
 def generate_groups_data
-  count = rand(100) + 1
+  count = rand(1..100)
   groups = []
   count.times do |i|
     group_data = generate_group_data
@@ -494,9 +494,9 @@ def generate_user_data
   accessed = time_rand + rand(10**5)
   mail = SecureRandom.urlsafe_base64 + '@example.com'
   name = SecureRandom.urlsafe_base64
-  role_count = rand(3) + 1
+  role_count = rand(1..3)
   roles = role_candidates.to_a.sample(role_count).to_h
-  tfa_status_candidates = %w(active unknown disabled)
+  tfa_status_candidates = %w[active unknown disabled]
   { 'uid' => uid, 'accessed' => accessed, 'created' => created, 'mail' => mail, 'name' => name,
     'status' => rand(2), 'roles' => roles,
     'tfa_status' => tfa_status_candidates.sample }
@@ -511,7 +511,7 @@ end
 # {'count' => int,
 # users => Array(site_data[{id, site, 1st domain}])[count]}
 def generate_users_data
-  count = rand(100) + 1
+  count = rand(1..100)
   users = []
   count.times do |i|
     user_data = generate_user_data
@@ -550,7 +550,7 @@ end
 
 def heads?
   chance = [0, 1].sample
-  chance == 0 ? true : false
+  chance == 0
 end
 
 def time_rand(from = 0.0, to = Time.now)

@@ -10,7 +10,7 @@ describe SFRest::Domains do
     custom_domains_data = generate_domains
     protected_domains_data = generate_domains
     nid = rand 10**5
-    node_type = %w(site site_collection).sample
+    node_type = %w[site site_collection].sample
     domains_data = { 'node_id' => nid, 'node_type' => node_type,
                      'date' => Time.now.to_s,
                      'domains' =>

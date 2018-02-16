@@ -6,7 +6,7 @@
 <title>
   Class: SFRest::Pathbuilder
   
-    &mdash; Documentation by YARD 0.9.8
+    &mdash; Documentation by YARD 0.9.12
   
 </title>
 
@@ -229,10 +229,7 @@ can get a path like /api/v1/foo?bar=boo&amp;bat=gah …</p>
 12
 13
 14
-15
-16
-17
-18</pre>
+15</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/sfrest/pathbuilder.rb', line 9</span>
@@ -240,10 +237,7 @@ can get a path like /api/v1/foo?bar=boo&amp;bat=gah …</p>
 <span class='kw'>def</span> <span class='id identifier rubyid_build_url_query'>build_url_query</span><span class='lparen'>(</span><span class='id identifier rubyid_current_path'>current_path</span><span class='comma'>,</span> <span class='id identifier rubyid_datum'>datum</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='kw'>unless</span> <span class='id identifier rubyid_datum'>datum</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
     <span class='id identifier rubyid_current_path'>current_path</span> <span class='op'>+=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>?</span><span class='tstring_end'>&#39;</span></span>
-    <span class='id identifier rubyid_datum'>datum</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_key'>key</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='op'>|</span>
-      <span class='id identifier rubyid_current_path'>current_path</span> <span class='op'>+=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>&amp;</span><span class='tstring_end'>&#39;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_needs_new_parameter?'>needs_new_parameter?</span> <span class='id identifier rubyid_current_path'>current_path</span>
-      <span class='id identifier rubyid_current_path'>current_path</span> <span class='op'>+=</span> <span class='id identifier rubyid_key'>key</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>=</span><span class='tstring_end'>&#39;</span></span> <span class='op'>+</span> <span class='id identifier rubyid_value'>value</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
-    <span class='kw'>end</span>
+    <span class='id identifier rubyid_current_path'>current_path</span> <span class='op'>+=</span> <span class='const'>URI</span><span class='period'>.</span><span class='id identifier rubyid_encode_www_form'>encode_www_form</span> <span class='id identifier rubyid_datum'>datum</span>
   <span class='kw'>end</span>
   <span class='id identifier rubyid_current_path'>current_path</span>
 <span class='kw'>end</span></pre>
@@ -257,9 +251,9 @@ can get a path like /api/v1/foo?bar=boo&amp;bat=gah …</p>
 </div>
 
       <div id="footer">
-  Generated on Tue Sep 12 13:40:04 2017 by
+  Generated on Fri Feb 16 16:22:26 2018 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.8 (ruby-2.3.0).
+  0.9.12 (ruby-2.3.0).
 </div>
 
     </div>

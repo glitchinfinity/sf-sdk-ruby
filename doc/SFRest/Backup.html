@@ -6,7 +6,7 @@
 <title>
   Class: SFRest::Backup
   
-    &mdash; Documentation by YARD 0.9.8
+    &mdash; Documentation by YARD 0.9.12
   
 </title>
 
@@ -692,7 +692,7 @@
 <span class='kw'>def</span> <span class='id identifier rubyid_get_backups'>get_backups</span><span class='lparen'>(</span><span class='id identifier rubyid_site_id'>site_id</span><span class='comma'>,</span> <span class='id identifier rubyid_datum'>datum</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_current_path'>current_path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/api/v1/sites/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_site_id'>site_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/backups</span><span class='tstring_end'>&quot;</span></span>
   <span class='id identifier rubyid_pb'>pb</span> <span class='op'>=</span> <span class='const'><span class='object_link'><a href="../SFRest.html" title="SFRest (module)">SFRest</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Pathbuilder.html" title="SFRest::Pathbuilder (class)">Pathbuilder</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="../SFRest.html#new-class_method" title="SFRest.new (method)">new</a></span></span>
-  <span class='ivar'>@conn</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span> <span class='const'>URI</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='const'>URI</span><span class='period'>.</span><span class='id identifier rubyid_encode'>encode</span><span class='lparen'>(</span><span class='id identifier rubyid_pb'>pb</span><span class='period'>.</span><span class='id identifier rubyid_build_url_query'>build_url_query</span><span class='lparen'>(</span><span class='id identifier rubyid_current_path'>current_path</span><span class='comma'>,</span> <span class='id identifier rubyid_datum'>datum</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
+  <span class='ivar'>@conn</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span> <span class='const'>URI</span><span class='period'>.</span><span class='id identifier rubyid_parse'>parse</span><span class='lparen'>(</span><span class='id identifier rubyid_pb'>pb</span><span class='period'>.</span><span class='id identifier rubyid_build_url_query'>build_url_query</span><span class='lparen'>(</span><span class='id identifier rubyid_current_path'>current_path</span><span class='comma'>,</span> <span class='id identifier rubyid_datum'>datum</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -704,9 +704,9 @@
 </div>
 
       <div id="footer">
-  Generated on Tue Sep 12 13:40:03 2017 by
+  Generated on Fri Feb 16 16:22:26 2018 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.8 (ruby-2.3.0).
+  0.9.12 (ruby-2.3.0).
 </div>
 
     </div>

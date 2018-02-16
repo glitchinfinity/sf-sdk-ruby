@@ -38,7 +38,7 @@ module SFRest
     def monthly(stack_id = 1, datum = {})
       datum[stack_id] = stack_id
       current_path = '/api/v1/dynamic-requests/monthly'
-      @conn.get URI.parse(URI.encode(pb.build_url_query(current_path, datum))).to_s
+      @conn.get URI.parse(pb.build_url_query(current_path, datum)).to_s
     end
 
     # returns a Pathbuilder object for manipulating the query parameters

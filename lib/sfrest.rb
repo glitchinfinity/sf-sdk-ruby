@@ -1,7 +1,7 @@
 # Simple wrappper around RestClient.Resource
-$LOAD_PATH.unshift(File.dirname(__FILE__)) unless
-    $LOAD_PATH.include?(File.dirname(__FILE__)) ||
-    $LOAD_PATH.include?(File.expand_path(File.dirname(__FILE__)))
+$LOAD_PATH.unshift(__dir__) unless
+    $LOAD_PATH.include?(__dir__) ||
+    $LOAD_PATH.include?(File.expand_path(__dir__))
 
 require 'excon'
 require 'json'
@@ -52,7 +52,7 @@ module SFRest
   # @param [String] key one of the user data returned (id, name, domain...)
   # @return [Object] Integer, String, Array, Hash depending on the collection data
   def self.find_data_from_results(res, field, datapat, key)
-    data = res.select { |k| !k.to_s.match(/time|count/) }
+    data = res.reject { |k| k.to_s.match(/time|count/) }
     raise InvalidDataError('The data you are searching is not a hash') unless data.is_a?(Hash)
     data.each_value do |datum|
       datum.each do |dat|
