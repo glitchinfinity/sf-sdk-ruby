@@ -16,8 +16,8 @@ module SFRest
     # http request via get
     # @param [string] uri
     # @return [Object] ruby representation of the json response
-    #                  if the reponsebody  does not parse, returns
-    #                  the non-parsed body
+    #                  if the reponse body  does not parse, raises
+    #                  a SFRest::InvalidResponse
     def get(uri)
       headers = { 'Content-Type' => 'application/json' }
       res = Excon.get(@base_url + uri.to_s,
@@ -25,18 +25,14 @@ module SFRest
                       user: username,
                       password: password,
                       ssl_verify_peer: false)
-      begin
-        access_check JSON(res.body), res.status
-      rescue JSON::ParserError
-        res.body
-      end
+      api_response res
     end
 
     # http request via get
     # @param [string] uri
     # @return [Integer, Object] http status and the ruby representation
-    #                           of the json response if the reponse body
-    #                           does not parse, returns the non-parsed body
+    #                  if the reponse body  does not parse, raises
+    #                  a SFRest::InvalidResponse
     def get_with_status(uri)
       headers = { 'Content-Type' => 'application/json' }
       res = Excon.get(@base_url + uri.to_s,
@@ -44,19 +40,14 @@ module SFRest
                       user: username,
                       password: password,
                       ssl_verify_peer: false)
-      begin
-        data = access_check JSON(res.body), res.status
-        return res.status, data
-      rescue JSON::ParserError
-        return res.status, res.body
-      end
+      api_response res, true
     end
 
     # http request via post
     # @param [string] uri
     # @return [Object] ruby representation of the json response
-    #                  if the reponsebody  does not parse, returns
-    #                  the non-parsed body
+    #                  if the reponse body  does not parse, raises
+    #                  a SFRest::InvalidResponse
     def post(uri, payload)
       headers = { 'Content-Type' => 'application/json' }
       res = Excon.post(@base_url + uri.to_s,
@@ -65,18 +56,14 @@ module SFRest
                        password: password,
                        ssl_verify_peer: false,
                        body: payload)
-      begin
-        access_check JSON(res.body), res.status
-      rescue JSON::ParserError
-        res.body
-      end
+      api_response res
     end
 
     # http request via put
     # @param [string] uri
     # @return [Object] ruby representation of the json response
-    #                  if the reponsebody  does not parse, returns
-    #                  the non-parsed body
+    #                  if the reponse body  does not parse, raises
+    #                  a SFRest::InvalidResponse
     def put(uri, payload)
       headers = { 'Content-Type' => 'application/json' }
       res = Excon.put(@base_url + uri.to_s,
@@ -85,18 +72,14 @@ module SFRest
                       password: password,
                       ssl_verify_peer: false,
                       body: payload)
-      begin
-        access_check JSON(res.body), res.status
-      rescue JSON::ParserError
-        res.body
-      end
+      api_response res
     end
 
     # http request via delete
     # @param [string] uri
     # @return [Object] ruby representation of the json response
-    #                  if the reponsebody  does not parse, returns
-    #                  the non-parsed body
+    #                  if the reponse body  does not parse, raises
+    #                  a SFRest::InvalidResponse
     def delete(uri)
       headers = { 'Content-Type' => 'application/json' }
       res = Excon.delete(@base_url + uri.to_s,
@@ -104,11 +87,22 @@ module SFRest
                          user: username,
                          password: password,
                          ssl_verify_peer: false)
-      begin
-        access_check JSON(res.body), res.status
-      rescue JSON::ParserError
-        res.body
-      end
+      api_response res
+    end
+
+    # Confirm that the result looks adequate
+    # @param [Excon::Response] res
+    # @param [Boolean] return_status If true returns the integer status
+    #                  with the reponse
+    # @return [Array|Object] if return_status then [int, Object]
+    #                        else Object
+    def api_response(res, return_status = false)
+      data = access_check JSON(res.body), res.status
+      ret_data = return_status ? [res.status, data] : data
+      return ret_data
+    rescue JSON::ParserError
+      message = "Invalid data, status #{res.status}, body: #{res.body}"
+      raise SFRest::InvalidResponse, message
     end
 
     # Throws an SFRest exception for requests that have problems
@@ -123,7 +117,9 @@ module SFRest
     #
     # The cyclomatic complexity check is being ignored here because we are
     # collecting all the possible exception raising cases.
-    def access_check(data, http_status) # rubocop:disable Metrics/CyclomaticComplexity
+    # rubocop: disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    def access_check(data, http_status)
+      raise SFRest::EmptyResult if data.size.zero?
       if data.is_a?(Hash) && !data['message'].nil?
         case data['message']
         when /Access denied|Access Denied/
@@ -142,6 +138,7 @@ module SFRest
       end
       data
     end
+    # rubocop: enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
     # pings the SF api as an authenticated user
     # responds with a pong

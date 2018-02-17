@@ -285,6 +285,30 @@ possible exception raising cases.</p>
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#api_response-instance_method" title="#api_response (instance method)">#<strong>api_response</strong>(res, return_status = false)  &#x21d2; Array|Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Confirm that the result looks adequate.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#delete-instance_method" title="#delete (instance method)">#<strong>delete</strong>(uri)  &#x21d2; Object </a>
     
 
@@ -735,7 +759,8 @@ href="https://www.sfdev.acsitefactory.com">www.sfdev.acsitefactory.com</a></p>
     
 <p>Throws an SFRest exception for requests that have problems The cyclomatic
 complexity check is being ignored here because we are collecting all the
-possible exception raising cases.</p>
+possible exception raising cases. rubocop: disable
+Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity</p>
 
 
   </div>
@@ -878,6 +903,11 @@ qualifiers</p>
       <pre class="lines">
 
 
+121
+122
+123
+124
+125
 126
 127
 128
@@ -892,17 +922,14 @@ qualifiers</p>
 137
 138
 139
-140
-141
-142
-143
-144</pre>
+140</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/connection.rb', line 126</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/connection.rb', line 121</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_access_check'>access_check</span><span class='lparen'>(</span><span class='id identifier rubyid_data'>data</span><span class='comma'>,</span> <span class='id identifier rubyid_http_status'>http_status</span><span class='rparen'>)</span> <span class='comment'># rubocop:disable Metrics/CyclomaticComplexity
-</span>  <span class='kw'>if</span> <span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Hash</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>message</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_access_check'>access_check</span><span class='lparen'>(</span><span class='id identifier rubyid_data'>data</span><span class='comma'>,</span> <span class='id identifier rubyid_http_status'>http_status</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../SFRest.html" title="SFRest (module)">SFRest</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="EmptyResult.html" title="SFRest::EmptyResult (class)">EmptyResult</a></span></span> <span class='kw'>if</span> <span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span><span class='period'>.</span><span class='id identifier rubyid_zero?'>zero?</span>
+  <span class='kw'>if</span> <span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Hash</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>message</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
     <span class='kw'>case</span> <span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>message</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
     <span class='kw'>when</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>Access denied|Access Denied</span><span class='regexp_end'>/</span></span>
       <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../SFRest.html" title="SFRest (module)">SFRest</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="AccessDeniedError.html" title="SFRest::AccessDeniedError (class)">AccessDeniedError</a></span></span><span class='comma'>,</span> <span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>message</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
@@ -919,6 +946,108 @@ qualifiers</p>
     <span class='kw'>end</span>
   <span class='kw'>end</span>
   <span class='id identifier rubyid_data'>data</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="api_response-instance_method">
+  
+    #<strong>api_response</strong>(res, return_status = false)  &#x21d2; <tt>Array|Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Confirm that the result looks adequate</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>res</span>
+      
+      
+        <span class='type'>(<tt>Excon::Response</tt>)</span>
+      
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>return_status</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>false</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>If true returns the integer status with the reponse</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array|Object</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>if return_status then [int, Object] else Object</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+99
+100
+101
+102
+103
+104
+105
+106</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/connection.rb', line 99</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_api_response'>api_response</span><span class='lparen'>(</span><span class='id identifier rubyid_res'>res</span><span class='comma'>,</span> <span class='id identifier rubyid_return_status'>return_status</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='id identifier rubyid_access_check'>access_check</span> <span class='const'>JSON</span><span class='lparen'>(</span><span class='id identifier rubyid_res'>res</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_res'>res</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span>
+  <span class='id identifier rubyid_ret_data'>ret_data</span> <span class='op'>=</span> <span class='id identifier rubyid_return_status'>return_status</span> <span class='op'>?</span> <span class='lbracket'>[</span><span class='id identifier rubyid_res'>res</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span><span class='comma'>,</span> <span class='id identifier rubyid_data'>data</span><span class='rbracket'>]</span> <span class='op'>:</span> <span class='id identifier rubyid_data'>data</span>
+  <span class='kw'>return</span> <span class='id identifier rubyid_ret_data'>ret_data</span>
+<span class='kw'>rescue</span> <span class='const'>JSON</span><span class='op'>::</span><span class='const'>ParserError</span>
+  <span class='id identifier rubyid_message'>message</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Invalid data, status </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_res'>res</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span><span class='embexpr_end'>}</span><span class='tstring_content'>, body: </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_res'>res</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="../SFRest.html" title="SFRest (module)">SFRest</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="InvalidResponse.html" title="SFRest::InvalidResponse (class)">InvalidResponse</a></span></span><span class='comma'>,</span> <span class='id identifier rubyid_message'>message</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -971,8 +1100,8 @@ qualifiers</p>
       
         &mdash;
         <div class='inline'>
-<p>ruby representation of the json response if the reponsebody  does not
-parse, returns the non-parsed body</p>
+<p>ruby representation of the json response if the reponse body  does not
+parse, raises a SFRest::InvalidResponse</p>
 </div>
       
     </li>
@@ -985,22 +1114,18 @@ parse, returns the non-parsed body</p>
       <pre class="lines">
 
 
-100
-101
-102
-103
-104
-105
-106
-107
-108
-109
-110
-111
-112</pre>
+83
+84
+85
+86
+87
+88
+89
+90
+91</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/connection.rb', line 100</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/connection.rb', line 83</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_uri'>uri</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_headers'>headers</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Content-Type</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>application/json</span><span class='tstring_end'>&#39;</span></span> <span class='rbrace'>}</span>
@@ -1009,11 +1134,7 @@ parse, returns the non-parsed body</p>
                      <span class='label'>user:</span> <span class='id identifier rubyid_username'>username</span><span class='comma'>,</span>
                      <span class='label'>password:</span> <span class='id identifier rubyid_password'>password</span><span class='comma'>,</span>
                      <span class='label'>ssl_verify_peer:</span> <span class='kw'>false</span><span class='rparen'>)</span>
-  <span class='kw'>begin</span>
-    <span class='id identifier rubyid_access_check'>access_check</span> <span class='const'>JSON</span><span class='lparen'>(</span><span class='id identifier rubyid_res'>res</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_res'>res</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span>
-  <span class='kw'>rescue</span> <span class='const'>JSON</span><span class='op'>::</span><span class='const'>ParserError</span>
-    <span class='id identifier rubyid_res'>res</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span>
-  <span class='kw'>end</span>
+  <span class='id identifier rubyid_api_response'>api_response</span> <span class='id identifier rubyid_res'>res</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1066,8 +1187,8 @@ parse, returns the non-parsed body</p>
       
         &mdash;
         <div class='inline'>
-<p>ruby representation of the json response if the reponsebody  does not
-parse, returns the non-parsed body</p>
+<p>ruby representation of the json response if the reponse body  does not
+parse, raises a SFRest::InvalidResponse</p>
 </div>
       
     </li>
@@ -1088,11 +1209,7 @@ parse, returns the non-parsed body</p>
 26
 27
 28
-29
-30
-31
-32
-33</pre>
+29</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/sfrest/connection.rb', line 21</span>
@@ -1104,11 +1221,7 @@ parse, returns the non-parsed body</p>
                   <span class='label'>user:</span> <span class='id identifier rubyid_username'>username</span><span class='comma'>,</span>
                   <span class='label'>password:</span> <span class='id identifier rubyid_password'>password</span><span class='comma'>,</span>
                   <span class='label'>ssl_verify_peer:</span> <span class='kw'>false</span><span class='rparen'>)</span>
-  <span class='kw'>begin</span>
-    <span class='id identifier rubyid_access_check'>access_check</span> <span class='const'>JSON</span><span class='lparen'>(</span><span class='id identifier rubyid_res'>res</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_res'>res</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span>
-  <span class='kw'>rescue</span> <span class='const'>JSON</span><span class='op'>::</span><span class='const'>ParserError</span>
-    <span class='id identifier rubyid_res'>res</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span>
-  <span class='kw'>end</span>
+  <span class='id identifier rubyid_api_response'>api_response</span> <span class='id identifier rubyid_res'>res</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1161,8 +1274,8 @@ parse, returns the non-parsed body</p>
       
         &mdash;
         <div class='inline'>
-<p>http status and the ruby representation of the json response if the reponse
-body does not parse, returns the non-parsed body</p>
+<p>http status and the ruby representation if the reponse body  does not
+parse, raises a SFRest::InvalidResponse</p>
 </div>
       
     </li>
@@ -1175,23 +1288,18 @@ body does not parse, returns the non-parsed body</p>
       <pre class="lines">
 
 
+36
+37
+38
+39
 40
 41
 42
 43
-44
-45
-46
-47
-48
-49
-50
-51
-52
-53</pre>
+44</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/connection.rb', line 40</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/connection.rb', line 36</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_with_status'>get_with_status</span><span class='lparen'>(</span><span class='id identifier rubyid_uri'>uri</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_headers'>headers</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Content-Type</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>application/json</span><span class='tstring_end'>&#39;</span></span> <span class='rbrace'>}</span>
@@ -1200,12 +1308,7 @@ body does not parse, returns the non-parsed body</p>
                   <span class='label'>user:</span> <span class='id identifier rubyid_username'>username</span><span class='comma'>,</span>
                   <span class='label'>password:</span> <span class='id identifier rubyid_password'>password</span><span class='comma'>,</span>
                   <span class='label'>ssl_verify_peer:</span> <span class='kw'>false</span><span class='rparen'>)</span>
-  <span class='kw'>begin</span>
-    <span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='id identifier rubyid_access_check'>access_check</span> <span class='const'>JSON</span><span class='lparen'>(</span><span class='id identifier rubyid_res'>res</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_res'>res</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span>
-    <span class='kw'>return</span> <span class='id identifier rubyid_res'>res</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span><span class='comma'>,</span> <span class='id identifier rubyid_data'>data</span>
-  <span class='kw'>rescue</span> <span class='const'>JSON</span><span class='op'>::</span><span class='const'>ParserError</span>
-    <span class='kw'>return</span> <span class='id identifier rubyid_res'>res</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span><span class='comma'>,</span> <span class='id identifier rubyid_res'>res</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span>
-  <span class='kw'>end</span>
+  <span class='id identifier rubyid_api_response'>api_response</span> <span class='id identifier rubyid_res'>res</span><span class='comma'>,</span> <span class='kw'>true</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1238,12 +1341,12 @@ body does not parse, returns the non-parsed body</p>
       <pre class="lines">
 
 
-148
-149
-150</pre>
+145
+146
+147</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/connection.rb', line 148</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/connection.rb', line 145</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_ping'>ping</span>
   <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/api/v1/ping</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
@@ -1299,8 +1402,8 @@ body does not parse, returns the non-parsed body</p>
       
         &mdash;
         <div class='inline'>
-<p>ruby representation of the json response if the reponsebody  does not
-parse, returns the non-parsed body</p>
+<p>ruby representation of the json response if the reponse body  does not
+parse, raises a SFRest::InvalidResponse</p>
 </div>
       
     </li>
@@ -1313,23 +1416,19 @@ parse, returns the non-parsed body</p>
       <pre class="lines">
 
 
-60
-61
-62
-63
-64
-65
-66
-67
-68
-69
-70
-71
-72
-73</pre>
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/connection.rb', line 60</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/connection.rb', line 51</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_post'>post</span><span class='lparen'>(</span><span class='id identifier rubyid_uri'>uri</span><span class='comma'>,</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_headers'>headers</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Content-Type</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>application/json</span><span class='tstring_end'>&#39;</span></span> <span class='rbrace'>}</span>
@@ -1339,11 +1438,7 @@ parse, returns the non-parsed body</p>
                    <span class='label'>password:</span> <span class='id identifier rubyid_password'>password</span><span class='comma'>,</span>
                    <span class='label'>ssl_verify_peer:</span> <span class='kw'>false</span><span class='comma'>,</span>
                    <span class='label'>body:</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
-  <span class='kw'>begin</span>
-    <span class='id identifier rubyid_access_check'>access_check</span> <span class='const'>JSON</span><span class='lparen'>(</span><span class='id identifier rubyid_res'>res</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_res'>res</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span>
-  <span class='kw'>rescue</span> <span class='const'>JSON</span><span class='op'>::</span><span class='const'>ParserError</span>
-    <span class='id identifier rubyid_res'>res</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span>
-  <span class='kw'>end</span>
+  <span class='id identifier rubyid_api_response'>api_response</span> <span class='id identifier rubyid_res'>res</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1396,8 +1491,8 @@ parse, returns the non-parsed body</p>
       
         &mdash;
         <div class='inline'>
-<p>ruby representation of the json response if the reponsebody  does not
-parse, returns the non-parsed body</p>
+<p>ruby representation of the json response if the reponse body  does not
+parse, raises a SFRest::InvalidResponse</p>
 </div>
       
     </li>
@@ -1410,23 +1505,19 @@ parse, returns the non-parsed body</p>
       <pre class="lines">
 
 
-80
-81
-82
-83
-84
-85
-86
-87
-88
-89
-90
-91
-92
-93</pre>
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/connection.rb', line 80</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/connection.rb', line 67</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_put'>put</span><span class='lparen'>(</span><span class='id identifier rubyid_uri'>uri</span><span class='comma'>,</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_headers'>headers</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Content-Type</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>application/json</span><span class='tstring_end'>&#39;</span></span> <span class='rbrace'>}</span>
@@ -1436,11 +1527,7 @@ parse, returns the non-parsed body</p>
                   <span class='label'>password:</span> <span class='id identifier rubyid_password'>password</span><span class='comma'>,</span>
                   <span class='label'>ssl_verify_peer:</span> <span class='kw'>false</span><span class='comma'>,</span>
                   <span class='label'>body:</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
-  <span class='kw'>begin</span>
-    <span class='id identifier rubyid_access_check'>access_check</span> <span class='const'>JSON</span><span class='lparen'>(</span><span class='id identifier rubyid_res'>res</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_res'>res</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span>
-  <span class='kw'>rescue</span> <span class='const'>JSON</span><span class='op'>::</span><span class='const'>ParserError</span>
-    <span class='id identifier rubyid_res'>res</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span>
-  <span class='kw'>end</span>
+  <span class='id identifier rubyid_api_response'>api_response</span> <span class='id identifier rubyid_res'>res</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1473,12 +1560,12 @@ parse, returns the non-parsed body</p>
       <pre class="lines">
 
 
-153
-154
-155</pre>
+150
+151
+152</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/connection.rb', line 153</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/connection.rb', line 150</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_service_response'>service_response</span>
   <span class='id identifier rubyid_ping'>ping</span>
@@ -1493,7 +1580,7 @@ parse, returns the non-parsed body</p>
 </div>
 
       <div id="footer">
-  Generated on Fri Feb 16 16:22:26 2018 by
+  Generated on Sat Feb 17 08:14:30 2018 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.12 (ruby-2.3.0).
 </div>

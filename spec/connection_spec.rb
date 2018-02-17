@@ -10,9 +10,14 @@ describe SFRest::Connection do
       stub_json_request
       expect(@conn.get('/')).to be_a(Hash)
     end
-    it 'returns the if the body is not parsable.' do
+    it 'raises InvalidResponse the if the body is not parsable.' do
       stub_notjson_request
-      expect(@conn.get('/')).to eq('This is not json')
+      begin
+        @conn.get('/')
+      rescue SFRest::SFError => e
+        expect(e).to be_a(SFRest::InvalidResponse)
+        expect(e.message).to eq('Invalid data, status 200, body: This is not json')
+      end
     end
   end
 
@@ -25,9 +30,12 @@ describe SFRest::Connection do
     end
     it 'returns the if the body is not parsable.' do
       stub_notjson_request
-      res = @conn.get_with_status '/'
-      expect(res[0]).to eq 200
-      expect(res[1]).to eq('This is not json')
+      begin
+        @conn.get_with_status '/'
+      rescue SFRest::SFError => e
+        expect(e).to be_a(SFRest::InvalidResponse)
+        expect(e.message).to eq('Invalid data, status 200, body: This is not json')
+      end
     end
   end
 
@@ -39,8 +47,12 @@ describe SFRest::Connection do
     end
     it 'returns the if the body is not parsable.' do
       stub_notjson_request
-      res = @conn.post '/', '{}'
-      expect(res).to eq('This is not json')
+      begin
+        @conn.post '/', '{}'
+      rescue SFRest::SFError => e
+        expect(e).to be_a(SFRest::InvalidResponse)
+        expect(e.message).to eq('Invalid data, status 200, body: This is not json')
+      end
     end
   end
 
@@ -52,8 +64,12 @@ describe SFRest::Connection do
     end
     it 'returns the if the body is not parsable.' do
       stub_notjson_request
-      res = @conn.put '/', {}.to_json
-      expect(res).to eq('This is not json')
+      begin
+        @conn.put('/', {}.to_json)
+      rescue SFRest::SFError => e
+        expect(e).to be_a(SFRest::InvalidResponse)
+        expect(e.message).to eq('Invalid data, status 200, body: This is not json')
+      end
     end
   end
 
@@ -65,8 +81,12 @@ describe SFRest::Connection do
     end
     it 'returns the if the body is not parsable.' do
       stub_notjson_request
-      res = @conn.delete '/'
-      expect(res).to eq('This is not json')
+      begin
+        @conn.delete('/')
+      rescue SFRest::SFError => e
+        expect(e).to be_a(SFRest::InvalidResponse)
+        expect(e.message).to eq('Invalid data, status 200, body: This is not json')
+      end
     end
   end
 
@@ -90,6 +110,13 @@ describe SFRest::Connection do
     it 'throws an error on unqualified 4xx / 5xx http statuses' do
       stub_factory nil, '{ "message":"Random error message" }', 400
       expect { @conn.get('/') }.to raise_error(SFRest::SFError)
+    end
+    it 'throws empty result error' do
+      bodies = [{}, []]
+      bodies.each do |body|
+        stub_empty_response body
+        expect { @conn.get('/') }.to raise_error(SFRest::EmptyResult)
+      end
     end
   end
 
