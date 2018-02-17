@@ -71,6 +71,10 @@ def stub_notjson_request
   stub_factory(nil, 'This is not json')
 end
 
+def stub_empty_response(thing)
+  stub_factory nil, thing.to_s
+end
+
 # data generation methods
 
 def generate_domains

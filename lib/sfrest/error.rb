@@ -22,4 +22,10 @@ module SFRest
 
   # if you get in valid data
   class InvalidDataError < SFRest::SFError; end
+
+  # If the return seems to contain no data
+  class EmptyResult < SFRest::SFError; end
+
+  # If the return cannot be parsed into something useful
+  class InvalidResponse < SFRest::SFError; end
 end
