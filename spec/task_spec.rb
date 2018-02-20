@@ -81,6 +81,32 @@ describe SFRest::Task do
     end
   end
 
+  describe '#task_status' do
+    it 'calls the task status endpoint' do
+      status_response = generate_task_status @all_statuses.sample
+      tid = status_response['wip_task']['id']
+      task_status = status_response['wip_task']['status']
+      stub_factory %r{/api/v1/wip/task/\d+/status}, status_response.to_json
+      expect(@conn.task.task_status(tid)).to eq(task_status)
+    end
+
+    it 'throws an error if wip_task is missing' do
+      status_response = generate_task_status @all_statuses.sample
+      tid = status_response['wip_task']['id']
+      status_response.delete 'wip_task'
+      stub_factory %r{/api/v1/wip/task/\d+/status}, status_response.to_json
+      expect { @conn.task.task_status tid }.to raise_error(SFRest::InvalidDataError)
+    end
+
+    it 'throws an error if status is missing' do
+      status_response = generate_task_status @all_statuses.sample
+      tid = status_response['wip_task']['id']
+      status_response['wip_task'].delete 'status'
+      stub_factory %r{/api/v1/wip/task/\d+/status}, status_response.to_json
+      expect { @conn.task.task_status tid }.to raise_error(SFRest::InvalidDataError)
+    end
+  end
+
   describe '#task_running?' do
     it 'can detect a running task' do
       status_response = generate_task_status @running_statuses.sample
@@ -322,7 +348,6 @@ describe SFRest::Task do
 
   describe '#get_wip_task_status' do
     path = '/api/v1/wip'
-
     it 'calls the task status endpoint' do
       stub_request(:any, /.*#{@mock_endpoint}.*#{path}/)
         .with(headers: @mock_headers)
