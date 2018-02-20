@@ -111,13 +111,6 @@ describe SFRest::Connection do
       stub_factory nil, '{ "message":"Random error message" }', 400
       expect { @conn.get('/') }.to raise_error(SFRest::SFError)
     end
-    it 'throws empty result error' do
-      bodies = [{}, []]
-      bodies.each do |body|
-        stub_empty_response body
-        expect { @conn.get('/') }.to raise_error(SFRest::EmptyResult)
-      end
-    end
   end
 
   describe '#ping' do

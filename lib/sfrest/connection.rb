@@ -117,9 +117,8 @@ module SFRest
     #
     # The cyclomatic complexity check is being ignored here because we are
     # collecting all the possible exception raising cases.
-    # rubocop: disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    # rubocop: disable Metrics/CyclomaticComplexity
     def access_check(data, http_status)
-      raise SFRest::EmptyResult if data.size.zero?
       if data.is_a?(Hash) && !data['message'].nil?
         case data['message']
         when /Access denied|Access Denied/
@@ -138,7 +137,7 @@ module SFRest
       end
       data
     end
-    # rubocop: enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    # rubocop: enable Metrics/CyclomaticComplexity
 
     # pings the SF api as an authenticated user
     # responds with a pong
