@@ -840,6 +840,30 @@ check the global paused variable.</p>
         <li class="public ">
   <span class="summary_signature">
     
+      <a href="#task_status-instance_method" title="#task_status (instance method)">#<strong>task_status</strong>(task_id)  &#x21d2; Hash{&quot;wip_task&quot; =&gt; {&quot;id&quot; =&gt; Integer, &quot;status&quot; =&gt; Integer}, &quot;time&quot; =&gt; timestamp} </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Get the status of a wip task by id.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
       <a href="#wait_until_done-instance_method" title="#wait_until_done (instance method)">#<strong>wait_until_done</strong>(task_id, max_nap = 600)  &#x21d2; Object </a>
     
 
@@ -1087,19 +1111,19 @@ check the global paused variable.</p>
       <pre class="lines">
 
 
+123
+124
+125
+126
 127
 128
 129
 130
 131
-132
-133
-134
-135
-136</pre>
+132</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/task.rb', line 127</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/task.rb', line 123</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_find_task_ids'>find_task_ids</span><span class='lparen'>(</span><span class='id identifier rubyid_limit'>limit</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_page'>page</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_group'>group</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_klass'>klass</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_status'>status</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_res'>res</span> <span class='op'>=</span> <span class='id identifier rubyid_find_tasks'>find_tasks</span> <span class='label'>limit:</span> <span class='id identifier rubyid_limit'>limit</span><span class='comma'>,</span> <span class='label'>page:</span> <span class='id identifier rubyid_page'>page</span><span class='comma'>,</span> <span class='label'>group:</span> <span class='id identifier rubyid_group'>group</span><span class='comma'>,</span> <span class='label'>klass:</span> <span class='id identifier rubyid_klass'>klass</span><span class='comma'>,</span> <span class='label'>status:</span> <span class='id identifier rubyid_status'>status</span>
@@ -1238,14 +1262,14 @@ check the global paused variable.</p>
       <pre class="lines">
 
 
-146
-147
-148
-149
-150</pre>
+142
+143
+144
+145
+146</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/task.rb', line 146</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/task.rb', line 142</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_find_tasks'>find_tasks</span><span class='lparen'>(</span><span class='id identifier rubyid_datum'>datum</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_current_path'>current_path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/api/v1/tasks</span><span class='tstring_end'>&#39;</span></span>
@@ -1323,13 +1347,13 @@ check the global paused variable.</p>
       <pre class="lines">
 
 
-230
-231
-232
-233</pre>
+226
+227
+228
+229</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/task.rb', line 230</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/task.rb', line 226</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_task_class_info'>get_task_class_info</span><span class='lparen'>(</span><span class='id identifier rubyid_type'>type</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
   <span class='id identifier rubyid_current_path'>current_path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/api/v1/classes/</span><span class='tstring_end'>&#39;</span></span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_type'>type</span>
@@ -1440,6 +1464,10 @@ check the global paused variable.</p>
       <pre class="lines">
 
 
+153
+154
+155
+156
 157
 158
 159
@@ -1448,14 +1476,10 @@ check the global paused variable.</p>
 162
 163
 164
-165
-166
-167
-168
-169</pre>
+165</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/task.rb', line 157</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/task.rb', line 153</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_task_id'>get_task_id</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_group'>group</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_klass'>klass</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_status'>status</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_page_size'>page_size</span> <span class='op'>=</span> <span class='int'>100</span>
@@ -1516,13 +1540,13 @@ check the global paused variable.</p>
       <pre class="lines">
 
 
-187
-188
-189
-190</pre>
+183
+184
+185
+186</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/task.rb', line 187</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/task.rb', line 183</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_task_logs'>get_task_logs</span><span class='lparen'>(</span><span class='id identifier rubyid_task_id'>task_id</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_current_path'>current_path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/api/v1/tasks/</span><span class='tstring_end'>&#39;</span></span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_task_id'>task_id</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>&lt;&lt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/logs</span><span class='tstring_end'>&#39;</span></span>
@@ -1587,13 +1611,13 @@ check the global paused variable.</p>
       <pre class="lines">
 
 
-238
-239
-240
-241</pre>
+234
+235
+236
+237</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/task.rb', line 238</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/task.rb', line 234</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_wip_task_status'>get_wip_task_status</span><span class='lparen'>(</span><span class='id identifier rubyid_task_id'>task_id</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_current_path'>current_path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/api/v1/wip/task/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_task_id'>task_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/status</span><span class='tstring_end'>&quot;</span></span>
@@ -1644,20 +1668,20 @@ check the global paused variable</p>
       <pre class="lines">
 
 
+191
+192
+193
+194
 195
 196
 197
 198
 199
 200
-201
-202
-203
-204
-205</pre>
+201</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/task.rb', line 195</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/task.rb', line 191</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_globally_paused?'>globally_paused?</span>
   <span class='id identifier rubyid_paused'>paused</span> <span class='op'>=</span> <span class='kw'>false</span>
@@ -1701,14 +1725,14 @@ check the global paused variable</p>
       <pre class="lines">
 
 
-172
-173
-174
-175
-176</pre>
+168
+169
+170
+171
+172</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/task.rb', line 172</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/task.rb', line 168</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_pause_all_tasks'>pause_all_tasks</span>
   <span class='id identifier rubyid_current_path'>current_path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/api/v1/pause</span><span class='tstring_end'>&#39;</span></span>
@@ -1780,14 +1804,14 @@ task and it&#39;s children or just the task</p>
       <pre class="lines">
 
 
-211
-212
-213
-214
-215</pre>
+207
+208
+209
+210
+211</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/task.rb', line 211</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/task.rb', line 207</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_pause_task'>pause_task</span><span class='lparen'>(</span><span class='id identifier rubyid_task_id'>task_id</span><span class='comma'>,</span> <span class='id identifier rubyid_level'>level</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>family</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
   <span class='id identifier rubyid_current_path'>current_path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/api/v1/pause/</span><span class='tstring_end'>&#39;</span></span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_task_id'>task_id</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
@@ -1825,14 +1849,14 @@ task and it&#39;s children or just the task</p>
       <pre class="lines">
 
 
-179
-180
-181
-182
-183</pre>
+175
+176
+177
+178
+179</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/task.rb', line 179</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/task.rb', line 175</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_resume_all_tasks'>resume_all_tasks</span>
   <span class='id identifier rubyid_current_path'>current_path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/api/v1/pause</span><span class='tstring_end'>&#39;</span></span>
@@ -1904,14 +1928,14 @@ the task and it&#39;s children or just the task</p>
       <pre class="lines">
 
 
-221
-222
-223
-224
-225</pre>
+217
+218
+219
+220
+221</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/task.rb', line 221</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/task.rb', line 217</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_resume_task'>resume_task</span><span class='lparen'>(</span><span class='id identifier rubyid_task_id'>task_id</span><span class='comma'>,</span> <span class='id identifier rubyid_level'>level</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>family</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
   <span class='id identifier rubyid_current_path'>current_path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/api/v1/pause/</span><span class='tstring_end'>&#39;</span></span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_task_id'>task_id</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
@@ -2332,22 +2356,16 @@ the task and it&#39;s children or just the task</p>
       <pre class="lines">
 
 
-77
-78
-79
-80
-81
-82
-83</pre>
+85
+86
+87
+88</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/task.rb', line 77</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/task.rb', line 85</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_task_completed?'>task_completed?</span><span class='lparen'>(</span><span class='id identifier rubyid_task_id'>task_id</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_task_path'>task_path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/api/v1/wip/task/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_task_id'>task_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/status</span><span class='tstring_end'>&quot;</span></span>
-
-  <span class='id identifier rubyid_res'>res</span> <span class='op'>=</span> <span class='ivar'>@conn</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span> <span class='id identifier rubyid_task_path'>task_path</span>
-  <span class='id identifier rubyid_status'>status</span> <span class='op'>=</span> <span class='id identifier rubyid_res'>res</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>wip_task</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>status</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_status'>status</span> <span class='op'>=</span> <span class='id identifier rubyid_task_status'>task_status</span> <span class='id identifier rubyid_task_id'>task_id</span>
   <span class='id identifier rubyid_status_completed?'>status_completed?</span><span class='lparen'>(</span><span class='id identifier rubyid_status'>status</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -2409,22 +2427,16 @@ the task and it&#39;s children or just the task</p>
       <pre class="lines">
 
 
-89
-90
-91
-92
-93
 94
-95</pre>
+95
+96
+97</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/task.rb', line 89</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/task.rb', line 94</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_task_done?'>task_done?</span><span class='lparen'>(</span><span class='id identifier rubyid_task_id'>task_id</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_task_path'>task_path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/api/v1/wip/task/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_task_id'>task_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/status</span><span class='tstring_end'>&quot;</span></span>
-
-  <span class='id identifier rubyid_res'>res</span> <span class='op'>=</span> <span class='ivar'>@conn</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span> <span class='id identifier rubyid_task_path'>task_path</span>
-  <span class='id identifier rubyid_status'>status</span> <span class='op'>=</span> <span class='id identifier rubyid_res'>res</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>wip_task</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>status</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_status'>status</span> <span class='op'>=</span> <span class='id identifier rubyid_task_status'>task_status</span> <span class='id identifier rubyid_task_id'>task_id</span>
   <span class='id identifier rubyid_status_done?'>status_done?</span><span class='lparen'>(</span><span class='id identifier rubyid_status'>status</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -2486,22 +2498,16 @@ the task and it&#39;s children or just the task</p>
       <pre class="lines">
 
 
+110
 111
 112
-113
-114
-115
-116
-117</pre>
+113</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/task.rb', line 111</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/task.rb', line 110</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_task_errored?'>task_errored?</span><span class='lparen'>(</span><span class='id identifier rubyid_task_id'>task_id</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_task_path'>task_path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/api/v1/wip/task/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_task_id'>task_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/status</span><span class='tstring_end'>&quot;</span></span>
-
-  <span class='id identifier rubyid_res'>res</span> <span class='op'>=</span> <span class='ivar'>@conn</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span> <span class='id identifier rubyid_task_path'>task_path</span>
-  <span class='id identifier rubyid_status'>status</span> <span class='op'>=</span> <span class='id identifier rubyid_res'>res</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>wip_task</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>status</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_status'>status</span> <span class='op'>=</span> <span class='id identifier rubyid_task_status'>task_status</span> <span class='id identifier rubyid_task_id'>task_id</span>
   <span class='id identifier rubyid_status_error?'>status_error?</span><span class='lparen'>(</span><span class='id identifier rubyid_status'>status</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -2563,22 +2569,16 @@ the task and it&#39;s children or just the task</p>
       <pre class="lines">
 
 
-100
-101
 102
 103
 104
-105
-106</pre>
+105</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/task.rb', line 100</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/task.rb', line 102</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_task_killed?'>task_killed?</span><span class='lparen'>(</span><span class='id identifier rubyid_task_id'>task_id</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_task_path'>task_path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/api/v1/wip/task/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_task_id'>task_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/status</span><span class='tstring_end'>&quot;</span></span>
-
-  <span class='id identifier rubyid_res'>res</span> <span class='op'>=</span> <span class='ivar'>@conn</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span> <span class='id identifier rubyid_task_path'>task_path</span>
-  <span class='id identifier rubyid_status'>status</span> <span class='op'>=</span> <span class='id identifier rubyid_res'>res</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>wip_task</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>status</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
+  <span class='id identifier rubyid_status'>status</span> <span class='op'>=</span> <span class='id identifier rubyid_task_status'>task_status</span> <span class='id identifier rubyid_task_id'>task_id</span>
   <span class='id identifier rubyid_status_killed?'>status_killed?</span><span class='lparen'>(</span><span class='id identifier rubyid_status'>status</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -2640,6 +2640,90 @@ the task and it&#39;s children or just the task</p>
       <pre class="lines">
 
 
+77
+78
+79
+80</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/task.rb', line 77</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_task_running?'>task_running?</span><span class='lparen'>(</span><span class='id identifier rubyid_task_id'>task_id</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_status'>status</span> <span class='op'>=</span> <span class='id identifier rubyid_task_status'>task_status</span> <span class='id identifier rubyid_task_id'>task_id</span>
+  <span class='id identifier rubyid_status_running?'>status_running?</span><span class='lparen'>(</span><span class='id identifier rubyid_status'>status</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="task_status-instance_method">
+  
+    #<strong>task_status</strong>(task_id)  &#x21d2; <tt>Hash{"wip_task" =&gt; {"id" =&gt; Integer, "status" =&gt; Integer}, "time" =&gt; timestamp}</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Get the status of a wip task by id.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>task_id</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Hash{"wip_task" =&gt; {"id" =&gt; Integer, "status" =&gt; Integer}, "time" =&gt; timestamp}</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="InvalidDataError.html" title="SFRest::InvalidDataError (class)">InvalidDataError</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
 66
 67
 68
@@ -2651,12 +2735,12 @@ the task and it&#39;s children or just the task</p>
     <td>
       <pre class="code"><span class="info file"># File 'lib/sfrest/task.rb', line 66</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_task_running?'>task_running?</span><span class='lparen'>(</span><span class='id identifier rubyid_task_id'>task_id</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_task_path'>task_path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/api/v1/wip/task/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_task_id'>task_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/status</span><span class='tstring_end'>&quot;</span></span>
-
-  <span class='id identifier rubyid_res'>res</span> <span class='op'>=</span> <span class='ivar'>@conn</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span> <span class='id identifier rubyid_task_path'>task_path</span>
-  <span class='id identifier rubyid_status'>status</span> <span class='op'>=</span> <span class='id identifier rubyid_res'>res</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>wip_task</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>status</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
-  <span class='id identifier rubyid_status_running?'>status_running?</span><span class='lparen'>(</span><span class='id identifier rubyid_status'>status</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_task_status'>task_status</span><span class='lparen'>(</span><span class='id identifier rubyid_task_id'>task_id</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_current_path'>current_path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/api/v1/wip/task/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_task_id'>task_id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/status</span><span class='tstring_end'>&quot;</span></span>
+  <span class='id identifier rubyid_res'>res</span> <span class='op'>=</span> <span class='ivar'>@conn</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_current_path'>current_path</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="InvalidDataError.html" title="SFRest::InvalidDataError (class)">InvalidDataError</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>No wip task returned for task id </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_task_id'>task_id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_res'>res</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>wip_task</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="InvalidDataError.html" title="SFRest::InvalidDataError (class)">InvalidDataError</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>No task status returned for task id </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_task_id'>task_id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_res'>res</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>wip_task</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>status</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+  <span class='id identifier rubyid_res'>res</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>wip_task</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>status</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2722,12 +2806,12 @@ the task and it&#39;s children or just the task</p>
       <pre class="lines">
 
 
-246
-247
-248</pre>
+242
+243
+244</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/task.rb', line 246</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/task.rb', line 242</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_wait_until_done'>wait_until_done</span><span class='lparen'>(</span><span class='id identifier rubyid_task_id'>task_id</span><span class='comma'>,</span> <span class='id identifier rubyid_max_nap'>max_nap</span> <span class='op'>=</span> <span class='int'>600</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_wait_until_state'>wait_until_state</span><span class='lparen'>(</span><span class='id identifier rubyid_task_id'>task_id</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>done</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_max_nap'>max_nap</span><span class='rparen'>)</span>
@@ -2810,20 +2894,20 @@ the task and it&#39;s children or just the task</p>
       <pre class="lines">
 
 
+250
+251
+252
+253
 254
 255
 256
 257
 258
 259
-260
-261
-262
-263
-264</pre>
+260</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/task.rb', line 254</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/task.rb', line 250</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_wait_until_state'>wait_until_state</span><span class='lparen'>(</span><span class='id identifier rubyid_task_id'>task_id</span><span class='comma'>,</span> <span class='id identifier rubyid_state'>state</span><span class='comma'>,</span> <span class='id identifier rubyid_max_nap'>max_nap</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_blink_time'>blink_time</span> <span class='op'>=</span> <span class='int'>5</span> <span class='comment'># wake up and scan
@@ -2846,7 +2930,7 @@ the task and it&#39;s children or just the task</p>
 </div>
 
       <div id="footer">
-  Generated on Tue Feb 20 15:11:24 2018 by
+  Generated on Thu Feb 22 20:41:33 2018 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.12 (ruby-2.3.0).
 </div>

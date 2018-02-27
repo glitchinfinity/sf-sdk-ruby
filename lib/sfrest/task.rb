@@ -60,14 +60,22 @@ module SFRest
       false
     end
 
+    # Get the status of a wip task by id.
+    # @param [Integer] task_id
+    # @return [Hash{"wip_task" => {"id" => Integer, "status" => Integer}, "time" => timestamp}]
+    def task_status(task_id)
+      current_path = "/api/v1/wip/task/#{task_id}/status"
+      res = @conn.get(current_path)
+      raise InvalidDataError, "No wip task returned for task id #{task_id}" if res['wip_task'].nil?
+      raise InvalidDataError, "No task status returned for task id #{task_id}" if res['wip_task']['status'].nil?
+      res['wip_task']['status']
+    end
+
     # Returns true only if WIP reports the status as running
     # @param [Integer] task_id
     # @return [Boolean]
     def task_running?(task_id)
-      task_path = "/api/v1/wip/task/#{task_id}/status"
-
-      res = @conn.get task_path
-      status = res['wip_task']['status']
+      status = task_status task_id
       status_running?(status)
     end
 
@@ -75,10 +83,7 @@ module SFRest
     # @param [Integer] task_id
     # @return [Boolean]
     def task_completed?(task_id)
-      task_path = "/api/v1/wip/task/#{task_id}/status"
-
-      res = @conn.get task_path
-      status = res['wip_task']['status']
+      status = task_status task_id
       status_completed?(status)
     end
 
@@ -87,10 +92,7 @@ module SFRest
     # @param [Integer] task_id
     # @return [Boolean]
     def task_done?(task_id)
-      task_path = "/api/v1/wip/task/#{task_id}/status"
-
-      res = @conn.get task_path
-      status = res['wip_task']['status']
+      status = task_status task_id
       status_done?(status)
     end
 
@@ -98,10 +100,7 @@ module SFRest
     # @param [Integer] task_id
     # @return [Boolean]
     def task_killed?(task_id)
-      task_path = "/api/v1/wip/task/#{task_id}/status"
-
-      res = @conn.get task_path
-      status = res['wip_task']['status']
+      status = task_status task_id
       status_killed?(status)
     end
 
@@ -109,10 +108,7 @@ module SFRest
     # @param [Integer] task_id
     # @return [Boolean]
     def task_errored?(task_id)
-      task_path = "/api/v1/wip/task/#{task_id}/status"
-
-      res = @conn.get task_path
-      status = res['wip_task']['status']
+      status = task_status task_id
       status_error?(status)
     end
 
