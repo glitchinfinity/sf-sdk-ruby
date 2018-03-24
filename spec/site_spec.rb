@@ -114,6 +114,19 @@ describe SFRest::Site do
     end
   end
 
+  describe '#cache-clear' do
+    path = '/api/v1/sites'
+    it 'can clear cache on a site a site' do
+      site_id = rand 10**5
+      stub_request(:any, /.*#{@mock_endpoint}.*#{path}/)
+        .with(headers: @mock_headers)
+        .to_return { |request| { body: { uri: request.uri, body: request.body }.to_json } }
+      res = @conn.site.cache_clear site_id
+      uri = URI res['uri']
+      expect(uri.path).to eq "#{path}/#{site_id}/cache-clear"
+    end
+  end
+
   describe '#backup' do
     it 'can get a backup object' do
       expect(@conn.site.backup).to be_kind_of(SFRest::Backup)

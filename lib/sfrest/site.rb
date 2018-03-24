@@ -112,5 +112,13 @@ module SFRest
     def backup
       @conn.backup
     end
+
+    # Clears the caches for a site.
+    # @param [Integer] site_id The id of the site to be cleared
+    # @return [Hash]
+    def cache_clear(site_id)
+      current_path = "/api/v1/sites/#{site_id}/cache-clear"
+      @conn.post current_path, nil
+    end
   end
 end

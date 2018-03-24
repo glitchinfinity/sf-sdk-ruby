@@ -18,6 +18,15 @@ module SFRest
       @conn = conn
     end
 
+    # Returns true only if the status evaluates to not started
+    # or restarted
+    # @param [Integer] status
+    # @return [Boolean]
+    def status_not_started?(status)
+      return true if (status.to_i & STATUS_TO_BE_RUN) > 0
+      false
+    end
+
     # Returns true only if the status evaluates to completed
     # @param [Integer] status
     # @return [Boolean]
@@ -69,6 +78,15 @@ module SFRest
       raise InvalidDataError, "No wip task returned for task id #{task_id}" if res['wip_task'].nil?
       raise InvalidDataError, "No task status returned for task id #{task_id}" if res['wip_task']['status'].nil?
       res['wip_task']['status']
+    end
+
+    # Returns true only if WIP reports the status as not started
+    # or restarted
+    # @param [Integer] task_id
+    # @return [Boolean]
+    def task_not_started?(task_id)
+      status = task_status task_id
+      status_not_started?(status)
     end
 
     # Returns true only if WIP reports the status as running
@@ -218,6 +236,23 @@ module SFRest
       current_path = '/api/v1/pause/' << task_id.to_s
       payload = { 'paused' => false, 'level' => level }.to_json
       @conn.post(current_path, payload)
+    end
+
+    # Terminates a specific task identified by its task id.
+    # This will terminate the task and its children
+    # @param [Integer] task_id
+    def terminate_task(task_id)
+      current_path = "/api/v1/tasks/#{task_id}/terminate"
+      payload = nil
+      @conn.put(current_path, payload)
+    end
+
+    # Deletes a specific task identified by its task id.
+    # This will delete the task and its children
+    # @param [Integer] task_id
+    def delete_task(task_id)
+      current_path = '/api/v1/tasks/' << task_id.to_s
+      @conn.delete(current_path)
     end
 
     # returns the classes that are either softpaused or softpause-for-update
