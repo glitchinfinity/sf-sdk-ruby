@@ -22,6 +22,18 @@ describe SFRest::Task do
     # @all_statuses = @not_finished_statuses + @finished_statuses
   end
 
+  describe '#status_not_started?' do
+    it 'returns true of it gets a not started or restarted value' do
+      expect(@conn.task.status_not_started?(SFRest::Task::STATUS_NOT_STARTED)).to be true
+      expect(@conn.task.status_not_started?(SFRest::Task::STATUS_RESTARTED)).to be true
+    end
+    it 'returns false of it gets some other value' do
+      (@running_statuses + @completedish_statuses).each do |status|
+        expect(@conn.task.status_not_started?(status)).to be false
+      end
+    end
+  end
+
   describe '#status_completed?' do
     it 'returns true of it gets a completed value' do
       expect(@conn.task.status_completed?(SFRest::Task::STATUS_COMPLETED)).to be true
@@ -329,6 +341,32 @@ describe SFRest::Task do
       expect(uri.path).to eq "#{path}/#{tid}"
       expect(JSON(res['body'])['paused']).to eq false
       expect(JSON(res['body'])['level']).to eq 'task'
+    end
+  end
+
+  describe '#terminate_task' do
+    path = '/api/v1/tasks'
+    it 'terminates a running task' do
+      stub_request(:any, /.*#{@mock_endpoint}.*#{path}/)
+        .with(headers: @mock_headers)
+        .to_return { |request| { body: { uri: request.uri, body: request.body }.to_json } }
+      tid = rand 10**5
+      res = @conn.task.terminate_task tid
+      uri = URI res['uri']
+      expect(uri.path).to eq "#{path}/#{tid}/terminate"
+    end
+  end
+
+  describe '#delete_task' do
+    path = '/api/v1/tasks'
+    it 'deletes a task' do
+      stub_request(:any, /.*#{@mock_endpoint}.*#{path}/)
+        .with(headers: @mock_headers)
+        .to_return { |request| { body: { uri: request.uri, body: request.body }.to_json } }
+      tid = rand 10**5
+      res = @conn.task.delete_task tid
+      uri = URI res['uri']
+      expect(uri.path).to eq "#{path}/#{tid}"
     end
   end
 

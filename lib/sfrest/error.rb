@@ -25,4 +25,8 @@ module SFRest
 
   # If the return cannot be parsed into something useful
   class InvalidResponse < SFRest::SFError; end
+
+  # If you call an unsuported version
+  #
+  class InvalidApiVersion < SFRest::SFError; end
 end
