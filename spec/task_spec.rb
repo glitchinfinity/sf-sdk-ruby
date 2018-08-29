@@ -119,12 +119,21 @@ describe SFRest::Task do
     end
   end
 
-  describe '#task_running?' do
-    it 'can detect a running task' do
+  describe '#task_not_started?' do
+    it 'can detect a not started task' do
       status_response = generate_task_status @running_statuses.sample
       tid = status_response['wip_task']['id']
       stub_factory %r{/api/v1/wip/task/\d+/status}, status_response.to_json
       expect(@conn.task.task_running?(tid)).to be true
+    end
+  end
+
+  describe '#task_running?' do
+    it 'can detect a running task' do
+      status_response = generate_task_status @not_started_statuses.sample
+      tid = status_response['wip_task']['id']
+      stub_factory %r{/api/v1/wip/task/\d+/status}, status_response.to_json
+      expect(@conn.task.task_not_started?(tid)).to be true
     end
   end
 

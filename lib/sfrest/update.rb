@@ -23,8 +23,8 @@ module SFRest
     end
 
     # Lists vcs refs.
-    def list_vcs_refs(type = 'sites')
-      current_path = '/api/v1/vcs?type=' << type
+    def list_vcs_refs(type = 'sites', stack_id = 1)
+      current_path = '/api/v1/vcs?type=' << type << '&stack_id=' << stack_id.to_s
       @conn.get(current_path)
     end
 
