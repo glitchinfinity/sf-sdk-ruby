@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    sfrest (0.0.18)
+    sfrest (0.0.19)
       excon
 
 GEM
@@ -89,4 +89,4 @@ DEPENDENCIES
   yard
 
 BUNDLED WITH
-   1.16.1
+   1.16.2
