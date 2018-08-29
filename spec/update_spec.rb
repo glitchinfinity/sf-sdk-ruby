@@ -97,6 +97,19 @@ describe SFRest::Update do
       expect(res['method']).to eq 'get'
     end
 
+    it 'can list refs refs on other stacks' do
+      stub_request(:any, /.*#{@mock_endpoint}.*#{path}/)
+        .with(headers: @mock_headers)
+        .to_return { |request| { body: { uri: request.uri, body: request.body, method: request.method }.to_json } }
+      res = @conn.update.list_vcs_refs 'sites', 2
+      uri = URI res['uri']
+      query_hash = URI.decode_www_form(uri.query).to_h
+      expect(uri.path).to eq path
+      expect(query_hash['type']).to eq 'sites'
+      expect(query_hash['stack_id']).to eq '2'
+      expect(res['method']).to eq 'get'
+    end
+
     it 'can list factory vcs refs' do
       stub_request(:any, /.*#{@mock_endpoint}.*#{path}/)
         .with(headers: @mock_headers)
