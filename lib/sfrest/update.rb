@@ -30,6 +30,9 @@ module SFRest
 
     # Starts an update.
     def start_update(ref)
+      if update_version == 'v2'
+        raise InvalidApiVersion, 'There is more than one codebase use sfrest.update.update directly.'
+      end
       update_data = { scope: 'sites', sites_type: 'code, db', sites_ref: ref }
       update(update_data)
     end
@@ -44,9 +47,17 @@ module SFRest
     # This method does not filter or validate so that it can be used for
     # negative cases. (missing data)
     def update(datum)
-      current_path = '/api/v1/update'
+      validate_request datum
+      current_path = "/api/#{update_version}/update"
       payload = datum.to_json
       @conn.post(current_path, payload)
+    end
+
+    def validate_request(datum)
+      v1_keys = %i[scope sites_ref factory_ref sites_type factory_type db_update_arguments]
+      v2_keys = %i[sites factory]
+      key_overlap = binding.local_variable_get("#{update_version}_keys") & datum.keys
+      raise InvalidDataError, "An invalid stucture was passed to the #{update_version} endpoint" if key_overlap.empty?
     end
 
     # Gets the list of updates.
@@ -73,6 +84,11 @@ module SFRest
       current_path = '/api/v1/update/pause'
       payload = { 'pause' => false }.to_json
       @conn.post(current_path, payload)
+    end
+
+    # Determines the api version to use for updates.
+    def update_version
+      @conn.codebase.list['stacks'].size > 1 ? 'v2' : 'v1'
     end
   end
 end
