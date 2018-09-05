@@ -65,20 +65,137 @@ describe SFRest::Update do
   end
 
   describe '#start_update' do
-    path = '/api/v1/update'
-
+    path = '/api/v(1|2)/update'
+    stacks_path = '/api/v1/stacks'
     it 'can start an update' do
       stub_request(:any, /.*#{@mock_endpoint}.*#{path}/)
         .with(headers: @mock_headers)
         .to_return { |request| { body: { uri: request.uri, body: request.body, method: request.method }.to_json } }
+      stub_request(:any, /.*#{@mock_endpoint}.*#{stacks_path}/)
+        .with(headers: @mock_headers)
+        .to_return(body: { 'stacks' => { 1 => 'abcde' } }.to_json)
       ref = SecureRandom.urlsafe_base64
       res = @conn.update.start_update ref
       uri = URI res['uri']
-      expect(uri.path).to eq path
+      expect(uri.path).to match path
       expect(JSON(res['body'])['scope']).to eq 'sites'
       expect(JSON(res['body'])['sites_type']).to eq 'code, db'
       expect(JSON(res['body'])['sites_ref']).to eq ref
       expect(res['method']).to eq 'post'
+    end
+
+    it 'cannot update a multistack' do
+      stub_request(:any, /.*#{@mock_endpoint}.*#{path}/)
+        .with(headers: @mock_headers)
+        .to_return { |request| { body: { uri: request.uri, body: request.body, method: request.method }.to_json } }
+      stub_request(:any, /.*#{@mock_endpoint}.*#{stacks_path}/)
+        .with(headers: @mock_headers)
+        .to_return(body: { 'stacks' => { 1 => 'abcde', 2 => 'fghij' } }.to_json)
+      ref = SecureRandom.urlsafe_base64
+      expect { @conn.update.start_update ref }.to raise_error SFRest::InvalidApiVersion
+    end
+  end
+
+  describe '#update' do
+    path = '/api/v(1|2)/update'
+    stacks_path = '/api/v1/stacks'
+    it 'can start a multistack update' do
+      stub_request(:any, /.*#{@mock_endpoint}.*#{path}/)
+        .with(headers: @mock_headers)
+        .to_return { |request| { body: { uri: request.uri, body: request.body, method: request.method }.to_json } }
+      stub_request(:any, /.*#{@mock_endpoint}.*#{stacks_path}/)
+        .with(headers: @mock_headers)
+        .to_return(body: { 'stacks' => { 1 => 'abcde', 2 => 'fghij' } }.to_json)
+      ref = SecureRandom.urlsafe_base64
+      res = @conn.update.update sites: [{ name: 'foo', ref: ref }]
+      uri = URI res['uri']
+      expect(uri.path).to match path
+      expect(JSON(res['body'])['sites']).to eq ['name' => 'foo', 'ref' => ref]
+      expect(res['method']).to eq 'post'
+    end
+
+    it 'can start a single stack update' do
+      stub_request(:any, /.*#{@mock_endpoint}.*#{path}/)
+        .with(headers: @mock_headers)
+        .to_return { |request| { body: { uri: request.uri, body: request.body, method: request.method }.to_json } }
+      stub_request(:any, /.*#{@mock_endpoint}.*#{stacks_path}/)
+        .with(headers: @mock_headers)
+        .to_return(body: { 'stacks' => { 1 => 'abcde' } }.to_json)
+      ref = SecureRandom.urlsafe_base64
+      res = @conn.update.update scope: 'sites', sites_ref: ref, sites_type: 'code, db'
+      uri = URI res['uri']
+      expect(uri.path).to match path
+      expect(JSON(res['body'])['scope']).to eq 'sites'
+      expect(JSON(res['body'])['sites_type']).to eq 'code, db'
+      expect(JSON(res['body'])['sites_ref']).to eq ref
+    end
+
+    it 'can not start an update on the wrong version' do
+      stub_request(:any, /.*#{@mock_endpoint}.*#{path}/)
+        .with(headers: @mock_headers)
+        .to_return { |request| { body: { uri: request.uri, body: request.body, method: request.method }.to_json } }
+      stub_request(:any, /.*#{@mock_endpoint}.*#{stacks_path}/)
+        .with(headers: @mock_headers)
+        .to_return(body: { 'stacks' => { 1 => 'abcde' } }.to_json)
+      ref = SecureRandom.urlsafe_base64
+      expect { @conn.update.update sites: [{ name: 'foo', ref: ref }] }.to raise_error SFRest::InvalidDataError
+    end
+  end
+
+  describe '#update_version' do
+    stacks_path = '/api/v1/stacks'
+    it 'returns v1 if 1 stack' do
+      stub_request(:any, /.*#{@mock_endpoint}.*#{stacks_path}/)
+        .with(headers: @mock_headers)
+        .to_return(body: { 'stacks' => { 1 => 'abcde' } }.to_json)
+      expect(@conn.update.update_version).to eq 'v1'
+    end
+
+    it 'returns v2 if 2 stacks' do
+      stub_request(:any, /.*#{@mock_endpoint}.*#{stacks_path}/)
+        .with(headers: @mock_headers)
+        .to_return(body: { 'stacks' => { 1 => 'abcde', 2 => 'fghij' } }.to_json)
+      expect(@conn.update.update_version).to eq 'v2'
+    end
+  end
+
+  describe '#validate_request' do
+    stacks_path = '/api/v1/stacks'
+    v1_datum = { scope: 'both',
+                 sites_ref: 'tags/1234',
+                 factory_ref: 'tags/2345',
+                 sites_type: 'code',
+                 factory_type: 'code, db',
+                 db_update_arguments: 'arg1 arg2' }
+    v2_datum = { sites: [{ name: 's3tg42', ref: 'tags/12345', type: 'code', db_update_arguments: 'arg1 arg2' }],
+                 factory: { ref: 'tags/5678', type: 'code' } }
+
+    it 'will use a v1 data set' do
+      stub_request(:any, /.*#{@mock_endpoint}.*#{stacks_path}/)
+        .with(headers: @mock_headers)
+        .to_return(body: { 'stacks' => { 1 => 'abcde' } }.to_json)
+      expect(@conn.update.validate_request(v1_datum)).to be nil
+    end
+
+    it 'will raise if v2 tries to use v1 data' do
+      stub_request(:any, /.*#{@mock_endpoint}.*#{stacks_path}/)
+        .with(headers: @mock_headers)
+        .to_return(body: { 'stacks' => { 1 => 'abcde', 2 => 'fghij' } }.to_json)
+      expect { @conn.update.validate_request(v1_datum) }.to raise_error SFRest::InvalidDataError
+    end
+
+    it 'will use a v2 data set' do
+      stub_request(:any, /.*#{@mock_endpoint}.*#{stacks_path}/)
+        .with(headers: @mock_headers)
+        .to_return(body: { 'stacks' => { 1 => 'abcde', 2 => 'fghij' } }.to_json)
+      expect(@conn.update.validate_request(v2_datum)).to be nil
+    end
+
+    it 'will raise if v1 tries to use v2 data' do
+      stub_request(:any, /.*#{@mock_endpoint}.*#{stacks_path}/)
+        .with(headers: @mock_headers)
+        .to_return(body: { 'stacks' => { 1 => 'abcde' } }.to_json)
+      expect { @conn.update.validate_request(v2_datum) }.to raise_error SFRest::InvalidDataError
     end
   end
 
