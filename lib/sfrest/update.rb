@@ -87,8 +87,29 @@ module SFRest
     end
 
     # Determines the api version to use for updates.
+    # it is possible for there to be two codebases
+    # and not have a v2 endpoint.
     def update_version
-      @conn.codebase.list['stacks'].size > 1 ? 'v2' : 'v1'
+      multi_stack? && v2_endpoint? ? 'v2' : 'v1'
+    end
+
+    def multi_stack?
+      @multi_stack ||= @conn.codebase.list['stacks'].size > 1
+    end
+
+    # Determines if the v2 endpoint exists.
+    # A factory with the endpoint will raise an SFRest::BadRequestError
+    # A factory without the endpoint will raise SFRest::InvalidResponse
+    def v2_endpoint?
+      return @has_v2_endpoint unless @has_v2_endpoint.nil?
+      begin
+        @conn.post '/api/v2/update', '{}'
+      rescue SFRest::BadRequestError
+        return @has_v2_endpoint = true
+      rescue SFRest::InvalidResponse => e
+        return @has_v2_endpoint = false if e.message =~ /Invalid data, status 404/
+        raise e
+      end
     end
   end
 end

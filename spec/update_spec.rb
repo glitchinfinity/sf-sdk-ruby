@@ -87,7 +87,10 @@ describe SFRest::Update do
     it 'cannot update a multistack' do
       stub_request(:any, /.*#{@mock_endpoint}.*#{path}/)
         .with(headers: @mock_headers)
-        .to_return { |request| { body: { uri: request.uri, body: request.body, method: request.method }.to_json } }
+        .to_raise(SFRest::BadRequestError)
+        .to_return do |request|
+          { status: 200, body: { uri: request.uri, body: request.body, method: request.method }.to_json }
+        end
       stub_request(:any, /.*#{@mock_endpoint}.*#{stacks_path}/)
         .with(headers: @mock_headers)
         .to_return(body: { 'stacks' => { 1 => 'abcde', 2 => 'fghij' } }.to_json)
@@ -102,6 +105,7 @@ describe SFRest::Update do
     it 'can start a multistack update' do
       stub_request(:any, /.*#{@mock_endpoint}.*#{path}/)
         .with(headers: @mock_headers)
+        .to_raise(SFRest::BadRequestError)
         .to_return { |request| { body: { uri: request.uri, body: request.body, method: request.method }.to_json } }
       stub_request(:any, /.*#{@mock_endpoint}.*#{stacks_path}/)
         .with(headers: @mock_headers)
@@ -143,6 +147,7 @@ describe SFRest::Update do
   end
 
   describe '#update_version' do
+    path = '/api/v(1|2)/update'
     stacks_path = '/api/v1/stacks'
     it 'returns v1 if 1 stack' do
       stub_request(:any, /.*#{@mock_endpoint}.*#{stacks_path}/)
@@ -152,6 +157,9 @@ describe SFRest::Update do
     end
 
     it 'returns v2 if 2 stacks' do
+      stub_request(:any, /.*#{@mock_endpoint}.*#{path}/)
+        .with(headers: @mock_headers)
+        .to_raise(SFRest::BadRequestError)
       stub_request(:any, /.*#{@mock_endpoint}.*#{stacks_path}/)
         .with(headers: @mock_headers)
         .to_return(body: { 'stacks' => { 1 => 'abcde', 2 => 'fghij' } }.to_json)
@@ -159,7 +167,49 @@ describe SFRest::Update do
     end
   end
 
+  describe '#multi_stack?' do
+    stacks_path = '/api/v1/stacks'
+    it 'returns the proper stack status' do
+      stub_request(:any, /.*#{@mock_endpoint}.*#{stacks_path}/)
+        .with(headers: @mock_headers)
+        .to_return(body: { 'stacks' => { 1 => 'abcde' } }.to_json)
+        .to_return(body: { 'stacks' => { 1 => 'abcde', 2 => 'fghij' } }.to_json)
+      expect(@conn.update.multi_stack?).to be false
+      expect(@conn.update.multi_stack?).to be true
+    end
+    # @TODO: this does not ensure multi_stack is singleton
+  end
+
+  describe '#v2_endpoint?' do
+    path = '/api/v(1|2)/update'
+    it 'detects a v1 endpoint' do
+      stub_request(:any, /.*#{@mock_endpoint}.*#{path}/)
+        .with(headers: @mock_headers)
+        .to_raise(SFRest::InvalidResponse.new('Invalid data, status 404'))
+      expect(@conn.update.v2_endpoint?).to be false
+    end
+
+    it 'detects a v2 endpoint' do
+      stub_request(:any, /.*#{@mock_endpoint}.*#{path}/)
+        .with(headers: @mock_headers)
+        .to_raise(SFRest::BadRequestError)
+      expect(@conn.update.v2_endpoint?).to be true
+    end
+
+    it 'takes exception to other responses' do
+      stub_request(:any, /.*#{@mock_endpoint}.*#{path}/)
+        .with(headers: @mock_headers)
+        .to_raise(SFRest::InvalidResponse.new)
+        .to_raise(SFRest::InvalidResponse.new('Invalid data danger danger, status 404'))
+        .to_raise(SFRest::UnprocessableEntity)
+      expect { @conn.update.v2_endpoint? }.to raise_error(SFRest::InvalidResponse)
+      expect { @conn.update.v2_endpoint? }.to raise_error(SFRest::InvalidResponse)
+      expect { @conn.update.v2_endpoint? }.to raise_error(SFRest::UnprocessableEntity)
+    end
+  end
+
   describe '#validate_request' do
+    path = '/api/v(1|2)/update'
     stacks_path = '/api/v1/stacks'
     v1_datum = { scope: 'both',
                  sites_ref: 'tags/1234',
@@ -178,6 +228,9 @@ describe SFRest::Update do
     end
 
     it 'will raise if v2 tries to use v1 data' do
+      stub_request(:any, /.*#{@mock_endpoint}.*#{path}/)
+        .with(headers: @mock_headers)
+        .to_raise(SFRest::BadRequestError)
       stub_request(:any, /.*#{@mock_endpoint}.*#{stacks_path}/)
         .with(headers: @mock_headers)
         .to_return(body: { 'stacks' => { 1 => 'abcde', 2 => 'fghij' } }.to_json)
@@ -185,6 +238,9 @@ describe SFRest::Update do
     end
 
     it 'will use a v2 data set' do
+      stub_request(:any, /.*#{@mock_endpoint}.*#{path}/)
+        .with(headers: @mock_headers)
+        .to_raise(SFRest::BadRequestError)
       stub_request(:any, /.*#{@mock_endpoint}.*#{stacks_path}/)
         .with(headers: @mock_headers)
         .to_return(body: { 'stacks' => { 1 => 'abcde', 2 => 'fghij' } }.to_json)
