@@ -16,6 +16,7 @@ module SFRest
       count = res['count'].to_i
       id = collection_data_from_results(res, name, 'id')
       return id if id
+
       pages = (count / pglimit) + 1
       2.upto(pages) do |i|
         res = @conn.get('/api/v1/collections&limit=' + pglimit.to_s + '?page=' + i.to_s)

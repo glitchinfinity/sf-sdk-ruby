@@ -527,7 +527,7 @@ end
 def generate_roles_data
   role_count = rand 50
   roles = {}
-  last_acquia_rid = role_candidates.keys.sort.last
+  last_acquia_rid = role_candidates.keys.max
   role_count.times do |i|
     rid = last_acquia_rid + 5 * (i + 1)
     rname = SecureRandom.urlsafe_base64

@@ -24,6 +24,7 @@ module SFRest
     # @return [Boolean]
     def status_not_started?(status)
       return true if (status.to_i & STATUS_TO_BE_RUN) > 0
+
       false
     end
 
@@ -32,6 +33,7 @@ module SFRest
     # @return [Boolean]
     def status_completed?(status)
       return true if status.to_i == STATUS_COMPLETED
+
       false
     end
 
@@ -41,6 +43,7 @@ module SFRest
     # @return [Boolean]
     def status_running?(status)
       return true if (status.to_i & STATUS_RUNNING) > 0
+
       false
     end
 
@@ -49,6 +52,7 @@ module SFRest
     # @return [Boolean]
     def status_error?(status)
       return true if status.to_i == STATUS_ERROR
+
       false
     end
 
@@ -57,6 +61,7 @@ module SFRest
     # @return [Boolean]
     def status_killed?(status)
       return true if status.to_i == STATUS_KILLED
+
       false
     end
 
@@ -66,6 +71,7 @@ module SFRest
     # @return [Boolean]
     def status_done?(status)
       return true if (status.to_i & STATUS_DONE) > 0
+
       false
     end
 
@@ -77,6 +83,7 @@ module SFRest
       res = @conn.get(current_path)
       raise InvalidDataError, "No wip task returned for task id #{task_id}" if res['wip_task'].nil?
       raise InvalidDataError, "No task status returned for task id #{task_id}" if res['wip_task']['status'].nil?
+
       res['wip_task']['status']
     end
 
@@ -175,6 +182,7 @@ module SFRest
         tasks = find_tasks(limit: page_size, page: page, group: group, class: klass, status: status)
         tasks.each do |task|
           return task['id'].to_i if task['name'] =~ /#{name}/
+
           page += 1
         end
         break if tasks.size < page_size
@@ -289,6 +297,7 @@ module SFRest
       loop do
         break if state_method.call(task_id)
         raise TaskNotDoneError, "Task: #{task_id} has taken too long to complete!" if Time.new > (nap_start + max_nap)
+
         sleep blink_time
       end
       task_id

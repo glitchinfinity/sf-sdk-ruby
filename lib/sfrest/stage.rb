@@ -15,6 +15,7 @@ module SFRest
     # @return [Integer] Id of the staging task created.
     def stage(to_env = 'test', sites = nil, email_site_status = false, skip_gardener = false)
       raise InvalidApiVersion, staging_versions unless staging_versions.include? 1
+
       payload = { 'to_env' => to_env, 'sites' => sites,
                   'detailed_status' => email_site_status,
                   'skip_gardener' => skip_gardener }.to_json
@@ -35,6 +36,7 @@ module SFRest
                        wipe_target_environment: false,
                        synchronize_all_users: true)
       raise InvalidApiVersion, staging_versions unless staging_versions.include? 2
+
       payload = { 'to_env' => env, 'sites' => sites,
                   'detailed_status' => email_site_status,
                   'wipe_target_environment' => wipe_target_environment,

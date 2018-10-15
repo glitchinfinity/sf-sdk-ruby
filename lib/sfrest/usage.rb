@@ -41,12 +41,12 @@ module SFRest
       @conn.get URI.parse(pb.build_url_query(current_path, datum)).to_s
     end
 
+    private
+
     # returns a Pathbuilder object for manipulating the query parameters
     # @return [SFRest::Pathbuilder]
     def pb
       @pb ||= SFRest::Pathbuilder.new
     end
-
-    private :pb
   end
 end

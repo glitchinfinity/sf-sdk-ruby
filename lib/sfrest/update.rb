@@ -33,6 +33,7 @@ module SFRest
       if update_version == 'v2'
         raise InvalidApiVersion, 'There is more than one codebase use sfrest.update.update directly.'
       end
+
       update_data = { scope: 'sites', sites_type: 'code, db', sites_ref: ref }
       update(update_data)
     end
@@ -102,12 +103,14 @@ module SFRest
     # A factory without the endpoint will raise SFRest::InvalidResponse
     def v2_endpoint?
       return @has_v2_endpoint unless @has_v2_endpoint.nil?
+
       begin
         @conn.post '/api/v2/update', '{}'
       rescue SFRest::BadRequestError
         return @has_v2_endpoint = true
       rescue SFRest::InvalidResponse => e
         return @has_v2_endpoint = false if e.message =~ /Invalid data, status 404/
+
         raise e
       end
     end

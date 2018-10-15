@@ -16,6 +16,7 @@ module SFRest
       sitecount = res['count'].to_i
       id = site_data_from_results(res, sitename, 'id')
       return id if id
+
       pages = (sitecount / pglimit) + 1
       2.upto(pages) do |i|
         res = @conn.get('/api/v1/sites&limit=' + pglimit.to_s + '?page=' + i.to_s)

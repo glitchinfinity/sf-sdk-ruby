@@ -43,6 +43,7 @@ module SFRest
       usercount = res['count'].to_i
       id = user_data_from_results(res, username, 'uid')
       return id if id
+
       pages = (usercount / pglimit) + 1
       2.upto(pages) do |i|
         res = @conn.get('/api/v1/users&limit=' + pglimit.to_s + '?page=' + i.to_s)
