@@ -46,6 +46,7 @@ module SFRest
       rolecount = res['count'].to_i
       id = role_data_from_results(res, rolename)
       return id if id
+
       pages = (rolecount / pglimit) + 1
       2.upto(pages) do |i|
         res = @conn.get('/api/v1/roles&limit=' + pglimit.to_s + '?page=' + i.to_s)

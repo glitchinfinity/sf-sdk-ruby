@@ -54,6 +54,7 @@ module SFRest
   def self.find_data_from_results(res, field, datapat, key)
     data = res.reject { |k| k.to_s.match(/time|count/) }
     raise InvalidDataError('The data you are searching is not a hash') unless data.is_a?(Hash)
+
     data.each_value do |datum|
       datum.each do |dat|
         return dat[key] if dat[field].to_s =~ /#{datapat}/

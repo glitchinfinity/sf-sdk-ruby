@@ -98,8 +98,7 @@ module SFRest
     #                        else Object
     def api_response(res, return_status = false)
       data = access_check JSON(res.body), res.status
-      ret_data = return_status ? [res.status, data] : data
-      return ret_data
+      return_status ? [res.status, data] : data
     rescue JSON::ParserError
       message = "Invalid data, status #{res.status}, body: #{res.body}"
       raise SFRest::InvalidResponse, message
