@@ -6,7 +6,7 @@
 <title>
   Class: SFRest::Update
   
-    &mdash; Documentation by YARD 0.9.12
+    &mdash; Documentation by YARD 0.9.16
   
 </title>
 
@@ -659,12 +659,12 @@
       <pre class="lines">
 
 
-96
 97
-98</pre>
+98
+99</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/update.rb', line 96</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/update.rb', line 97</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_multi_stack?'>multi_stack?</span>
   <span class='ivar'>@multi_stack</span> <span class='op'>||=</span> <span class='ivar'>@conn</span><span class='period'>.</span><span class='id identifier rubyid_codebase'>codebase</span><span class='period'>.</span><span class='id identifier rubyid_list'>list</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>stacks</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_size'>size</span> <span class='op'>&gt;</span> <span class='int'>1</span>
@@ -700,14 +700,14 @@
       <pre class="lines">
 
 
-76
 77
 78
 79
-80</pre>
+80
+81</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/update.rb', line 76</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/update.rb', line 77</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_pause_update'>pause_update</span>
   <span class='id identifier rubyid_current_path'>current_path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/api/v1/update/pause</span><span class='tstring_end'>&#39;</span></span>
@@ -745,14 +745,14 @@
       <pre class="lines">
 
 
-83
 84
 85
 86
-87</pre>
+87
+88</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/update.rb', line 83</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/update.rb', line 84</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_resume_update'>resume_update</span>
   <span class='id identifier rubyid_current_path'>current_path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/api/v1/update/pause</span><span class='tstring_end'>&#39;</span></span>
@@ -796,7 +796,8 @@
 35
 36
 37
-38</pre>
+38
+39</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/sfrest/update.rb', line 32</span>
@@ -805,6 +806,7 @@
   <span class='kw'>if</span> <span class='id identifier rubyid_update_version'>update_version</span> <span class='op'>==</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>v2</span><span class='tstring_end'>&#39;</span></span>
     <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="InvalidApiVersion.html" title="SFRest::InvalidApiVersion (class)">InvalidApiVersion</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>There is more than one codebase use sfrest.update.update directly.</span><span class='tstring_end'>&#39;</span></span>
   <span class='kw'>end</span>
+
   <span class='id identifier rubyid_update_data'>update_data</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='label'>scope:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>sites</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>sites_type:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>code, db</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='label'>sites_ref:</span> <span class='id identifier rubyid_ref'>ref</span> <span class='rbrace'>}</span>
   <span class='id identifier rubyid_update'>update</span><span class='lparen'>(</span><span class='id identifier rubyid_update_data'>update_data</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
@@ -887,15 +889,15 @@ for negative cases. (missing data)</p>
       <pre class="lines">
 
 
-49
 50
 51
 52
 53
-54</pre>
+54
+55</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/update.rb', line 49</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/update.rb', line 50</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update'>update</span><span class='lparen'>(</span><span class='id identifier rubyid_datum'>datum</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_validate_request'>validate_request</span> <span class='id identifier rubyid_datum'>datum</span>
@@ -934,13 +936,13 @@ for negative cases. (missing data)</p>
       <pre class="lines">
 
 
-64
 65
 66
-67</pre>
+67
+68</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/update.rb', line 64</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/update.rb', line 65</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_list'>update_list</span>
   <span class='id identifier rubyid_current_path'>current_path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/api/v1/update</span><span class='tstring_end'>&#39;</span></span>
@@ -977,13 +979,13 @@ for negative cases. (missing data)</p>
       <pre class="lines">
 
 
-70
 71
 72
-73</pre>
+73
+74</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/update.rb', line 70</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/update.rb', line 71</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_progress'>update_progress</span><span class='lparen'>(</span><span class='id identifier rubyid_update_id'>update_id</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_current_path'>current_path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/api/v1/update/</span><span class='tstring_end'>&#39;</span></span> <span class='op'>+</span> <span class='id identifier rubyid_update_id'>update_id</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/status</span><span class='tstring_end'>&#39;</span></span>
@@ -1021,12 +1023,12 @@ be two codebases and not have a v2 endpoint.</p>
       <pre class="lines">
 
 
-92
 93
-94</pre>
+94
+95</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/update.rb', line 92</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/update.rb', line 93</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_version'>update_version</span>
   <span class='id identifier rubyid_multi_stack?'>multi_stack?</span> <span class='op'>&amp;&amp;</span> <span class='id identifier rubyid_v2_endpoint?'>v2_endpoint?</span> <span class='op'>?</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>v2</span><span class='tstring_end'>&#39;</span></span> <span class='op'>:</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>v1</span><span class='tstring_end'>&#39;</span></span>
@@ -1077,7 +1079,6 @@ SFRest::InvalidResponse</p>
       <pre class="lines">
 
 
-103
 104
 105
 106
@@ -1087,19 +1088,24 @@ SFRest::InvalidResponse</p>
 110
 111
 112
-113</pre>
+113
+114
+115
+116</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/update.rb', line 103</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/update.rb', line 104</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_v2_endpoint?'>v2_endpoint?</span>
   <span class='kw'>return</span> <span class='ivar'>@has_v2_endpoint</span> <span class='kw'>unless</span> <span class='ivar'>@has_v2_endpoint</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
+
   <span class='kw'>begin</span>
     <span class='ivar'>@conn</span><span class='period'>.</span><span class='id identifier rubyid_post'>post</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/api/v2/update</span><span class='tstring_end'>&#39;</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>{}</span><span class='tstring_end'>&#39;</span></span>
   <span class='kw'>rescue</span> <span class='const'><span class='object_link'><a href="../SFRest.html" title="SFRest (module)">SFRest</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="BadRequestError.html" title="SFRest::BadRequestError (class)">BadRequestError</a></span></span>
     <span class='kw'>return</span> <span class='ivar'>@has_v2_endpoint</span> <span class='op'>=</span> <span class='kw'>true</span>
   <span class='kw'>rescue</span> <span class='const'><span class='object_link'><a href="../SFRest.html" title="SFRest (module)">SFRest</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="InvalidResponse.html" title="SFRest::InvalidResponse (class)">InvalidResponse</a></span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_e'>e</span>
     <span class='kw'>return</span> <span class='ivar'>@has_v2_endpoint</span> <span class='op'>=</span> <span class='kw'>false</span> <span class='kw'>if</span> <span class='id identifier rubyid_e'>e</span><span class='period'>.</span><span class='id identifier rubyid_message'>message</span> <span class='op'>=~</span> <span class='tstring'><span class='regexp_beg'>/</span><span class='tstring_content'>Invalid data, status 404</span><span class='regexp_end'>/</span></span>
+
     <span class='id identifier rubyid_raise'>raise</span> <span class='id identifier rubyid_e'>e</span>
   <span class='kw'>end</span>
 <span class='kw'>end</span></pre>
@@ -1145,15 +1151,15 @@ SFRest::InvalidResponse</p>
       <pre class="lines">
 
 
-56
 57
 58
 59
 60
-61</pre>
+61
+62</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/update.rb', line 56</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/update.rb', line 57</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_validate_request'>validate_request</span><span class='lparen'>(</span><span class='id identifier rubyid_datum'>datum</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_v1_keys'>v1_keys</span> <span class='op'>=</span> <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>scope</span><span class='words_sep'> </span><span class='tstring_content'>sites_ref</span><span class='words_sep'> </span><span class='tstring_content'>factory_ref</span><span class='words_sep'> </span><span class='tstring_content'>sites_type</span><span class='words_sep'> </span><span class='tstring_content'>factory_type</span><span class='words_sep'> </span><span class='tstring_content'>db_update_arguments</span><span class='words_sep'>]</span>
@@ -1171,9 +1177,9 @@ SFRest::InvalidResponse</p>
 </div>
 
       <div id="footer">
-  Generated on Thu Oct 11 21:47:30 2018 by
+  Generated on Thu Nov  8 12:32:46 2018 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.12 (ruby-2.3.7).
+  0.9.16 (ruby-2.3.7).
 </div>
 
     </div>
