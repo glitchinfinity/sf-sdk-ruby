@@ -53,15 +53,19 @@ module SFRest
       res['sites'].first['id']
     end
 
-    # Gets the complete list of users
+    # Gets the complete list of sites
     # Makes multiple requests to the factory to get all the sites on the factory
+    # @param [Boolean] show_incomplete whether to include incomplete sites in
+    #   the list. The default differs from UI/SF to maintain backward compatibility.
     # @return [Hash{'count' => Integer, 'sites' => Hash}]
-    def site_list
+    def site_list(show_incomplete = true)
       page = 1
       not_done = true
       count = 0
+      sites = []
       while not_done
         current_path = '/api/v1/sites?page=' << page.to_s
+        current_path <<= '&show_incomplete=true' if show_incomplete
         res = @conn.get(current_path)
         if res['sites'] == []
           not_done = false
