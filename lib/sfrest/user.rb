@@ -103,5 +103,18 @@ module SFRest
       current_path = "/api/v1/users/#{uid}"
       @conn.delete(current_path)
     end
+
+    # Regenerata a users apikey.
+    # @param [integer] uid Uid of the user
+    def regenerate_apikey(uid)
+      current_path = "/api/v1/users/#{uid}/api-keys"
+      @conn.delete(current_path)
+    end
+
+    # Regenerata all users apikeys.
+    def regenerate_apikeys
+      current_path = '/api/v1/users/all/api-keys'
+      @conn.delete(current_path)
+    end
   end
 end
