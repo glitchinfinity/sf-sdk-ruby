@@ -142,4 +142,29 @@ describe SFRest::User do
       expect(res['method']).to eq 'delete'
     end
   end
+
+  describe '#regenerate_apikey' do
+    path = '/api/v1/users'
+
+    it 'calls the regenerate apikey endpoint' do
+      stub_request(:any, /.*#{@mock_endpoint}.*#{path}/)
+        .with(headers: @mock_headers)
+        .to_return { |request| { body: { uri: request.uri, body: request.body, method: request.method }.to_json } }
+      uid = rand 1000
+      res = @conn.user.regenerate_apikey uid
+      uri = URI res['uri']
+      expect(uri.path).to eq "#{path}/#{uid}/api-keys"
+      expect(res['method']).to eq 'delete'
+    end
+
+    it 'calls the regenerate apikeys endpoint' do
+      stub_request(:any, /.*#{@mock_endpoint}.*#{path}/)
+        .with(headers: @mock_headers)
+        .to_return { |request| { body: { uri: request.uri, body: request.body, method: request.method }.to_json } }
+      res = @conn.user.regenerate_apikeys
+      uri = URI res['uri']
+      expect(uri.path).to eq "#{path}/all/api-keys"
+      expect(res['method']).to eq 'delete'
+    end
+  end
 end
