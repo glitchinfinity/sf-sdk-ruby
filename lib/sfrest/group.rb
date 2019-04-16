@@ -15,12 +15,96 @@ module SFRest
       @conn.post(current_path, payload)
     end
 
+    # Deletes the group with the specified id
+    # @param [Integer] group_id Id of the group to fetch
+    def delete_group(group_id)
+      current_path = '/api/v1/groups/' << group_id.to_s
+      @conn.delete(current_path)
+    end
+
+    # Renames existing group.
+    # @param [Integer] group_id Id of the group to rename.
+    # @param [String] groupname New name for the group.
+    def rename_group(group_id, groupname)
+      current_path = '/api/v1/groups/' + group_id.to_s + '/update'
+      payload = { 'group_name' => groupname }.to_json
+      @conn.put(current_path, payload)
+    end
+
     # Gets a site group with a specified group id.
     # @param [Integer] group_id Id of the group to fetch
     # @return [Hash] group object from the SF Api
     def get_group(group_id = 0)
       current_path = '/api/v1/groups/' << group_id.to_s
       @conn.get(current_path)
+    end
+
+    # Gets all users that are members of this group
+    # @param [Integer] group_id Id of the group to fetch
+    # @return [Hash] {'count' => count, 'members' => Hash }
+    def get_members(group_id = 0)
+      current_path = '/api/v1/groups/' + group_id.to_s + '/members'
+      @conn.get(current_path)
+    end
+
+    # Add users to this group
+    # @param [Integer] group_id Id of the group
+    # @param [Array] uids of the users that need to be added
+    # @return [Hash] {'count' => count, 'uids_added' => Hash }
+    def add_members(group_id, uids)
+      current_path = '/api/v1/groups/' + group_id.to_s + '/members'
+      payload = { 'uids' => uids.map(&:to_i) }.to_json
+      @conn.post(current_path, payload)
+    end
+
+    # Remove members from this group
+    # @param [Integer] group_id Id of the group
+    # @param [Array] uids of the users that need to be removed
+    # @return [Hash] {'group_id' => 123, 'uids_removed' => [1, 2, ...]}
+    def remove_members(group_id, uids)
+      current_path = '/api/v1/groups/' + group_id.to_s + '/members'
+      payload = { 'uids' => uids.map(&:to_i) }.to_json
+      @conn.delete(current_path, payload)
+    end
+
+    # Promote users to group admins
+    # @param [Integer] group_id Id of the group
+    # @param [Array] uids of the users that need to be promoted
+    # @return [Hash] {'count' => count, 'uids_promoted' => [1, 2, ...] }
+    def promote_to_admins(group_id, uids)
+      current_path = '/api/v1/groups/' + group_id.to_s + '/admins'
+      payload = { 'uids' => uids.map(&:to_i) }.to_json
+      @conn.post(current_path, payload)
+    end
+
+    # Demote users from group admins
+    # @param [Integer] group_id Id of the group
+    # @param [Array] uids of the users that need to be demoted
+    # @return [Hash] {'count' => count, 'uids_demoted' => Hash }
+    def demote_from_admins(group_id, uids)
+      current_path = '/api/v1/groups/' + group_id.to_s + '/admins'
+      payload = { 'uids' => uids.map(&:to_i) }.to_json
+      @conn.delete(current_path, payload)
+    end
+
+    # Add sites to this group
+    # @param [Integer] group_id Id of the group
+    # @param [Array] site_ids Ids of the sites that need to be added
+    # @return [Hash] {'group_id' => 123, 'site_ids_added' => [1, 2, ...]}
+    def add_sites(group_id, site_ids)
+      current_path = '/api/v1/groups/' + group_id.to_s + '/sites'
+      payload = { 'site_ids' => site_ids }.to_json
+      @conn.post(current_path, payload)
+    end
+
+    # Remove sites from this group
+    # @param [Integer] group_id Id of the group
+    # @param [Array] site_ids Ids of the sites that need to be removed.
+    # @return [Hash] {'group_id' => 123, 'site_ids_removed' => [1, 2, ...], 'site_ids_failed' => [3, 4, ...]}
+    def remove_sites(group_id, site_ids)
+      current_path = '/api/v1/groups/' + group_id.to_s + '/sites'
+      payload = { 'site_ids' => site_ids }.to_json
+      @conn.delete(current_path, payload)
     end
 
     # Gets a list of all site groups.

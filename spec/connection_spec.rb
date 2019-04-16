@@ -76,13 +76,13 @@ describe SFRest::Connection do
   describe '#delete' do
     it 'returns json if the body is parsable.' do
       stub_json_request
-      res = @conn.delete '/'
+      res = @conn.delete '/', '{}'
       expect(res).to be_a(Hash)
     end
     it 'returns the if the body is not parsable.' do
       stub_notjson_request
       begin
-        @conn.delete('/')
+        @conn.delete('/', '{}')
       rescue SFRest::SFError => e
         expect(e).to be_a(SFRest::InvalidResponse)
         expect(e.message).to eq('Invalid data, status 200, body: This is not json')
