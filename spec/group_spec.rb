@@ -48,6 +48,21 @@ describe SFRest::Group do
     end
   end
 
+  describe '#delete_group' do
+    path = '/api/v1/groups'
+
+    it 'calls the delete group endpoint' do
+      stub_request(:any, /.*#{@mock_endpoint}.*#{path}/)
+        .with(headers: @mock_headers)
+        .to_return { |request| { body: { uri: request.uri, body: request.body, method: request.method }.to_json } }
+      gid = rand 10**5
+      res = @conn.group.delete_group gid
+      uri = URI res['uri']
+      expect(uri.path).to eq "#{path}/#{gid}"
+      expect(res['method']).to eq 'delete'
+    end
+  end
+
   describe '#get_group' do
     path = '/api/v1/groups'
 
@@ -60,6 +75,84 @@ describe SFRest::Group do
       uri = URI res['uri']
       expect(uri.path).to eq "#{path}/#{gid}"
       expect(res['method']).to eq 'get'
+    end
+  end
+
+  describe '#get_members' do
+    path = '/api/v1/groups'
+    it 'calls the get members endpoint' do
+      stub_request(:any, /.*#{@mock_endpoint}.*#{path}/)
+        .with(headers: @mock_headers)
+        .to_return { |request| { body: { uri: request.uri, body: request.body, method: request.method }.to_json } }
+      gid = rand 10**5
+      res = @conn.group.get_members gid
+      uri = URI res['uri']
+      expect(uri.path).to eq "#{path}/#{gid}/members"
+      expect(res['method']).to eq 'get'
+    end
+  end
+
+  describe '#add_members' do
+    path = '/api/v1/groups'
+    it 'calls the add members endpoint' do
+      stub_request(:any, /.*#{@mock_endpoint}.*#{path}/)
+        .with(headers: @mock_headers)
+        .to_return { |request| { body: { uri: request.uri, body: request.body, method: request.method }.to_json } }
+      gid = rand 10**5
+      uids = [1, 2, 42]
+      res = @conn.group.add_members(gid, uids)
+      uri = URI res['uri']
+      expect(uri.path).to eq "#{path}/#{gid}/members"
+      expect(res['method']).to eq 'post'
+      expect(JSON(res['body'])['uids']).to eq uids
+    end
+  end
+
+  describe '#promote_to_admins' do
+    path = '/api/v1/groups'
+    it 'calls the promote to admins endpoint' do
+      stub_request(:any, /.*#{@mock_endpoint}.*#{path}/)
+        .with(headers: @mock_headers)
+        .to_return { |request| { body: { uri: request.uri, body: request.body, method: request.method }.to_json } }
+      gid = rand 10**5
+      uids = [1, 2, 42]
+      res = @conn.group.promote_to_admins(gid, uids)
+      uri = URI res['uri']
+      expect(uri.path).to eq "#{path}/#{gid}/admins"
+      expect(res['method']).to eq 'post'
+      expect(JSON(res['body'])['uids']).to eq uids
+    end
+  end
+
+  describe '#demote_from_admins' do
+    path = '/api/v1/groups'
+    it 'calls the demote from admins endpoint' do
+      stub_request(:any, /.*#{@mock_endpoint}.*#{path}/)
+        .with(headers: @mock_headers)
+        .to_return { |request| { body: { uri: request.uri, body: request.body, method: request.method }.to_json } }
+      gid = rand 10**5
+      uids = [1, 2, 42]
+      res = @conn.group.demote_from_admins(gid, uids)
+      uri = URI res['uri']
+      expect(uri.path).to eq "#{path}/#{gid}/admins"
+      expect(res['method']).to eq 'delete'
+      expect(JSON(res['body'])['uids']).to eq uids
+    end
+  end
+
+  describe '#add_sites' do
+    path = '/api/v1/groups'
+    it 'calls the add sites endpoint' do
+      stub_request(:any, /.*#{@mock_endpoint}.*#{path}/)
+        .with(headers: @mock_headers)
+        .to_return { |request| { body: { uri: request.uri, body: request.body, method: request.method }.to_json } }
+      gid = rand 10**5
+      site_ids = [1, 2, 42]
+      res = @conn.group.add_sites(gid, site_ids)
+      uri = URI res['uri']
+      expect(uri.path).to eq "#{path}/#{gid}/sites"
+      expect(res['method']).to eq 'post'
+      expect(JSON(res['body'])['site_ids']).to eq site_ids
     end
   end
 end

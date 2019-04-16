@@ -315,7 +315,7 @@ possible exception raising cases.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#delete-instance_method" title="#delete (instance method)">#<strong>delete</strong>(uri)  &#x21d2; Object </a>
+      <a href="#delete-instance_method" title="#delete (instance method)">#<strong>delete</strong>(uri, payload = &#39;&#39;)  &#x21d2; Object </a>
     
 
     
@@ -909,7 +909,6 @@ qualifiers</p>
       <pre class="lines">
 
 
-120
 121
 122
 123
@@ -927,10 +926,11 @@ qualifiers</p>
 135
 136
 137
-138</pre>
+138
+139</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/connection.rb', line 120</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/connection.rb', line 121</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_access_check'>access_check</span><span class='lparen'>(</span><span class='id identifier rubyid_data'>data</span><span class='comma'>,</span> <span class='id identifier rubyid_http_status'>http_status</span><span class='rparen'>)</span>
   <span class='kw'>if</span> <span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Hash</span><span class='rparen'>)</span> <span class='op'>&amp;&amp;</span> <span class='op'>!</span><span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>message</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_nil?'>nil?</span>
@@ -1033,16 +1033,16 @@ qualifiers</p>
       <pre class="lines">
 
 
-99
 100
 101
 102
 103
 104
-105</pre>
+105
+106</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/connection.rb', line 99</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/connection.rb', line 100</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_api_response'>api_response</span><span class='lparen'>(</span><span class='id identifier rubyid_res'>res</span><span class='comma'>,</span> <span class='id identifier rubyid_return_status'>return_status</span> <span class='op'>=</span> <span class='kw'>false</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='id identifier rubyid_access_check'>access_check</span> <span class='const'>JSON</span><span class='lparen'>(</span><span class='id identifier rubyid_res'>res</span><span class='period'>.</span><span class='id identifier rubyid_body'>body</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_res'>res</span><span class='period'>.</span><span class='id identifier rubyid_status'>status</span>
@@ -1059,7 +1059,7 @@ qualifiers</p>
       <div class="method_details ">
   <h3 class="signature " id="delete-instance_method">
   
-    #<strong>delete</strong>(uri)  &#x21d2; <tt>Object</tt> 
+    #<strong>delete</strong>(uri, payload = &#39;&#39;)  &#x21d2; <tt>Object</tt> 
   
 
   
@@ -1124,18 +1124,20 @@ parse, raises a SFRest::InvalidResponse</p>
 88
 89
 90
-91</pre>
+91
+92</pre>
     </td>
     <td>
       <pre class="code"><span class="info file"># File 'lib/sfrest/connection.rb', line 83</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_uri'>uri</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_uri'>uri</span><span class='comma'>,</span> <span class='id identifier rubyid_payload'>payload</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
   <span class='id identifier rubyid_headers'>headers</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>Content-Type</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>application/json</span><span class='tstring_end'>&#39;</span></span> <span class='rbrace'>}</span>
   <span class='id identifier rubyid_res'>res</span> <span class='op'>=</span> <span class='const'>Excon</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='ivar'>@base_url</span> <span class='op'>+</span> <span class='id identifier rubyid_uri'>uri</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='comma'>,</span>
                      <span class='label'>headers:</span> <span class='id identifier rubyid_headers'>headers</span><span class='comma'>,</span>
                      <span class='label'>user:</span> <span class='id identifier rubyid_username'>username</span><span class='comma'>,</span>
                      <span class='label'>password:</span> <span class='id identifier rubyid_password'>password</span><span class='comma'>,</span>
-                     <span class='label'>ssl_verify_peer:</span> <span class='kw'>false</span><span class='rparen'>)</span>
+                     <span class='label'>ssl_verify_peer:</span> <span class='kw'>false</span><span class='comma'>,</span>
+                     <span class='label'>body:</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_api_response'>api_response</span> <span class='id identifier rubyid_res'>res</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -1343,12 +1345,12 @@ parse, raises a SFRest::InvalidResponse</p>
       <pre class="lines">
 
 
-143
 144
-145</pre>
+145
+146</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/connection.rb', line 143</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/connection.rb', line 144</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_ping'>ping</span>
   <span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/api/v1/ping</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
@@ -1562,12 +1564,12 @@ parse, raises a SFRest::InvalidResponse</p>
       <pre class="lines">
 
 
-148
 149
-150</pre>
+150
+151</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/connection.rb', line 148</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/connection.rb', line 149</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_service_response'>service_response</span>
   <span class='id identifier rubyid_ping'>ping</span>
@@ -1582,7 +1584,7 @@ parse, raises a SFRest::InvalidResponse</p>
 </div>
 
       <div id="footer">
-  Generated on Wed Mar 20 08:38:36 2019 by
+  Generated on Fri Apr 12 18:06:15 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.16 (ruby-2.3.7).
 </div>

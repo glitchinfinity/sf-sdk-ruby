@@ -80,13 +80,14 @@ module SFRest
     # @return [Object] ruby representation of the json response
     #                  if the reponse body  does not parse, raises
     #                  a SFRest::InvalidResponse
-    def delete(uri)
+    def delete(uri, payload = '')
       headers = { 'Content-Type' => 'application/json' }
       res = Excon.delete(@base_url + uri.to_s,
                          headers: headers,
                          user: username,
                          password: password,
-                         ssl_verify_peer: false)
+                         ssl_verify_peer: false,
+                         body: payload)
       api_response res
     end
 
