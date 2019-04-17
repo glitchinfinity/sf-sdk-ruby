@@ -77,6 +77,7 @@ module SFRest
 
     # http request via delete
     # @param [string] uri
+    # @param [string] payload - This string will be supplied in the body of the request, similar to POST.
     # @return [Object] ruby representation of the json response
     #                  if the reponse body  does not parse, raises
     #                  a SFRest::InvalidResponse
