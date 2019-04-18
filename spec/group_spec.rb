@@ -36,9 +36,7 @@ describe SFRest::Group do
     path = '/api/v1/groups'
 
     it 'calls the create group endpoint' do
-      stub_request(:any, /.*#{@mock_endpoint}.*#{path}/)
-        .with(headers: @mock_headers)
-        .to_return { |request| { body: { uri: request.uri, body: request.body, method: request.method }.to_json } }
+      stub_group_request(path)
       gname = SecureRandom.urlsafe_base64
       res = @conn.group.create_group gname
       uri = URI res['uri']
@@ -52,9 +50,7 @@ describe SFRest::Group do
     path = '/api/v1/groups'
 
     it 'calls the delete group endpoint' do
-      stub_request(:any, /.*#{@mock_endpoint}.*#{path}/)
-        .with(headers: @mock_headers)
-        .to_return { |request| { body: { uri: request.uri, body: request.body, method: request.method }.to_json } }
+      stub_group_request(path)
       gid = rand 10**5
       res = @conn.group.delete_group gid
       uri = URI res['uri']
@@ -81,9 +77,7 @@ describe SFRest::Group do
   describe '#get_members' do
     path = '/api/v1/groups'
     it 'calls the get members endpoint' do
-      stub_request(:any, /.*#{@mock_endpoint}.*#{path}/)
-        .with(headers: @mock_headers)
-        .to_return { |request| { body: { uri: request.uri, body: request.body, method: request.method }.to_json } }
+      stub_group_request(path)
       gid = rand 10**5
       res = @conn.group.get_members gid
       uri = URI res['uri']
@@ -95,15 +89,27 @@ describe SFRest::Group do
   describe '#add_members' do
     path = '/api/v1/groups'
     it 'calls the add members endpoint' do
-      stub_request(:any, /.*#{@mock_endpoint}.*#{path}/)
-        .with(headers: @mock_headers)
-        .to_return { |request| { body: { uri: request.uri, body: request.body, method: request.method }.to_json } }
+      stub_group_request(path)
       gid = rand 10**5
       uids = [1, 2, 42]
       res = @conn.group.add_members(gid, uids)
       uri = URI res['uri']
       expect(uri.path).to eq "#{path}/#{gid}/members"
       expect(res['method']).to eq 'post'
+      expect(JSON(res['body'])['uids']).to eq uids
+    end
+  end
+
+  describe '#remove_members' do
+    path = '/api/v1/groups'
+    it 'calls the remove members endpoint' do
+      stub_group_request(path)
+      gid = rand 10**5
+      uids = [1, 2, 42]
+      res = @conn.group.remove_members(gid, uids)
+      uri = URI res['uri']
+      expect(uri.path).to eq "#{path}/#{gid}/members"
+      expect(res['method']).to eq 'delete'
       expect(JSON(res['body'])['uids']).to eq uids
     end
   end
@@ -127,9 +133,7 @@ describe SFRest::Group do
   describe '#demote_from_admins' do
     path = '/api/v1/groups'
     it 'calls the demote from admins endpoint' do
-      stub_request(:any, /.*#{@mock_endpoint}.*#{path}/)
-        .with(headers: @mock_headers)
-        .to_return { |request| { body: { uri: request.uri, body: request.body, method: request.method }.to_json } }
+      stub_group_request(path)
       gid = rand 10**5
       uids = [1, 2, 42]
       res = @conn.group.demote_from_admins(gid, uids)
@@ -143,9 +147,7 @@ describe SFRest::Group do
   describe '#add_sites' do
     path = '/api/v1/groups'
     it 'calls the add sites endpoint' do
-      stub_request(:any, /.*#{@mock_endpoint}.*#{path}/)
-        .with(headers: @mock_headers)
-        .to_return { |request| { body: { uri: request.uri, body: request.body, method: request.method }.to_json } }
+      stub_group_request(path)
       gid = rand 10**5
       site_ids = [1, 2, 42]
       res = @conn.group.add_sites(gid, site_ids)
@@ -154,5 +156,25 @@ describe SFRest::Group do
       expect(res['method']).to eq 'post'
       expect(JSON(res['body'])['site_ids']).to eq site_ids
     end
+  end
+
+  describe '#remove_sites' do
+    path = '/api/v1/groups'
+    it 'calls the remove sites endpoint' do
+      stub_group_request(path)
+      gid = rand 10**5
+      site_ids = [1, 2, 42]
+      res = @conn.group.remove_sites(gid, site_ids)
+      uri = URI res['uri']
+      expect(uri.path).to eq "#{path}/#{gid}/sites"
+      expect(res['method']).to eq 'delete'
+      expect(JSON(res['body'])['site_ids']).to eq site_ids
+    end
+  end
+
+  def stub_group_request(path)
+    stub_request(:any, /.*#{@mock_endpoint}.*#{path}/)
+      .with(headers: @mock_headers)
+      .to_return { |request| { body: { uri: request.uri, body: request.body, method: request.method }.to_json } }
   end
 end

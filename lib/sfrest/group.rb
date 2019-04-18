@@ -48,7 +48,15 @@ module SFRest
       @conn.post(current_path, payload)
     end
 
-    # remove_members goes here
+    # Remove members from this group
+    # @param [Integer] group_id Id of the group
+    # @param [Array] uids of the users that need to be removed
+    # @return [Hash] {'group_id' => 123, 'removed' => [1, 2, ...]}
+    def remove_members(group_id, uids)
+      current_path = '/api/v1/groups/' + group_id.to_s + '/members'
+      payload = { 'uids' => uids }.to_json
+      @conn.delete(current_path, payload)
+    end
 
     # Promote users to group admins
     # @param [Integer] group_id Id of the group
@@ -73,14 +81,22 @@ module SFRest
     # Add sites to this group
     # @param [Integer] group_id Id of the group
     # @param [Array] site_ids Ids of the sites that need to be added
-    # @return [Hash] {'group_id' => 123, 'added' => [site_id1, site_id2, ...]}
+    # @return [Hash] {'group_id' => 123, 'added' => [1, 2, ...]}
     def add_sites(group_id, site_ids)
       current_path = '/api/v1/groups/' + group_id.to_s + '/sites'
       payload = { 'site_ids' => site_ids }.to_json
       @conn.post(current_path, payload)
     end
 
-    # remove_sites goes here
+    # Remove sites from this group
+    # @param [Integer] group_id Id of the group
+    # @param [Array] site_ids Ids of the sites that need to be removed.
+    # @return [Hash] {'group_id' => 123, 'removed' => [1, 2, ...], 'failed' => [3, 4, ...]}
+    def remove_sites(group_id, site_ids)
+      current_path = '/api/v1/groups/' + group_id.to_s + '/sites'
+      payload = { 'site_ids' => site_ids }.to_json
+      @conn.delete(current_path, payload)
+    end
 
     # Gets a list of all site groups.
     # @return [Hash] all the groups on the factory plus a count
