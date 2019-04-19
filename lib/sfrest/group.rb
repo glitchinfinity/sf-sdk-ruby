@@ -18,8 +18,17 @@ module SFRest
     # Deletes the group with the specified id
     # @param [Integer] group_id Id of the group to fetch
     def delete_group(group_id)
-      current_path = '/api/v1/groups/' + group_id.to_s
+      current_path = '/api/v1/groups/' << group_id.to_s
       @conn.delete(current_path)
+    end
+
+    # Renames existing group.
+    # @param [Integer] group_id Id of the group to rename.
+    # @param [String] groupname New name for the group.
+    def rename_group(group_id, groupname)
+      current_path = '/api/v1/groups/' << group_id.to_s
+      payload = { 'group_name' => groupname }.to_json
+      @conn.put(current_path, payload)
     end
 
     # Gets a site group with a specified group id.

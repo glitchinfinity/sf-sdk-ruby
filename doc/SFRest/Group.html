@@ -415,6 +415,30 @@
 </li>
 
       
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#rename_group-instance_method" title="#rename_group (instance method)">#<strong>rename_group</strong>(group_id, groupname)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Renames existing group.</p>
+</div></span>
+  
+</li>
+
+      
     </ul>
   
 
@@ -564,14 +588,14 @@
       <pre class="lines">
 
 
-45
-46
-47
-48
-49</pre>
+54
+55
+56
+57
+58</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/group.rb', line 45</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/group.rb', line 54</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_members'>add_members</span><span class='lparen'>(</span><span class='id identifier rubyid_group_id'>group_id</span><span class='comma'>,</span> <span class='id identifier rubyid_uids'>uids</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_current_path'>current_path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/api/v1/groups/</span><span class='tstring_end'>&#39;</span></span> <span class='op'>+</span> <span class='id identifier rubyid_group_id'>group_id</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/members</span><span class='tstring_end'>&#39;</span></span>
@@ -663,14 +687,14 @@
       <pre class="lines">
 
 
-85
-86
-87
-88
-89</pre>
+94
+95
+96
+97
+98</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/group.rb', line 85</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/group.rb', line 94</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_sites'>add_sites</span><span class='lparen'>(</span><span class='id identifier rubyid_group_id'>group_id</span><span class='comma'>,</span> <span class='id identifier rubyid_site_ids'>site_ids</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_current_path'>current_path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/api/v1/groups/</span><span class='tstring_end'>&#39;</span></span> <span class='op'>+</span> <span class='id identifier rubyid_group_id'>group_id</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/sites</span><span class='tstring_end'>&#39;</span></span>
@@ -803,7 +827,7 @@ create a group in the root</p>
       <pre class="code"><span class="info file"># File 'lib/sfrest/group.rb', line 20</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete_group'>delete_group</span><span class='lparen'>(</span><span class='id identifier rubyid_group_id'>group_id</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_current_path'>current_path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/api/v1/groups/</span><span class='tstring_end'>&#39;</span></span> <span class='op'>+</span> <span class='id identifier rubyid_group_id'>group_id</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
+  <span class='id identifier rubyid_current_path'>current_path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/api/v1/groups/</span><span class='tstring_end'>&#39;</span></span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_group_id'>group_id</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
   <span class='ivar'>@conn</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_current_path'>current_path</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -891,14 +915,14 @@ create a group in the root</p>
       <pre class="lines">
 
 
-75
-76
-77
-78
-79</pre>
+84
+85
+86
+87
+88</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/group.rb', line 75</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/group.rb', line 84</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_demote_from_admins'>demote_from_admins</span><span class='lparen'>(</span><span class='id identifier rubyid_group_id'>group_id</span><span class='comma'>,</span> <span class='id identifier rubyid_uids'>uids</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_current_path'>current_path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/api/v1/groups/</span><span class='tstring_end'>&#39;</span></span> <span class='op'>+</span> <span class='id identifier rubyid_group_id'>group_id</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/admins</span><span class='tstring_end'>&#39;</span></span>
@@ -976,13 +1000,13 @@ create a group in the root</p>
       <pre class="lines">
 
 
-28
-29
-30
-31</pre>
+37
+38
+39
+40</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/group.rb', line 28</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/group.rb', line 37</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_group'>get_group</span><span class='lparen'>(</span><span class='id identifier rubyid_group_id'>group_id</span> <span class='op'>=</span> <span class='int'>0</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_current_path'>current_path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/api/v1/groups/</span><span class='tstring_end'>&#39;</span></span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_group_id'>group_id</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
@@ -1059,13 +1083,13 @@ create a group in the root</p>
       <pre class="lines">
 
 
-36
-37
-38
-39</pre>
+45
+46
+47
+48</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/group.rb', line 36</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/group.rb', line 45</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_members'>get_members</span><span class='lparen'>(</span><span class='id identifier rubyid_group_id'>group_id</span> <span class='op'>=</span> <span class='int'>0</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_current_path'>current_path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/api/v1/groups/</span><span class='tstring_end'>&#39;</span></span> <span class='op'>+</span> <span class='id identifier rubyid_group_id'>group_id</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/members</span><span class='tstring_end'>&#39;</span></span>
@@ -1121,15 +1145,6 @@ create a group in the root</p>
       <pre class="lines">
 
 
-105
-106
-107
-108
-109
-110
-111
-112
-113
 114
 115
 116
@@ -1143,10 +1158,19 @@ create a group in the root</p>
 124
 125
 126
-127</pre>
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/group.rb', line 105</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/group.rb', line 114</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_group_list'>group_list</span>
   <span class='id identifier rubyid_page'>page</span> <span class='op'>=</span> <span class='int'>1</span>
@@ -1256,14 +1280,14 @@ create a group in the root</p>
       <pre class="lines">
 
 
-65
-66
-67
-68
-69</pre>
+74
+75
+76
+77
+78</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/group.rb', line 65</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/group.rb', line 74</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_promote_to_admins'>promote_to_admins</span><span class='lparen'>(</span><span class='id identifier rubyid_group_id'>group_id</span><span class='comma'>,</span> <span class='id identifier rubyid_uids'>uids</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_current_path'>current_path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/api/v1/groups/</span><span class='tstring_end'>&#39;</span></span> <span class='op'>+</span> <span class='id identifier rubyid_group_id'>group_id</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/admins</span><span class='tstring_end'>&#39;</span></span>
@@ -1355,14 +1379,14 @@ create a group in the root</p>
       <pre class="lines">
 
 
-55
-56
-57
-58
-59</pre>
+64
+65
+66
+67
+68</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/group.rb', line 55</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/group.rb', line 64</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_remove_members'>remove_members</span><span class='lparen'>(</span><span class='id identifier rubyid_group_id'>group_id</span><span class='comma'>,</span> <span class='id identifier rubyid_uids'>uids</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_current_path'>current_path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/api/v1/groups/</span><span class='tstring_end'>&#39;</span></span> <span class='op'>+</span> <span class='id identifier rubyid_group_id'>group_id</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/members</span><span class='tstring_end'>&#39;</span></span>
@@ -1455,14 +1479,14 @@ create a group in the root</p>
       <pre class="lines">
 
 
-95
-96
-97
-98
-99</pre>
+104
+105
+106
+107
+108</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/group.rb', line 95</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/group.rb', line 104</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_remove_sites'>remove_sites</span><span class='lparen'>(</span><span class='id identifier rubyid_group_id'>group_id</span><span class='comma'>,</span> <span class='id identifier rubyid_site_ids'>site_ids</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_current_path'>current_path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/api/v1/groups/</span><span class='tstring_end'>&#39;</span></span> <span class='op'>+</span> <span class='id identifier rubyid_group_id'>group_id</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span> <span class='op'>+</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/sites</span><span class='tstring_end'>&#39;</span></span>
@@ -1474,12 +1498,93 @@ create a group in the root</p>
 </table>
 </div>
     
+      <div class="method_details ">
+  <h3 class="signature " id="rename_group-instance_method">
+  
+    #<strong>rename_group</strong>(group_id, groupname)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Renames existing group.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>group_id</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Id of the group to rename.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>groupname</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>New name for the group.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+28
+29
+30
+31
+32</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/group.rb', line 28</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_rename_group'>rename_group</span><span class='lparen'>(</span><span class='id identifier rubyid_group_id'>group_id</span><span class='comma'>,</span> <span class='id identifier rubyid_groupname'>groupname</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_current_path'>current_path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/api/v1/groups/</span><span class='tstring_end'>&#39;</span></span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_group_id'>group_id</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
+  <span class='id identifier rubyid_payload'>payload</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>group_name</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_groupname'>groupname</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_to_json'>to_json</span>
+  <span class='ivar'>@conn</span><span class='period'>.</span><span class='id identifier rubyid_put'>put</span><span class='lparen'>(</span><span class='id identifier rubyid_current_path'>current_path</span><span class='comma'>,</span> <span class='id identifier rubyid_payload'>payload</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
   </div>
 
 </div>
 
       <div id="footer">
-  Generated on Thu Apr 18 19:59:04 2019 by
+  Generated on Fri Apr 19 12:58:37 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.16 (ruby-2.3.7).
 </div>

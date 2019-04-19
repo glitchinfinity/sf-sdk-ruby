@@ -46,6 +46,21 @@ describe SFRest::Group do
     end
   end
 
+  describe '#rename_group' do
+    path = '/api/v1/groups'
+
+    it 'calls the rename group endpoint' do
+      stub_group_request(path)
+      gid = rand 10**5
+      gname = SecureRandom.urlsafe_base64
+      res = @conn.group.rename_group(gid, gname)
+      uri = URI res['uri']
+      expect(uri.path).to eq "#{path}/#{gid}"
+      expect(JSON(res['body'])['group_name']).to eq gname
+      expect(res['method']).to eq 'put'
+    end
+  end
+
   describe '#delete_group' do
     path = '/api/v1/groups'
 
