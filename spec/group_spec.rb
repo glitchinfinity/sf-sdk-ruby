@@ -159,6 +159,18 @@ describe SFRest::Group do
     end
   end
 
+  describe '#get_sites' do
+    path = '/api/v1/groups'
+    it 'calls the get sites endpoint' do
+      stub_group_request(path)
+      gid = rand 10**5
+      res = @conn.group.get_sites(gid)
+      uri = URI res['uri']
+      expect(uri.path).to eq "#{path}/#{gid}/sites"
+      expect(res['method']).to eq 'get'
+    end
+  end
+
   describe '#add_sites' do
     path = '/api/v1/groups'
     it 'calls the add sites endpoint' do

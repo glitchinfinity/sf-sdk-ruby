@@ -87,6 +87,14 @@ module SFRest
       @conn.delete(current_path, payload)
     end
 
+    # Get sites in this group
+    # @param [Integer] group_id Id of the group
+    # # @return [Hash] {'group_id' => 123, 'count' => 2, 'sites' => [...]}
+    def get_sites(group_id)
+      current_path = '/api/v1/groups/' + group_id.to_s + '/sites'
+      @conn.get(current_path)
+    end
+
     # Add sites to this group
     # @param [Integer] group_id Id of the group
     # @param [Array] site_ids Ids of the sites that need to be added
