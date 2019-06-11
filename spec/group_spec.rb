@@ -36,15 +36,41 @@ describe SFRest::Group do
     path = '/api/v1/groups'
 
     it 'calls the create group endpoint' do
-      stub_request(:any, /.*#{@mock_endpoint}.*#{path}/)
-        .with(headers: @mock_headers)
-        .to_return { |request| { body: { uri: request.uri, body: request.body, method: request.method }.to_json } }
+      stub_group_request(path)
       gname = SecureRandom.urlsafe_base64
       res = @conn.group.create_group gname
       uri = URI res['uri']
       expect(uri.path).to eq path
       expect(JSON(res['body'])['group_name']).to eq gname
       expect(res['method']).to eq 'post'
+    end
+  end
+
+  describe '#rename_group' do
+    path = '/api/v1/groups'
+
+    it 'calls the rename group endpoint' do
+      stub_group_request(path)
+      gid = rand 10**5
+      gname = SecureRandom.urlsafe_base64
+      res = @conn.group.rename_group(gid, gname)
+      uri = URI res['uri']
+      expect(uri.path).to eq "#{path}/#{gid}/update"
+      expect(JSON(res['body'])['group_name']).to eq gname
+      expect(res['method']).to eq 'put'
+    end
+  end
+
+  describe '#delete_group' do
+    path = '/api/v1/groups'
+
+    it 'calls the delete group endpoint' do
+      stub_group_request(path)
+      gid = rand 10**5
+      res = @conn.group.delete_group gid
+      uri = URI res['uri']
+      expect(uri.path).to eq "#{path}/#{gid}"
+      expect(res['method']).to eq 'delete'
     end
   end
 
@@ -61,5 +87,159 @@ describe SFRest::Group do
       expect(uri.path).to eq "#{path}/#{gid}"
       expect(res['method']).to eq 'get'
     end
+  end
+
+  describe '#get_members' do
+    path = '/api/v1/groups'
+    it 'calls the get members endpoint' do
+      stub_group_request(path)
+      gid = rand 10**5
+      res = @conn.group.get_members gid
+      uri = URI res['uri']
+      expect(uri.path).to eq "#{path}/#{gid}/members"
+      expect(res['method']).to eq 'get'
+    end
+  end
+
+  describe '#add_members' do
+    path = '/api/v1/groups'
+    it 'calls the add members endpoint' do
+      stub_group_request(path)
+      gid = rand 10**5
+      uids = [1, 2, 42]
+      res = @conn.group.add_members(gid, uids)
+      uri = URI res['uri']
+      expect(uri.path).to eq "#{path}/#{gid}/members"
+      expect(res['method']).to eq 'post'
+      expect(JSON(res['body'])['uids']).to eq uids
+    end
+
+    it 'can add stringy members' do
+      stub_group_request(path)
+      gid = rand 10**5
+      uids = %w[1 2 42]
+      res = @conn.group.add_members(gid, uids)
+      uri = URI res['uri']
+      expect(uri.path).to eq "#{path}/#{gid}/members"
+      expect(res['method']).to eq 'post'
+      expect(JSON(res['body'])['uids']).to_not eq uids
+      expect(JSON(res['body'])['uids']).to eq uids.map(&:to_i)
+    end
+  end
+
+  describe '#remove_members' do
+    path = '/api/v1/groups'
+    it 'calls the remove members endpoint' do
+      stub_group_request(path)
+      gid = rand 10**5
+      uids = [1, 2, 42]
+      res = @conn.group.remove_members(gid, uids)
+      uri = URI res['uri']
+      expect(uri.path).to eq "#{path}/#{gid}/members"
+      expect(res['method']).to eq 'delete'
+      expect(JSON(res['body'])['uids']).to eq uids
+    end
+
+    it 'can remove stringy members' do
+      stub_group_request(path)
+      gid = rand 10**5
+      uids = %w[1 2 42]
+      res = @conn.group.remove_members(gid, uids)
+      uri = URI res['uri']
+      expect(uri.path).to eq "#{path}/#{gid}/members"
+      expect(res['method']).to eq 'delete'
+      expect(JSON(res['body'])['uids']).to_not eq uids
+      expect(JSON(res['body'])['uids']).to eq uids.map(&:to_i)
+    end
+  end
+
+  describe '#promote_to_admins' do
+    path = '/api/v1/groups'
+    it 'calls the promote to admins endpoint' do
+      stub_request(:any, /.*#{@mock_endpoint}.*#{path}/)
+        .with(headers: @mock_headers)
+        .to_return { |request| { body: { uri: request.uri, body: request.body, method: request.method }.to_json } }
+      gid = rand 10**5
+      uids = [1, 2, 42]
+      res = @conn.group.promote_to_admins(gid, uids)
+      uri = URI res['uri']
+      expect(uri.path).to eq "#{path}/#{gid}/admins"
+      expect(res['method']).to eq 'post'
+      expect(JSON(res['body'])['uids']).to eq uids
+    end
+
+    it 'can promote stringy admins' do
+      stub_request(:any, /.*#{@mock_endpoint}.*#{path}/)
+        .with(headers: @mock_headers)
+        .to_return { |request| { body: { uri: request.uri, body: request.body, method: request.method }.to_json } }
+      gid = rand 10**5
+      uids = %w[1 2 42]
+      res = @conn.group.promote_to_admins(gid, uids)
+      uri = URI res['uri']
+      expect(uri.path).to eq "#{path}/#{gid}/admins"
+      expect(res['method']).to eq 'post'
+      expect(JSON(res['body'])['uids']).to_not eq uids
+      expect(JSON(res['body'])['uids']).to eq uids.map(&:to_i)
+    end
+  end
+
+  describe '#demote_from_admins' do
+    path = '/api/v1/groups'
+    it 'calls the demote from admins endpoint' do
+      stub_group_request(path)
+      gid = rand 10**5
+      uids = [1, 2, 42]
+      res = @conn.group.demote_from_admins(gid, uids)
+      uri = URI res['uri']
+      expect(uri.path).to eq "#{path}/#{gid}/admins"
+      expect(res['method']).to eq 'delete'
+      expect(JSON(res['body'])['uids']).to eq uids
+    end
+
+    it 'can demote stringy admins' do
+      stub_group_request(path)
+      gid = rand 10**5
+      uids = %w[1 2 42]
+      res = @conn.group.demote_from_admins(gid, uids)
+      uri = URI res['uri']
+      expect(uri.path).to eq "#{path}/#{gid}/admins"
+      expect(res['method']).to eq 'delete'
+      expect(JSON(res['body'])['uids']).to_not eq uids
+      expect(JSON(res['body'])['uids']).to eq uids.map(&:to_i)
+    end
+  end
+
+  describe '#add_sites' do
+    path = '/api/v1/groups'
+    it 'calls the add sites endpoint' do
+      stub_group_request(path)
+      gid = rand 10**5
+      site_ids = [1, 2, 42]
+      res = @conn.group.add_sites(gid, site_ids)
+      uri = URI res['uri']
+      expect(uri.path).to eq "#{path}/#{gid}/sites"
+      expect(res['method']).to eq 'post'
+      expect(JSON(res['body'])['site_ids']).to eq site_ids
+    end
+  end
+
+  describe '#remove_sites' do
+    path = '/api/v1/groups'
+    it 'calls the remove sites endpoint' do
+      stub_group_request(path)
+      gid = rand 10**5
+      site_ids = [1, 2, 42]
+      res = @conn.group.remove_sites(gid, site_ids)
+      uri = URI res['uri']
+      expect(uri.path).to eq "#{path}/#{gid}/sites"
+      expect(res['method']).to eq 'delete'
+      expect(JSON(res['body'])['site_ids']).to eq site_ids
+    end
+  end
+
+  def stub_group_request(path)
+    stub_request(:any, /.*#{@mock_endpoint}.*#{path}/)
+      .with(headers: @mock_headers)
+      .to_return { |request| { body: { uri: request.uri, body: request.body, method: request.method }.to_json } }
   end
 end
