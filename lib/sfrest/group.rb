@@ -134,5 +134,28 @@ module SFRest
       end
       { 'count' => count, 'groups' => groups }
     end
+
+    # gets the group ID for the group named groupname
+    # will page through all the groups available searching for the group
+    # @param [String] group the name of the group
+    # @return [Integer] the id of groupname
+    def get_group_id(groupname)
+      res = group_list
+      id = group_data_from_results(res, groupname, 'group_id')
+      return id if id
+    end
+
+    # Extract the group data for 'key' based on the site result object
+    # @param [Hash] res result from a request to /sites
+    # @param [String] groupname
+    # @param [String] key one of the user data returned (id, site, domain...)
+    # @return [Object] Integer, String, Array, Hash depending on the site data
+    def group_data_from_results(res, groupname, key)
+      groups = res['groups']
+      groups.each do |group|
+        return group[key] if group['group_name'] == groupname
+      end
+      nil
+    end
   end
 end

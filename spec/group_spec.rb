@@ -237,6 +237,53 @@ describe SFRest::Group do
     end
   end
 
+  describe '#group_data_from_results' do
+    groups_data = generate_groups_data
+    group = groups_data['groups'].sample
+    groupname = group['group_name']
+    key = group.keys.sample
+    target_value = group[key]
+    it 'can get a specific piece of site data' do
+      expect(@conn.group.group_data_from_results(groups_data, groupname, key)).to eq target_value
+    end
+  end
+
+  describe '#get_group_id' do
+    groups_data = generate_groups_data
+    group = groups_data['groups'].sample
+    groupname = group['group_name']
+    groupid = group['group_id']
+    group_count = groups_data['count']
+    groups_data2 = generate_groups_data
+    group2 = groups_data2['groups'].sample
+    groupname2 = group2['group_name']
+    groupid2 = group2['group_id']
+    group_count = groups_data2['count'] + group_count + 100
+    groups_data['count'] = group_count
+    groups_data2['count'] = group_count
+
+    it 'can get a group id' do
+      stub_factory '/api/v1/groups', [groups_data.to_json,
+                                      groups_data2.to_json,
+                                      { 'count' => group_count, 'groups' => [] }.to_json]
+      expect(@conn.group.get_group_id(groupname)).to eq groupid
+    end
+
+    it 'can make more than one request to get a group id' do
+      stub_factory '/api/v1/groups', [groups_data.to_json,
+                                      groups_data2.to_json,
+                                      { 'count' => group_count, 'groups' => [] }.to_json]
+      expect(@conn.group.get_group_id(groupname2)).to eq groupid2
+    end
+
+    it 'returns nothing on not found' do
+      stub_factory '/api/v1/groups', [groups_data.to_json,
+                                      groups_data2.to_json,
+                                      { 'count' => group_count, 'groups' => [] }.to_json]
+      expect(@conn.group.get_group_id('boogah123')).to eq nil
+    end
+  end
+
   def stub_group_request(path)
     stub_request(:any, /.*#{@mock_endpoint}.*#{path}/)
       .with(headers: @mock_headers)
