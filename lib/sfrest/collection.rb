@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SFRest
   # Find colletions, return their data.
   class Collection
@@ -61,7 +63,7 @@ module SFRest
       not_done = true
       count = 0
       while not_done
-        current_path = '/api/v1/collections?page=' << page.to_s
+        current_path = '/api/v1/collections?page='.dup << page.to_s
         res = @conn.get(current_path)
         if res['collections'] == []
           not_done = false

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SFRest
   # create, delete, update, roles
   class Role
@@ -16,7 +18,7 @@ module SFRest
       not_done = true
       count = 0
       while not_done
-        current_path = '/api/v1/roles?page=' << page.to_s
+        current_path = '/api/v1/roles?page='.dup << page.to_s
         res = @conn.get(current_path)
         if res['roles'] == []
           not_done = false

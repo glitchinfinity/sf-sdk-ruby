@@ -270,12 +270,12 @@
       <pre class="lines">
 
 
-5
-6
-7</pre>
+7
+8
+9</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/variable.rb', line 5</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/variable.rb', line 7</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_conn'>conn</span><span class='rparen'>)</span>
   <span class='ivar'>@conn</span> <span class='op'>=</span> <span class='id identifier rubyid_conn'>conn</span>
@@ -318,16 +318,16 @@
       <pre class="lines">
 
 
-16
-17
 18
-19</pre>
+19
+20
+21</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/variable.rb', line 16</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/variable.rb', line 18</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_variable'>get_variable</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_current_path'>current_path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/api/v1/variables?name=</span><span class='tstring_end'>&#39;</span></span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_name'>name</span>
+  <span class='id identifier rubyid_current_path'>current_path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/api/v1/variables?name=</span><span class='tstring_end'>&#39;</span></span> <span class='op'>+</span> <span class='id identifier rubyid_name'>name</span>
   <span class='ivar'>@conn</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_current_path'>current_path</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
@@ -361,14 +361,14 @@
       <pre class="lines">
 
 
-22
-23
 24
 25
-26</pre>
+26
+27
+28</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/variable.rb', line 22</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/variable.rb', line 24</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_set_variable'>set_variable</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_value'>value</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_current_path'>current_path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/api/v1/variables</span><span class='tstring_end'>&#39;</span></span>
@@ -406,13 +406,13 @@
       <pre class="lines">
 
 
-10
-11
 12
-13</pre>
+13
+14
+15</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/variable.rb', line 10</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/variable.rb', line 12</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_variable_list'>variable_list</span>
   <span class='id identifier rubyid_current_path'>current_path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/api/v1/variables</span><span class='tstring_end'>&#39;</span></span>
@@ -428,7 +428,7 @@
 </div>
 
       <div id="footer">
-  Generated on Tue Aug 27 16:56:10 2019 by
+  Generated on Thu Sep 12 15:41:38 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.20 (ruby-2.3.7).
 </div>

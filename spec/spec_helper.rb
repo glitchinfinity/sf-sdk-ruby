@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Dir[File.dirname(__FILE__) + '../lib/**/*.rb'].each do |f|
   puts "adding file #{f}"
   require f

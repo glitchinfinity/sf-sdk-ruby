@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SFRest
   # Retrieve Site Factory info.
   class Info

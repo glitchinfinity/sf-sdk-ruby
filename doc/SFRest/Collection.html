@@ -440,12 +440,12 @@ sites available searching for the site.</p>
       <pre class="lines">
 
 
-5
-6
-7</pre>
+7
+8
+9</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/collection.rb', line 5</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/collection.rb', line 7</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_conn'>conn</span><span class='rparen'>)</span>
   <span class='ivar'>@conn</span> <span class='op'>=</span> <span class='id identifier rubyid_conn'>conn</span>
@@ -547,15 +547,15 @@ sites available searching for the site.</p>
       <pre class="lines">
 
 
-122
-123
 124
 125
 126
-127</pre>
+127
+128
+129</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/collection.rb', line 122</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/collection.rb', line 124</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_add_sites'>add_sites</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_sites'>sites</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_sites'>sites</span> <span class='op'>=</span> <span class='const'>Array</span><span class='lparen'>(</span><span class='id identifier rubyid_sites'>sites</span><span class='rparen'>)</span>
@@ -659,16 +659,16 @@ sites available searching for the site.</p>
       <pre class="lines">
 
 
-34
-35
 36
 37
 38
 39
-40</pre>
+40
+41
+42</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/collection.rb', line 34</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/collection.rb', line 36</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_collection_data_from_results'>collection_data_from_results</span><span class='lparen'>(</span><span class='id identifier rubyid_res'>res</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_collections'>collections</span> <span class='op'>=</span> <span class='id identifier rubyid_res'>res</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>collections</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
@@ -722,8 +722,6 @@ factory to get all the collections on the factory</p>
       <pre class="lines">
 
 
-59
-60
 61
 62
 63
@@ -744,17 +742,19 @@ factory to get all the collections on the factory</p>
 78
 79
 80
-81</pre>
+81
+82
+83</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/collection.rb', line 59</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/collection.rb', line 61</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_collection_list'>collection_list</span>
   <span class='id identifier rubyid_page'>page</span> <span class='op'>=</span> <span class='int'>1</span>
   <span class='id identifier rubyid_not_done'>not_done</span> <span class='op'>=</span> <span class='kw'>true</span>
   <span class='id identifier rubyid_count'>count</span> <span class='op'>=</span> <span class='int'>0</span>
   <span class='kw'>while</span> <span class='id identifier rubyid_not_done'>not_done</span>
-    <span class='id identifier rubyid_current_path'>current_path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/api/v1/collections?page=</span><span class='tstring_end'>&#39;</span></span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_page'>page</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
+    <span class='id identifier rubyid_current_path'>current_path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/api/v1/collections?page=</span><span class='tstring_end'>&#39;</span></span><span class='period'>.</span><span class='id identifier rubyid_dup'>dup</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_page'>page</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
     <span class='id identifier rubyid_res'>res</span> <span class='op'>=</span> <span class='ivar'>@conn</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_current_path'>current_path</span><span class='rparen'>)</span>
     <span class='kw'>if</span> <span class='id identifier rubyid_res'>res</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>collections</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
       <span class='id identifier rubyid_not_done'>not_done</span> <span class='op'>=</span> <span class='kw'>false</span>
@@ -890,17 +890,17 @@ factory to get all the collections on the factory</p>
       <pre class="lines">
 
 
-92
-93
 94
 95
 96
 97
 98
-99</pre>
+99
+100
+101</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/collection.rb', line 92</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/collection.rb', line 94</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create'>create</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_sites'>sites</span><span class='comma'>,</span> <span class='id identifier rubyid_groups'>groups</span><span class='comma'>,</span> <span class='id identifier rubyid_internal_domain_prefix'>internal_domain_prefix</span> <span class='op'>=</span> <span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_sites'>sites</span> <span class='op'>=</span> <span class='const'>Array</span><span class='lparen'>(</span><span class='id identifier rubyid_sites'>sites</span><span class='rparen'>)</span>
@@ -980,13 +980,13 @@ factory to get all the collections on the factory</p>
       <pre class="lines">
 
 
-108
-109
 110
-111</pre>
+111
+112
+113</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/collection.rb', line 108</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/collection.rb', line 110</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_current_path'>current_path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/api/v1/collections/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
@@ -1041,13 +1041,13 @@ factory to get all the collections on the factory</p>
       <pre class="lines">
 
 
-51
-52
 53
-54</pre>
+54
+55
+56</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/collection.rb', line 51</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/collection.rb', line 53</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_first_collection_id'>first_collection_id</span>
   <span class='id identifier rubyid_res'>res</span> <span class='op'>=</span> <span class='ivar'>@conn</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/api/v1/collections</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
@@ -1117,12 +1117,12 @@ factory to get all the collections on the factory</p>
       <pre class="lines">
 
 
-45
-46
-47</pre>
+47
+48
+49</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/collection.rb', line 45</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/collection.rb', line 47</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_collection_data'>get_collection_data</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
   <span class='ivar'>@conn</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/api/v1/collections/</span><span class='tstring_end'>&#39;</span></span> <span class='op'>+</span> <span class='id identifier rubyid_id'>id</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span>
@@ -1197,8 +1197,6 @@ sites available searching for the site</p>
       <pre class="lines">
 
 
-13
-14
 15
 16
 17
@@ -1211,10 +1209,12 @@ sites available searching for the site</p>
 24
 25
 26
-27</pre>
+27
+28
+29</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/collection.rb', line 13</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/collection.rb', line 15</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_collection_id'>get_collection_id</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_pglimit'>pglimit</span> <span class='op'>=</span> <span class='int'>100</span>
@@ -1321,15 +1321,15 @@ sites available searching for the site</p>
       <pre class="lines">
 
 
-138
-139
 140
 141
 142
-143</pre>
+143
+144
+145</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/collection.rb', line 138</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/collection.rb', line 140</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_remove_sites'>remove_sites</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_sites'>sites</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_sites'>sites</span> <span class='op'>=</span> <span class='const'>Array</span><span class='lparen'>(</span><span class='id identifier rubyid_sites'>sites</span><span class='rparen'>)</span>
@@ -1427,14 +1427,14 @@ sites available searching for the site</p>
       <pre class="lines">
 
 
-154
-155
 156
 157
-158</pre>
+158
+159
+160</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/collection.rb', line 154</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/collection.rb', line 156</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_set_primary_site'>set_primary_site</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_site'>site</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_payload'>payload</span> <span class='op'>=</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>site_id</span><span class='tstring_end'>&#39;</span></span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_site'>site</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_to_json'>to_json</span>
@@ -1451,7 +1451,7 @@ sites available searching for the site</p>
 </div>
 
       <div id="footer">
-  Generated on Tue Aug 27 16:56:10 2019 by
+  Generated on Thu Sep 12 15:41:38 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.20 (ruby-2.3.7).
 </div>

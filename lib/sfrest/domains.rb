@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SFRest
   # Find Staging envs and stage a set of sites
   class Domains

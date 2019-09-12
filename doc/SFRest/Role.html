@@ -369,12 +369,12 @@ pages.</p>
       <pre class="lines">
 
 
-5
-6
-7</pre>
+7
+8
+9</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/role.rb', line 5</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/role.rb', line 7</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_conn'>conn</span><span class='rparen'>)</span>
   <span class='ivar'>@conn</span> <span class='op'>=</span> <span class='id identifier rubyid_conn'>conn</span>
@@ -437,14 +437,14 @@ pages.</p>
       <pre class="lines">
 
 
-80
-81
 82
 83
-84</pre>
+84
+85
+86</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/role.rb', line 80</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/role.rb', line 82</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_role'>create_role</span><span class='lparen'>(</span><span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_current_path'>current_path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/api/v1/roles</span><span class='tstring_end'>&#39;</span></span>
@@ -502,13 +502,13 @@ pages.</p>
       <pre class="lines">
 
 
-97
-98
 99
-100</pre>
+100
+101
+102</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/role.rb', line 97</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/role.rb', line 99</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete_role'>delete_role</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_current_path'>current_path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/api/v1/roles/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span>
@@ -585,8 +585,6 @@ pages</p>
       <pre class="lines">
 
 
-43
-44
 45
 46
 47
@@ -599,10 +597,12 @@ pages</p>
 54
 55
 56
-57</pre>
+57
+58
+59</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/role.rb', line 43</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/role.rb', line 45</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_get_role_id'>get_role_id</span><span class='lparen'>(</span><span class='id identifier rubyid_rolename'>rolename</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_pglimit'>pglimit</span> <span class='op'>=</span> <span class='int'>100</span>
@@ -688,12 +688,12 @@ pages</p>
       <pre class="lines">
 
 
-74
-75
-76</pre>
+76
+77
+78</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/role.rb', line 74</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/role.rb', line 76</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_role_data'>role_data</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='rparen'>)</span>
   <span class='ivar'>@conn</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/api/v1/roles/</span><span class='tstring_end'>&#39;</span></span> <span class='op'>+</span> <span class='id identifier rubyid_id'>id</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span><span class='rparen'>)</span>
@@ -778,16 +778,16 @@ pages</p>
       <pre class="lines">
 
 
-63
-64
 65
 66
 67
 68
-69</pre>
+69
+70
+71</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/role.rb', line 63</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/role.rb', line 65</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_role_data_from_results'>role_data_from_results</span><span class='lparen'>(</span><span class='id identifier rubyid_res'>res</span><span class='comma'>,</span> <span class='id identifier rubyid_rolename'>rolename</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_roles'>roles</span> <span class='op'>=</span> <span class='id identifier rubyid_res'>res</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>roles</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span>
@@ -847,8 +847,6 @@ pages</p>
       <pre class="lines">
 
 
-14
-15
 16
 17
 18
@@ -869,17 +867,19 @@ pages</p>
 33
 34
 35
-36</pre>
+36
+37
+38</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/role.rb', line 14</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/role.rb', line 16</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_role_list'>role_list</span>
   <span class='id identifier rubyid_page'>page</span> <span class='op'>=</span> <span class='int'>1</span>
   <span class='id identifier rubyid_not_done'>not_done</span> <span class='op'>=</span> <span class='kw'>true</span>
   <span class='id identifier rubyid_count'>count</span> <span class='op'>=</span> <span class='int'>0</span>
   <span class='kw'>while</span> <span class='id identifier rubyid_not_done'>not_done</span>
-    <span class='id identifier rubyid_current_path'>current_path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/api/v1/roles?page=</span><span class='tstring_end'>&#39;</span></span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_page'>page</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
+    <span class='id identifier rubyid_current_path'>current_path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>/api/v1/roles?page=</span><span class='tstring_end'>&#39;</span></span><span class='period'>.</span><span class='id identifier rubyid_dup'>dup</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_page'>page</span><span class='period'>.</span><span class='id identifier rubyid_to_s'>to_s</span>
     <span class='id identifier rubyid_res'>res</span> <span class='op'>=</span> <span class='ivar'>@conn</span><span class='period'>.</span><span class='id identifier rubyid_get'>get</span><span class='lparen'>(</span><span class='id identifier rubyid_current_path'>current_path</span><span class='rparen'>)</span>
     <span class='kw'>if</span> <span class='id identifier rubyid_res'>res</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>roles</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
       <span class='id identifier rubyid_not_done'>not_done</span> <span class='op'>=</span> <span class='kw'>false</span>
@@ -964,14 +964,14 @@ pages</p>
       <pre class="lines">
 
 
-89
-90
 91
 92
-93</pre>
+93
+94
+95</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/sfrest/role.rb', line 89</span>
+      <pre class="code"><span class="info file"># File 'lib/sfrest/role.rb', line 91</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_update_role'>update_role</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_current_path'>current_path</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/api/v1/roles/</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/update</span><span class='tstring_end'>&quot;</span></span>
@@ -988,7 +988,7 @@ pages</p>
 </div>
 
       <div id="footer">
-  Generated on Tue Aug 27 16:56:09 2019 by
+  Generated on Thu Sep 12 15:41:37 2019 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.20 (ruby-2.3.7).
 </div>

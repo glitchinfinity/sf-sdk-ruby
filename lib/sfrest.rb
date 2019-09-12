@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Simple wrappper around RestClient.Resource
 $LOAD_PATH.unshift(__dir__) unless
     $LOAD_PATH.include?(__dir__) ||
