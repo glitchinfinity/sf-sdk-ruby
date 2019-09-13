@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SFRest
   # Find sites, create a site,
   class Site
@@ -64,7 +66,7 @@ module SFRest
       count = 0
       sites = []
       while not_done
-        current_path = '/api/v1/sites?page=' << page.to_s
+        current_path = '/api/v1/sites?page='.dup << page.to_s
         current_path <<= '&show_incomplete=true' if show_incomplete
         res = @conn.get(current_path)
         if res['sites'] == []

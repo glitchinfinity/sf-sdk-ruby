@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SFRest
   # SF Group management
   class Group
@@ -18,7 +20,7 @@ module SFRest
     # Deletes the group with the specified id
     # @param [Integer] group_id Id of the group to fetch
     def delete_group(group_id)
-      current_path = '/api/v1/groups/' << group_id.to_s
+      current_path = '/api/v1/groups/' + group_id.to_s
       @conn.delete(current_path)
     end
 
@@ -35,7 +37,7 @@ module SFRest
     # @param [Integer] group_id Id of the group to fetch
     # @return [Hash] group object from the SF Api
     def get_group(group_id = 0)
-      current_path = '/api/v1/groups/' << group_id.to_s
+      current_path = '/api/v1/groups/' + group_id.to_s
       @conn.get(current_path)
     end
 
@@ -116,7 +118,7 @@ module SFRest
       not_done = true
       count = 0
       while not_done
-        current_path = '/api/v1/groups?page=' << page.to_s
+        current_path = '/api/v1/groups?page='.dup << page.to_s
         res = @conn.get(current_path)
         if res['groups'] == []
           not_done = false

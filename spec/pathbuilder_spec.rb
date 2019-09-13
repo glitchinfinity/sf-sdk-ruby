@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 describe SFRest::Group do
   describe '#build_url_query' do

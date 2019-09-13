@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SFRest
   # Tell the Factory that there is theme work to do
   class Theme

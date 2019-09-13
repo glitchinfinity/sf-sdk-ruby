@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SFRest
   # Generic http methods
   # accessors for all the sub classes.
@@ -179,8 +181,8 @@ module SFRest
 
     REST_METHODS.each do |m|
       define_method(m) do
-        m.capitalize!
-        sfrest_klass = "SFRest::#{m}"
+        klazz = m.dup.capitalize!
+        sfrest_klass = "SFRest::#{klazz}"
         Object.const_get(sfrest_klass).new(self)
       end
     end

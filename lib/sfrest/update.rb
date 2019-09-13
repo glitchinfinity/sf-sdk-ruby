@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SFRest
   # Drive updates on the Site Factory
   class Update
@@ -24,7 +26,7 @@ module SFRest
 
     # Lists vcs refs.
     def list_vcs_refs(type = 'sites', stack_id = 1)
-      current_path = '/api/v1/vcs?type=' << type << '&stack_id=' << stack_id.to_s
+      current_path = '/api/v1/vcs?type=' + type + '&stack_id=' + stack_id.to_s
       @conn.get(current_path)
     end
 

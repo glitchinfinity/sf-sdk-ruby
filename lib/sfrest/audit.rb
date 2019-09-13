@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SFRest
   # Get all the audit devents.
   class Audit

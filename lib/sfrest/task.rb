@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SFRest
   # Deal with tasks, find them, pause them...
   class Task
@@ -23,7 +25,7 @@ module SFRest
     # @param [Integer] status
     # @return [Boolean]
     def status_not_started?(status)
-      return true if (status.to_i & STATUS_TO_BE_RUN) > 0
+      return true if (status.to_i & STATUS_TO_BE_RUN).positive?
 
       false
     end
@@ -42,7 +44,7 @@ module SFRest
     # @param [Integer] status
     # @return [Boolean]
     def status_running?(status)
-      return true if (status.to_i & STATUS_RUNNING) > 0
+      return true if (status.to_i & STATUS_RUNNING).positive?
 
       false
     end
@@ -70,7 +72,7 @@ module SFRest
     # @param [Integer] status
     # @return [Boolean]
     def status_done?(status)
-      return true if (status.to_i & STATUS_DONE) > 0
+      return true if (status.to_i & STATUS_DONE).positive?
 
       false
     end
@@ -207,7 +209,7 @@ module SFRest
     # Get a specific task's logs
     # @param [Integer] task_id
     def get_task_logs(task_id)
-      current_path = '/api/v1/tasks/' << task_id.to_s << '/logs'
+      current_path = '/api/v1/tasks/' + task_id.to_s + '/logs'
       @conn.get(current_path)
     end
 
@@ -220,8 +222,8 @@ module SFRest
       begin
         res = @conn.get(current_path)
         paused = res['wip_pause_global']
-      rescue SFRest::SFError => error
-        paused = false if error.message =~ /Variable not found/
+      rescue SFRest::SFError => e
+        paused = false if e.message =~ /Variable not found/
       end
       paused
     end
@@ -231,7 +233,7 @@ module SFRest
     # @param [Integer] task_id
     # @param [String] level family|task
     def pause_task(task_id, level = 'family')
-      current_path = '/api/v1/pause/' << task_id.to_s
+      current_path = '/api/v1/pause/' + task_id.to_s
       payload = { 'paused' => true, 'level' => level }.to_json
       @conn.post(current_path, payload)
     end
@@ -241,7 +243,7 @@ module SFRest
     # @param [Integer] task_id
     # @param [String] level family|task
     def resume_task(task_id, level = 'family')
-      current_path = '/api/v1/pause/' << task_id.to_s
+      current_path = '/api/v1/pause/' + task_id.to_s
       payload = { 'paused' => false, 'level' => level }.to_json
       @conn.post(current_path, payload)
     end
@@ -259,7 +261,7 @@ module SFRest
     # This will delete the task and its children
     # @param [Integer] task_id
     def delete_task(task_id)
-      current_path = '/api/v1/tasks/' << task_id.to_s
+      current_path = '/api/v1/tasks/' + task_id.to_s
       @conn.delete(current_path)
     end
 
@@ -267,7 +269,7 @@ module SFRest
     # @param [String] type softpaused | softpause-for-update
     # @return [Array] Array of wip classes
     def get_task_class_info(type = '')
-      current_path = '/api/v1/classes/' << type
+      current_path = '/api/v1/classes/' + type
       @conn.get(current_path)
     end
 

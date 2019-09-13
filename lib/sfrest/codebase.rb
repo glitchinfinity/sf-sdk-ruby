@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SFRest
   # List codebases on the factory.
   class Codebase

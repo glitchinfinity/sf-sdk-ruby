@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SFRest
   # Do User actions within the Site Factory
   class User
@@ -14,7 +16,7 @@ module SFRest
       not_done = true
       count = 0
       while not_done
-        current_path = '/api/v1/users?page=' << page.to_s
+        current_path = '/api/v1/users?page=' + page.to_s
         res = @conn.get(current_path)
         if res['users'] == []
           not_done = false

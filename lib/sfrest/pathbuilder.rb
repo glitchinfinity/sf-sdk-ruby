@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SFRest
   # make a url querypath
   # so that if the are multiple items in a get request

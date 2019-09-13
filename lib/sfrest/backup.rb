@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SFRest
   # Backup a site or restore onto that site
   class Backup
