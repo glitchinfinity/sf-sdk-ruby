@@ -1,12 +1,10 @@
 language: ruby
-
 cache: bundler
-# This will enable the container-based infrastructure for
-# travis tests. It should result in faster test vm load times.
-# @see http://docs.travis-ci.com/user/workers/container-based-infrastructure/
 sudo: false
-
 rvm:
-  - 2.3
-  - 2.4
-  - 2.5
+- 2.3
+- 2.4
+- 2.5
+env:
+  global:
+    secure: oTfTvwL0pPBMX4YTTVI+3W1Q/+uLkPl/0728smMpkB5TMfO3n2e5DXvdRlATOkoUSQkiHHdkVAn0qsqYra+CdyEJ5W0Xz0z8ueWelyhPV47WfyYE/LWb9NNa+2EgTjwMx4QWY6+JDAwZiKtd/r5JdVfTNeuEhbsAyWj9nIfeduUdB8ZKsV0AKCs/KSTYAnavtZrE6YKTWPL9uoxUKgX/D9UU6Tpi8loQLj9I96ziLEQl39J/pySK8egsp4dOhNXSDGD+PvFoxE5pLob3ILEzoYdy7Sw3JiUDQBoMZNmkX4Oi6Mg0C2/NySmu3wp9UMPDPr7XbkmZ+xVmsvFYCCPF8BzPWZgDBqGOY2S/qNuKXEbkMiSMgRRobYYFPZbMXhLNa6J1iY/lOiHoSPJyUcY1FnmlxJltWD297HfST1NSfkHYjymM4EsFHGFJHBbXXmuUo9rioU32GZbz65+oinSXC5VSBxFuD2d4E3AxpD6lxpx0sWvqn0St9nYantgm5jnHoVsXux1C5tBKkHUZ4famLKqnPiTmFWC82Jgueg0doT0vNgLahZEOzKItPe0RWviS+ntVyaKtIYWKJAaCgtDFTOWX/SYfnP8cTHEg3+bdfBTYWc1mXm9UHvwHpqrwXQeHB/+6hbaC8nvE5lzjxpYKDjndiBsxTGil4g3QIyZv3BE=

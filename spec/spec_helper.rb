@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+require 'coveralls'
+Coveralls.wear!
 
 Dir[File.dirname(__FILE__) + '../lib/**/*.rb'].each do |f|
   puts "adding file #{f}"
