@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    sfrest (0.0.27)
+    sfrest (0.0.28)
       excon
 
 GEM
