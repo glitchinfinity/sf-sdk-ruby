@@ -8,6 +8,7 @@ gem 'rake', require: false
 
 group :test, :development do
   gem 'codeclimate-test-reporter'
+  gem 'coveralls', require: false
   gem 'git_bpf'
   gem 'pry'
   gem 'rubocop'
