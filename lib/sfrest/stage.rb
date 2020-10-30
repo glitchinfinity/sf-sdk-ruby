@@ -33,6 +33,7 @@ module SFRest
     # @param [Array] Stacks Array of stack ids to wipe
     #
     # @return [Integer] Id of the staging task created.
+    # rubocop:disable Metrics/ParameterLists
     def enhanced_stage(env: 'test',
                        sites: nil,
                        email_site_status: false,
@@ -48,6 +49,7 @@ module SFRest
                   'wipe_stacks' => wipe_stacks }.to_json
       @conn.post('/api/v2/stage', payload)
     end
+    # rubocop:enable Metrics/ParameterLists
 
     # Query for available staging environments
     #

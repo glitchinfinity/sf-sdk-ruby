@@ -1162,8 +1162,8 @@ SFRest::InvalidResponse</p>
       <pre class="code"><span class="info file"># File 'lib/sfrest/update.rb', line 59</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_validate_request'>validate_request</span><span class='lparen'>(</span><span class='id identifier rubyid_datum'>datum</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_v1_keys'>v1_keys</span> <span class='op'>=</span> <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>scope</span><span class='words_sep'> </span><span class='tstring_content'>sites_ref</span><span class='words_sep'> </span><span class='tstring_content'>factory_ref</span><span class='words_sep'> </span><span class='tstring_content'>sites_type</span><span class='words_sep'> </span><span class='tstring_content'>factory_type</span><span class='words_sep'> </span><span class='tstring_content'>db_update_arguments</span><span class='words_sep'>]</span>
-  <span class='id identifier rubyid_v2_keys'>v2_keys</span> <span class='op'>=</span> <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>sites</span><span class='words_sep'> </span><span class='tstring_content'>factory</span><span class='words_sep'>]</span>
+  <span class='id identifier rubyid_v1_keys'>v1_keys</span> <span class='op'>=</span> <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>scope</span><span class='words_sep'> </span><span class='tstring_content'>sites_ref</span><span class='words_sep'> </span><span class='tstring_content'>factory_ref</span><span class='words_sep'> </span><span class='tstring_content'>sites_type</span><span class='words_sep'> </span><span class='tstring_content'>factory_type</span><span class='words_sep'> </span><span class='tstring_content'>db_update_arguments</span><span class='tstring_end'>]</span></span>
+  <span class='id identifier rubyid_v2_keys'>v2_keys</span> <span class='op'>=</span> <span class='qsymbols_beg'>%i[</span><span class='tstring_content'>sites</span><span class='words_sep'> </span><span class='tstring_content'>factory</span><span class='tstring_end'>]</span></span>
   <span class='id identifier rubyid_key_overlap'>key_overlap</span> <span class='op'>=</span> <span class='id identifier rubyid_binding'>binding</span><span class='period'>.</span><span class='id identifier rubyid_local_variable_get'>local_variable_get</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_update_version'>update_version</span><span class='embexpr_end'>}</span><span class='tstring_content'>_keys</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='op'>&amp;</span> <span class='id identifier rubyid_datum'>datum</span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span>
   <span class='id identifier rubyid_raise'>raise</span> <span class='const'><span class='object_link'><a href="InvalidDataError.html" title="SFRest::InvalidDataError (class)">InvalidDataError</a></span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>An invalid stucture was passed to the </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_update_version'>update_version</span><span class='embexpr_end'>}</span><span class='tstring_content'> endpoint</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>if</span> <span class='id identifier rubyid_key_overlap'>key_overlap</span><span class='period'>.</span><span class='id identifier rubyid_empty?'>empty?</span>
 <span class='kw'>end</span></pre>
@@ -1177,9 +1177,9 @@ SFRest::InvalidResponse</p>
 </div>
 
       <div id="footer">
-  Generated on Tue Oct 22 17:56:46 2019 by
+  Generated on Fri Oct 30 13:23:24 2020 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.20 (ruby-2.3.7).
+  0.9.20 (ruby-2.5.1).
 </div>
 
     </div>
